@@ -1,0 +1,126 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Weather.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" type="text/css">
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-4">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABsCAMAAADnjH+fAAAAh1BMVEX////+AAD+/////v////3/f4D9AAL/f37///v/v7/+QED/n6D/ICH/3+D/oJ77////EA//7+//YGD/YV7/MDD+393/7vD8YGH7ERL/cXD/vsD/z8//HyP9oqH+kI//fYL/UFD+sLD/P0T9MTT/v7n+sKz90M36cnL+oZr9Miz/z9P/Pzz/3eNyIAlrAAAQpklEQVR4nO1c6WLiuLKWJSEvGAwkdBLoSZPkztzTy/s/36nFssq2ZDvkzD9XJ3QAWSqVSrV8KluplVZaaaWVVlpppZVWWmmllVZaaaWVVlpppZVWWmmllVZaaaUZMlYbrbS2SuNbPdfeWmU1vIxIK6N0YUJDpa3B/ozBvw2+gaHwA3hXJPuHllp0D5dY6FpTBwpfjKFmtqFmyHwDA5gZ3rFTGNxiU5yroSkbg31YE5lPlAqrqT2IYcklWuMIdswYTkOFUXWBHBmULlyBvDWmAEaRvXbCiVmhYG3TvTftjy00jatpvtAtdNQAzwYXg/ub6JVYonWj2SrsBgWNEkfhTV/pqcCrYDBtSWqz8iKpRlaRl1u8BxE13B8rVTsVYkuntQDUsYGLJR+0iihk/pBHaYBl3BaK9BbewxriKEm+vWbREIaVCvcITsgsFBauOlwEa4TbY2K0llDdC9y5w36UbpXacwfvUItMgdyodjtaHEGrNG+4PbTQUEsbEXWrUdwPqRnJTLd/mqJQpGBTS92QPmu8ytgGtUmTnsDVs5MWk0JFuWxuP7OFtNV2PFlYtONBttrzp+qaZQ7f08tJGVaqpLQsbg5VnH03eFmFe8X5PrJM8RZAw1Ogfp23L9XBLeLdZTtcMaPLW3bIHreGrKiKmJU4c8ruXp6XCipzrg47ot9P3mv43bCKq99+Gvj/WeP2mdjtZMm1ehHTcyXu4CxIg2wUagoaLrt9/ATzsFy4UHZ72AMPl5+3AreySvqbwST1Mc+yZcvCtEVNHs1WN6hYTnQEq4a23Vxc1v1zD4UlezHBEbgG1VPSd7Tsii7n7kljLbpbra4fNOjsBBy3cme0oKC4v8ofeX45Pv4gi7rUG+4ehYIvoFpHvbSxeU9U0JAcJPBRZWKAPwXFD0m1Z1luZEcXNIimnTMLi0wnWsP9Z5iHdk8gGLBYTy8mrzYv2a48zJg6zxR5h+vBj+VmBm2/3ZIEgmqQM1FosVywTdTXljVel3I+J7LIE5qF26Lti7uqLNljwQnzDx+a7UIxcWfws6Nr9Xup8lzrj1LXV41hyLTNsmR47LG34V1aXK5tUIOgrNAM9Mjk2vOsk1L7Vw07itxhJfv5Q5ZmQrMaozd+RGTowr5+KCw0ytf++k6w3zY8WYozbF3q/H1TPSoFYmt96gQ1Ct0tG1InupsazbG66M6HexWFz47PXbuuo73l+KWU/byQu0t7QzBzZP18NxX5Az0UFsUhdeDZzU8CmpwNKqQyFWjWw2t21ba+YrgyF2ZhnmDOnaC6vTglLTBEVpN3D3EQOiUYbZOJrngTgd8EpcNArhLdPn8DT6aaJFvQ3YbMccvTxXJINRAWhnqjTTgpKvh9su3inl7MJgc/evx1oLnMhA6cC54G/c1tw2xPwZ8IXi1ZGRFj+d2D9BfvULBaQgU2GKwm1R5clXCFLqtQDzFhGggLs5R6yOGcGdmR47ON3R2uZanttqw2OKIqplWLkk97cN7ytbNMDsYjfif7UfQNNLw1rZWRIRW81opicatugunDUU0EWuAK97KTkkaE5gNhAb0NmJsyWdQdKZYmPd0ewFHpy+/HwtolgQMo/JsfptP7maXZa47ARcKMxtoen13nv8RuhDC+QR+gd7KfDWlKSlhgRtrACbusFHv20TaEOT5FuJ2U1w6dE49sIYJ/dPUGk+L5NJoMT56JGdb7q55IkzC5sAxryBCc1sVbLGL1pwgSa0oPoZXc78/fppbStKET91CSvcD2A2HBTq6lZKq/j5jvTfSMy2xxDgW5F9h9DdkqzIpnbBZxIH36B0xhEUgz5gFdYXBG5y4IhRnvUa+AlZ1YdJdH8CNDzgBD0lo0rULDgbAgJPUjsgr/6/QzrM3hiNjI4ri/I5yfzYOtcicdIgWMtVr06STc7UFHxiEQEsL7vTehKIMyfD8QFgQkjtvgz205cHAPka0TW/xFoZe4oyOtVc99nU1TiVh+i9AK6PFO7pn92EiQ2YWPm1o4tUo0GG7D4tKN4dx1GR51L5GZFgyUDBF8eoVwF+YiIHwAY/IW3oNDbOGpUxbsWh3Z71oTpLaVNrpU6W2oLuKTxbjwfURAmBQWxrbzQGmEMCvMWpPs3A4tZt0aaPzdkm/W9uzVjT4c9QLbucAopM46OwSKJdZuvA2DNrtkjPu/IYt2QzDwdzENyqWIg/fOJj8QELrN/JQp5qdksnjyH4LU6hiGj2BrKaHCi1SY0TYsxTa8WwzLiCJvgRo98anLp1WrUV6xaIkvHIfVmQewCP9CSUCsJaLGkfcyfAhRuQBPVRJeHglLdwYel/rftVkKNV+EDu4fE0OLZ8myxWqRuQp9H8x63204wrXwsMaYk1cFaFqPuUEP6bcWXVsaOvNoabQNj4L5+nivEBZRgbalA2+BtcMvpSKBFmaCpj2D0jLhHOJY1Emp2oPB7yKJanEt03OIW4wPlcCRSMrvIbb1OJanobC0rl3mdcv9PNJRXIQwIMJzNB7jvhCDsOF9l/bimLfXMkIX+Dky8irTqBiO5So6Y0Id2XvxZR7Xgi9kGP+BcCl97oVlULHcCMdKCAtSg5tMz59ftjHukYwtDCeYU8dKUwQGvkFNFuFkNDdktalfrnRiZNI4FhJsnPYA0yMCnFFaMob6LK1WydBOEH6jMaMY4VgJYYG6e4Smm0I8MXTZ4+sfSln0XYZG8cmnsrd2sMkMmle7Ko3chSMcCxWr4YM41K7XbhYtrgX+yzyIUSo26h0/mmLykM17HCshLAihj1kfEErLK8tOR9Lhu8JuOsGF8baENnhRRUfyEKRzL1ak50Mci5ITo/gME77+dgjpNOJaZPF6Vqu0PQgQur51VwgcKyksbR6ygHUMxTakwxulXXemRQTumkeR3yYH8t899HO6AY7lfuq2LAGtkdqELgnXwoNl9SD6rHrFFdD1Tq5Zh2OlhAUW4eyEdFMT6NpsMZW4L3ql4wqLvtp1eWtsYZxcrydxUDHEsRx4PR3AG/vtOfNmsAUFQDhD1VLCYdhTN57EsRLCopPkl0zSDPgHGWnkvHOhsOj8DqOHIcA5FJbgJe+2xRjHquks1BQNgmnwRy72YY1RAuZTJ9FvpZT0rrtMqEHAsRLCgl3YFMcPLyMRvsSmwHb3H3unN/RkTnKIlEPpPj7ToXxjOhwr0FZZMT2LWIQPBOK4FtlwNH0UCfUCi2qsASNhFXia/pjYfIFxsdqPc1j7rLDMy8RgPIj462Q0x6l9HAuoboCVRmrej+7aCK6FdCIGyPyAAWqHGuJYCWG1cOHx0Q1EEmPfL9r2q1mRVn/Xot+YpJxQkZ1uD7L6OBYwQifNIhYw32SvI1wLuzyT7WP79yA2YRXhcyAsw6Vi7EgmSdj+j3u9oZcVhGrH1+9J49hzzUCvCKpTatHhWEQ1hlK2h817LaIuIrgW6CkFiRCuFfZPtypZH8dKCIvO3Em/d6fnSVfuwvK465dkxSmZMdfXp+p39f5ejeh38If41yNZcaosO8qaqGqTb+AHXpiOGg2UC9Ie4Vr4e0ahEziTi2CviqVwA2FprpajCMi+5bcx40QfmYjEXPb6NZDQUqUdlYZRPVWkxVvvMJPDS+txrIESdrTBuPfUhRURXAvpyVfpojfoVOASQ4oGwjKMrBaWCyBjQkCbYI75IQvrUH3RwHPdIpZ86mgNAoiFfE43E06zPI6VEtjhqArQoiyNa9HrmSIQ6y0PfdHHsRLCal0v8NEU1oxVkcEPLFG4CjYPX7RZVEJHCmZjBaykRqVYnL80OyKPYwUp9WWX4+5iA8VfDHAtusCdqJbMYHLU7cI+jpUQFlbpthWlNlbu1a46nq/lgrkvbkPuMKmeWHXSqFCY5HIuaRc4VpwORxDz2Xv1tgBnjGud2WIJRzLAsRLCKmw4Xo7yHf73qoUii8QknyIzjbzTAW4og3E5lZRaj2O5RImBczkWaoaQN4Fr5bhcXdYdwbE8DYSl2SHPzk6HEz98/aKwsCJm4iRaF2jM3gOnG1R6UKx+zW5EYN8RS73Kb2O4FpaJ6FzkXEMcy9NAWKB9XW39FMHC+hM/HPRrwjItTpD8norxxTbc8E0gEsdK7Me/sOi9yroYOopruRwGP4iqlCGO5WmoWTrezJP/RjM40S6Zu3xJWA3vwXTZIkbs0spsqJqzX/MekRaed2FgWgYxRHEtdzhyKUg7nxGOlRCWKdRMsT8XzYJ182AR/v76krCMRTsyqc1gssQ226O+6A7HSlt5RyWVulUt+iSKa21ULRKFEY7laahZdG/BVCGv4Vs57K+AT37VG2Ltjo0VanRkdzchEFf6I52QNabkVRfK+kOINK51eO32aQzHSgiLM6t0sT92gFX4pgwFqi77/rU46z9tepKnaCNPEZBTXNIfMmn8DUnSKE+iD64YwMky+DGuJRSRFWuIYyWEReLQeZrvnL77/0ffOa3GaeGtFGPCWZ9HTKeJpnPDYrZdkBUVH06UkVs6OZ7Gtbh3OqRNdzQUFib0+6QNiPPv7i3jQt+r9HiFp2WFN5kU8mwZ6/CbqfVqhNVK4Fqh90vaHAyEhbGe7lfgLpjA3QfXYNo/pVg03gGxYwaA2/mfDPOeHKarInIs7Ei9lu+9msCbBsIixfok99npTqSUUrKI6UjLiV5fMTvyGR99dMaUf+LGVIja61CANMa1wgB4lpbuaCAslHj9yV14OH++spFHQoDy/InRKPOt0FedA4zrshuf7CePmDBm9xVIMVxLrIWrpjR0ICxo+Ikbd3iE1xiasYQMluoODcfcaBBAgjN7ChFxOHRIjoNwRu3FkSVwLdbU3RTqOxAWBNN1LMmaoBuW8N8lLPRg52hOl5KUc4crlhjwyUKIixo7VZyCe85uu0grgmt1kj/ZyO3EKWEpte9FNPP8V0c9lddNEd4C+QmLhROrvuG9Uc3JCfSqjEeQYk0KvF+fix9juJag3eQZ6EhY9SeWGujFQ8J3UTGOdZJygnaHLZV8cITk3VvsGGYgLLoluee3toZr9XvjO/dgo49A8CTUkGa82GLRHvhZQiZZmDsLQ4AWWay2zW2PTgzSF/OUiTmWS1xxAXtXnrbVfMhf9DXbnfXEXSqoWZ1fwTU7fs+WbkP3fPo/vGGQnzBxD8GVmA5s5gjzhrdLQxAn4W0/OJWgw5xXO2swGzxx1s2b7HJH+Z/V582P8OnWMrSdIJPT0RElMYgm7zbE/OwE8rz8BzJEQ7UFU5jOJPFpzqykySjymZPlR5zQAz+4tHnBSpkB+ssPy9B8l72oJDT07I80P+0TLzQf5GD8ju5ggXNDMdFDW+zMjewzpBfcos+31BR8szsC3+ixGvqf1HO2A0vPnwgFIKpQXPKmlfR+dHo4ganbhheMavAUFePp2RuU2n4RkivoOGYBDh0jvsdyPkhj/MbwrboECpMWMMfxg8YBszhWaCcfGjMI/c1UzEjPPcBDCryHmkvAND3cYYaouh6MLe+CO4PS8BSb2ZbG0qNL+MkTBUEjiMsXZvDMmDizjDyF7aZRSSwqWCF516g6U3GQ5goSemIP14HN3DLn++Wjq4Zu/bsbzmqsSlRDSzL8/Bgsh2rvM6TIyvKzDhYUtGrVC8RIIXWH+4fbh+cyAaowZ0fT8rHYuemi4RqBf/cOn5VWWmmllVZaaaWVVlpppZVWWmmllVZaaaWVVlopQf8FwzmPvLF2XncAAAAASUVORK5CYII=" alt="Your icon stands here" />
+            </div>
+            <div class="col-md-6">
+                <div class="row pull-right" style="padding: 10px">
+                    <div class="col-md-4 new-nav-link" style="width: auto !important">
+                        <a href="#">Thư nội bộ</a>
+                    </div>
+                    <div class="col-md-4 new-nav-link" style="width: auto !important">
+                        <a href="#">Văn bản pháp quy</a>
+                    </div>
+                    <div class="col-md-4 new-nav-link" style="width: auto !important">
+                        <a href="#">Liên kết website</a>
+                    </div>
+                </div>
+
+                <div class="row pull-right" style="padding: 10px">
+                    <div class="col-md-3 new-nav-link" style="width: auto !important">
+                        <h4><a href="#" class="active font-weight bold">Trang chủ</a></h4>
+                    </div>
+                    <div class="col-md-3 new-nav-link" style="width: auto !important">
+                        <h4><a href="#">Giới thiệu</a></h4>
+                    </div>
+                    <div class="col-md-3 new-nav-link" style="width: auto !important">
+                        <h4><a href="#">Tin tức sự kiện</a></h4>
+                    </div>
+                    <div class="col-md-3 new-nav-link" style="width: auto !important">
+                        <h4><a href="#">Dịch vụ</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+        <div class="navbar-inverse nav-search">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li style="padding-top: 5px"><input type="text" class="input search-bar form-control" placeholder="Gõ để tra cứu thời tiết các tỉnh, thành phố..."/></li>
+                        <li><a class="nav-force-style"><i class="fas fa-location-arrow"></i>&ensp;<span>Vị trí của tôi</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-inverse nav-detail">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">Application name</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+    </form>
+</body>
+</html>
