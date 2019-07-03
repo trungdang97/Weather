@@ -50,7 +50,17 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -132,13 +142,101 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
-    <Content Include="Contact.aspx" />
+    <Content Include="App\files\map.css" />
+    <Content Include="App\files\map.js" />
+    <Content Include="App\files\map_i18n.js" />
+    <Content Include="App\files\NT2.png" />
+    <Content Include="App\files\ScrollWheel20.png" />
+    <Content Include="App\files\ScrollWheelDisabled20.png" />
+    <Content Include="App\files\win.png" />
+    <Content Include="App\leaflet\icons\0.png" />
+    <Content Include="App\leaflet\icons\1.png" />
+    <Content Include="App\leaflet\icons\10.png" />
+    <Content Include="App\leaflet\icons\11.png" />
+    <Content Include="App\leaflet\icons\12.png" />
+    <Content Include="App\leaflet\icons\13.png" />
+    <Content Include="App\leaflet\icons\14.png" />
+    <Content Include="App\leaflet\icons\15.png" />
+    <Content Include="App\leaflet\icons\16.png" />
+    <Content Include="App\leaflet\icons\17.png" />
+    <Content Include="App\leaflet\icons\18.png" />
+    <Content Include="App\leaflet\icons\19.png" />
+    <Content Include="App\leaflet\icons\2.png" />
+    <Content Include="App\leaflet\icons\20.png" />
+    <Content Include="App\leaflet\icons\21.png" />
+    <Content Include="App\leaflet\icons\22.png" />
+    <Content Include="App\leaflet\icons\23.png" />
+    <Content Include="App\leaflet\icons\24.png" />
+    <Content Include="App\leaflet\icons\25.png" />
+    <Content Include="App\leaflet\icons\26.png" />
+    <Content Include="App\leaflet\icons\27.png" />
+    <Content Include="App\leaflet\icons\28.png" />
+    <Content Include="App\leaflet\icons\29.png" />
+    <Content Include="App\leaflet\icons\3.png" />
+    <Content Include="App\leaflet\icons\30.png" />
+    <Content Include="App\leaflet\icons\31.png" />
+    <Content Include="App\leaflet\icons\32.png" />
+    <Content Include="App\leaflet\icons\33.png" />
+    <Content Include="App\leaflet\icons\34.png" />
+    <Content Include="App\leaflet\icons\35.png" />
+    <Content Include="App\leaflet\icons\36.png" />
+    <Content Include="App\leaflet\icons\37.png" />
+    <Content Include="App\leaflet\icons\38.png" />
+    <Content Include="App\leaflet\icons\39.png" />
+    <Content Include="App\leaflet\icons\4.png" />
+    <Content Include="App\leaflet\icons\40.png" />
+    <Content Include="App\leaflet\icons\41.png" />
+    <Content Include="App\leaflet\icons\42.png" />
+    <Content Include="App\leaflet\icons\43.png" />
+    <Content Include="App\leaflet\icons\44.png" />
+    <Content Include="App\leaflet\icons\45.png" />
+    <Content Include="App\leaflet\icons\46.png" />
+    <Content Include="App\leaflet\icons\47.png" />
+    <Content Include="App\leaflet\icons\5.png" />
+    <Content Include="App\leaflet\icons\6.png" />
+    <Content Include="App\leaflet\icons\7.png" />
+    <Content Include="App\leaflet\icons\8.png" />
+    <Content Include="App\leaflet\icons\9.png" />
+    <Content Include="App\leaflet\icons\na.png" />
+    <Content Include="App\leaflet\icons\night.jpg" />
+    <Content Include="App\leaflet\icons\night1.jpg" />
+    <Content Include="App\leaflet\icons\Read Me.txt" />
+    <Content Include="App\leaflet\images\layers-2x.png" />
+    <Content Include="App\leaflet\images\layers.png" />
+    <Content Include="App\leaflet\images\marker-icon-2x.png" />
+    <Content Include="App\leaflet\images\marker-icon.png" />
+    <Content Include="App\leaflet\images\marker-shadow.png" />
+    <Content Include="App\leaflet\leaflet-languageselector.css" />
+    <Content Include="App\leaflet\leaflet-languageselector.js" />
+    <Content Include="App\leaflet\leaflet.css" />
+    <Content Include="App\leaflet\leaflet.js" />
+    <Content Include="App\leaflet\owmloading.gif" />
+    <Content Include="App\leaflet\Permalink.js" />
+    <Content Include="App\leaflet\Permalink.Layer.js" />
+    <Content Include="App\leaflet\Permalink.Overlay.js" />
+    <Content Include="App\mapicons\br.png" />
+    <Content Include="App\mapicons\catalonia.png" />
+    <Content Include="App\mapicons\de.png" />
+    <Content Include="App\mapicons\en.png" />
+    <Content Include="App\mapicons\es.png" />
+    <Content Include="App\mapicons\famfamfam flag icons.txt" />
+    <Content Include="App\mapicons\fr.png" />
+    <Content Include="App\mapicons\it.png" />
+    <Content Include="App\mapicons\nl.png" />
+    <Content Include="App\mapicons\ru.png" />
+    <Content Include="App\mapicons\vn.png" />
+    <Content Include="App\owm.ico" />
+    <Content Include="App\owm_.ico" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Default\component.css" />
+    <Content Include="Content\Default\demo.css" />
+    <Content Include="Content\Default\normalize.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="dateprogressbar.css" />
+    <Content Include="dateprogressbar.js" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -151,14 +249,55 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Default\default.css" />
+    <Content Include="bower.json" />
+    <Content Include="doc.json" />
+    <Content Include="json_demo.json" />
+    <Content Include="leaflet-timeline-slider-master\LICENSE" />
+    <Content Include="leaflet-timeline-slider-master\README.md" />
+    <Content Include="leaflet-timeline-slider-master\todos.md" />
+    <Content Include="leafletVelocity\demo\water-gbr.json" />
+    <Content Include="leafletVelocity\demo\wind-gbr.json" />
+    <Content Include="leafletVelocity\demo\wind-global.json" />
+    <Content Include="libman.json" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="gulpfile.js" />
+    <Content Include="index.html" />
+    <Content Include="index.js" />
+    <Content Include="jquery.min.js" />
+    <Content Include="leaflet-openweathermap.css" />
+    <Content Include="leaflet-openweathermap.js" />
+    <Content Include="leaflet-timeline-slider-master\dist\leaflet-timeline-slider.min.js" />
+    <Content Include="leaflet-timeline-slider-master\index.html" />
+    <Content Include="leaflet-timeline-slider-master\src\leaflet-timeline-slider.js" />
+    <Content Include="leaflet-timeline-slider.js" />
+    <Content Include="leafletVelocity\demo\demo.css" />
+    <Content Include="leafletVelocity\demo\demo.js" />
+    <Content Include="leafletVelocity\dist\leaflet-velocity.css" />
+    <Content Include="leafletVelocity\dist\leaflet-velocity.js" />
+    <Content Include="leafletVelocity\dist\leaflet-velocity.min.css" />
+    <Content Include="leafletVelocity\dist\leaflet-velocity.min.js" />
+    <Content Include="leafletVelocity\screenshots\velocity.gif" />
+    <Content Include="leafletVelocity\src\css\leaflet-velocity.css" />
+    <Content Include="leafletVelocity\src\js\L.CanvasLayer.js" />
+    <Content Include="leafletVelocity\src\js\L.Control.Velocity.js" />
+    <Content Include="leafletVelocity\src\js\L.VelocityLayer.js" />
+    <Content Include="leafletVelocity\src\js\windy.js" />
+    <Content Include="owmloading.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Default\default.js" />
+    <Content Include="Scripts\Default\dots.js" />
+    <Content Include="Scripts\Default\modernizr.min.js" />
+    <Content Include="Scripts\easytimer.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\SiteMaster\script.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
@@ -181,6 +320,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="test.js" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -189,21 +329,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

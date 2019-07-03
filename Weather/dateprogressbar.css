@@ -1,0 +1,106 @@
+.day-segment{
+    display: inline-block;
+    width: 14.285714285714285714285714285714%;
+    /* border-left: 1px solid black; */
+    border-right: 1px solid black;
+}
+#progressBar{
+    width: 100% !important;
+    border: 1px solid black;
+    -webkit-appearance: none;
+    /* appearance: none; */
+}
+
+progress::-webkit-progress-value {
+    background: wheat;
+    /*wheat;*/
+}
+
+progress {
+    border: 0;
+    /* border-radius: 20px; */
+}
+
+/*.progressBar {
+    font-size: 10px;
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    top: -2.4em;
+    margin-left: -2em
+}
+
+    .progressBar .loading {
+        position: absolute;
+        top: .2em;
+        left: -1.4em
+    }
+
+    .progressBar .box {
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+        cursor: grab;
+        position: relative;
+        background-color: #d49500;
+        color: white;
+        height: 1.8em;
+        box-sizing: border-box;
+        padding: 0 .8em;
+        white-space: nowrap;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        border-radius: .5em;
+        box-shadow: 0 0 4px 0 black
+    }
+
+        .progressBar .box::before {
+            top: 100%;
+            left: 2em;
+            border: solid transparent;
+            content: ' ';
+            height: 0;
+            width: 0;
+            position: absolute;
+            border-top-color: #d49500;
+            border-width: .5em;
+            margin-left: -0.5em
+        }
+
+        .progressBar .box[data-zulu]::after {
+            content: attr(data-zulu);
+            font-size: .8em;
+            opacity: .7;
+            margin-left: 5px
+        }
+
+    .progressBar.ghost-timecode {
+        transition: .3s opacity 0s;
+        -webkit-transition: .3s opacity 0s;
+        opacity: 0;
+        pointer-events: none
+    }
+
+        .progressBar.ghost-timecode .box {
+            box-shadow: none;
+            cursor: pointer;
+            color: white;
+            background-color: rgba(68,65,65,0.84)
+        }
+
+            .progressBar.ghost-timecode .box::before {
+                border-top-color: rgba(68,65,65,0.84)
+            }*/
+/* progress::-webkit-progress-bar {
+    border: 0;
+    border-radius: 20px;
+}
+progress::-webkit-progress-value {
+    border: 0;
+    border-radius: 20px 0px 0px 20px;
+} */
+/* progress::-moz-progress-bar {
+    border: 0;
+    height: 40px;
+    border-radius: 20px;
+} */
