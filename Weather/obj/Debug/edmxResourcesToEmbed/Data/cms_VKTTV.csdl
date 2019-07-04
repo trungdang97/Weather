@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cms_VKTTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="aspnet_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="ShortName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="NickName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="aspnet_Roles" Relationship="Self.FK_aspnet_Membership_aspnet_Roles" FromRole="aspnet_Membership" ToRole="aspnet_Roles" />
+    <NavigationProperty Name="cms_News" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_News" />
+  </EntityType>
+  <EntityType Name="aspnet_Rights">
+    <Key>
+      <PropertyRef Name="RightId" />
+    </Key>
+    <Property Name="RightId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="aspnet_Roles_Rights_Relationship" Relationship="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Rights" FromRole="aspnet_Rights" ToRole="aspnet_Roles_Rights_Relationship" />
+  </EntityType>
+  <EntityType Name="aspnet_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK_aspnet_Membership_aspnet_Roles" FromRole="aspnet_Roles" ToRole="aspnet_Membership" />
+    <NavigationProperty Name="aspnet_Roles_Rights_Relationship" Relationship="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Roles" FromRole="aspnet_Roles" ToRole="aspnet_Roles_Rights_Relationship" />
+  </EntityType>
+  <EntityType Name="aspnet_Roles_Rights_Relationship">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="RoleId" Type="Guid" Nullable="false" />
+    <Property Name="RightId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="aspnet_Rights" Relationship="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Rights" FromRole="aspnet_Roles_Rights_Relationship" ToRole="aspnet_Rights" />
+    <NavigationProperty Name="aspnet_Roles" Relationship="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Roles" FromRole="aspnet_Roles_Rights_Relationship" ToRole="aspnet_Roles" />
+  </EntityType>
+  <EntityType Name="aspnet_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SimpleAuth" Type="Guid" />
+  </EntityType>
+  <EntityType Name="cms_News">
+    <Key>
+      <PropertyRef Name="NewsId" />
+    </Key>
+    <Property Name="NewsId" Type="Guid" Nullable="false" />
+    <Property Name="NewsCategory" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FinishedDate" Type="DateTime" Precision="7" />
+    <Property Name="WriterId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="WriterName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Introduction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovedStatus" Type="Boolean" />
+    <Property Name="CreatedByUserId" Type="Guid" />
+    <Property Name="CreatedOnDate" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="cms_News" ToRole="aspnet_Membership" />
+    <NavigationProperty Name="cms_NewsCategory" Relationship="Self.FK_cms_News_cms_NewsCategory" FromRole="cms_News" ToRole="cms_NewsCategory" />
+  </EntityType>
+  <EntityType Name="cms_NewsCategory">
+    <Key>
+      <PropertyRef Name="NewsCategoryId" />
+    </Key>
+    <Property Name="NewsCategoryId" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="cms_News" Relationship="Self.FK_cms_News_cms_NewsCategory" FromRole="cms_NewsCategory" ToRole="cms_News" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_aspnet_Membership_aspnet_Roles">
+    <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="1" />
+    <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="aspnet_Membership">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_News_aspnet_Membership">
+    <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
+    <End Role="cms_News" Type="Self.cms_News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Membership">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="cms_News">
+        <PropertyRef Name="CreatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_aspnet_Roles_Rights_Relationship_aspnet_Rights">
+    <End Role="aspnet_Rights" Type="Self.aspnet_Rights" Multiplicity="1" />
+    <End Role="aspnet_Roles_Rights_Relationship" Type="Self.aspnet_Roles_Rights_Relationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Rights">
+        <PropertyRef Name="RightId" />
+      </Principal>
+      <Dependent Role="aspnet_Roles_Rights_Relationship">
+        <PropertyRef Name="RightId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_aspnet_Roles_Rights_Relationship_aspnet_Roles">
+    <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="1" />
+    <End Role="aspnet_Roles_Rights_Relationship" Type="Self.aspnet_Roles_Rights_Relationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="aspnet_Roles_Rights_Relationship">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_News_cms_NewsCategory">
+    <End Role="cms_NewsCategory" Type="Self.cms_NewsCategory" Multiplicity="1" />
+    <End Role="cms_News" Type="Self.cms_News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_NewsCategory">
+        <PropertyRef Name="NewsCategoryId" />
+      </Principal>
+      <Dependent Role="cms_News">
+        <PropertyRef Name="NewsCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cms_VKTTVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" />
+    <EntitySet Name="aspnet_Rights" EntityType="Self.aspnet_Rights" />
+    <EntitySet Name="aspnet_Roles" EntityType="Self.aspnet_Roles" />
+    <EntitySet Name="aspnet_Roles_Rights_Relationship" EntityType="Self.aspnet_Roles_Rights_Relationship" />
+    <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" />
+    <EntitySet Name="cms_News" EntityType="Self.cms_News" />
+    <EntitySet Name="cms_NewsCategory" EntityType="Self.cms_NewsCategory" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_aspnet_Membership_aspnet_Roles" Association="Self.FK_aspnet_Membership_aspnet_Roles">
+      <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_News_aspnet_Membership" Association="Self.FK_cms_News_aspnet_Membership">
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+      <End Role="cms_News" EntitySet="cms_News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_aspnet_Roles_Rights_Relationship_aspnet_Rights" Association="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Rights">
+      <End Role="aspnet_Rights" EntitySet="aspnet_Rights" />
+      <End Role="aspnet_Roles_Rights_Relationship" EntitySet="aspnet_Roles_Rights_Relationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_aspnet_Roles_Rights_Relationship_aspnet_Roles" Association="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Roles">
+      <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+      <End Role="aspnet_Roles_Rights_Relationship" EntitySet="aspnet_Roles_Rights_Relationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_News_cms_NewsCategory" Association="Self.FK_cms_News_cms_NewsCategory">
+      <End Role="cms_NewsCategory" EntitySet="cms_NewsCategory" />
+      <End Role="cms_News" EntitySet="cms_News" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

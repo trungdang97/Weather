@@ -2,12 +2,29 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <link href="Content/Default/default.css" rel="stylesheet" />
+    <style>
+        p {
+            text-overflow: ellipsis;
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            padding-right: 15px;
+        }
 
+        /*.card-body {
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }*/
+    </style>
     <div class="row" style="padding: 20px 15px">
         <%--<div class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%">--%>
-            <iframe class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%" src="index.html">
-                <p>Your browser does not support iframes.</p>
-            </iframe>
+        <iframe class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%" src="index.html">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
         <%--</div>--%>
         <div id="citiesWeather" class="col-md-3 pull-right" style="border: 1px solid lightgrey; box-shadow: 2px 2px; padding: 0; border-radius: 2px">
             <div class="row">
@@ -207,8 +224,9 @@
                 </div>
             </div>
         </div>
-       
+
         <script>
             $("iframe").height($("#citiesWeather").height());
         </script>
+        <script src="Default.js"></script>
 </asp:Content>

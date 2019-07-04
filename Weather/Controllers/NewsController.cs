@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using Weather.Data;
+using static Weather.CMS.NewsForm;
+
+namespace Weather.Controllers
+{
+    public static class ConvertData
+    {
+        public static News ConvertNews(cms_News data)
+        {
+            return new News()
+            {
+                NewsId = data.NewsId,
+                NewsCategoryId = data.NewsCategory,
+                NewsCategoryName = data.cms_NewsCategory.Name,
+                Name = data.Name,
+                Location = data.Location,
+                CreatedOnDate = data.CreatedOnDate,
+                Writer = data.WriterName,
+                Introduction = data.Introduction,
+                Body = data.Body,
+                ApproveStatus = data.ApprovedStatus
+            };
+        }
+    }
+
+    public class NewsController : ApiController
+    {
+        [HttpPost]
+        [Route("api/v1/news/filter")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<News> GetFilter([FromBody]Filter filter)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                aspnet_Membership User = null;
+                if (filter.UserId.HasValue)
+                {
+                    User = db.aspnet_Membership.Where(x => x.UserId == filter.UserId.Value).First();
+                }
+                IQueryable<cms_News> query = null;
+                
+                if (User == null)
+                {
+                    query = db.cms_News;
+                }
+                else if(User.aspnet_Roles.Description == "QTHT")
+                {
+                    query = db.cms_News;
+                }
+                else
+                {
+                    query = db.cms_News.Where(x => x.CreatedByUserId == filter.UserId);
+                }
+                query = query.OrderByDescending(x => x.CreatedOnDate);
+                if (filter.NewsCategoryId.HasValue)
+                    query = query.Where(x => x.NewsCategory == filter.NewsCategoryId.Value);
+                if (filter.FilterText != "")
+                    query = query.Where(x => x.Name.Contains(filter.FilterText));
+                if (filter.FromDate.HasValue && filter.ToDate.HasValue)
+                    query = query.Where(x => x.CreatedOnDate >= filter.FromDate && x.CreatedOnDate <= filter.ToDate);
+               
+                int excludedRow = (filter.PageNumber-1) * filter.PageSize;
+                return query.Skip(excludedRow).Take(filter.PageSize).Select(ConvertData.ConvertNews).ToList();
+            }
+        }
+
+        // GET api/<controller>/5
+        public string Get()
+        {
+            return "value";
+        }
+
+
+        [HttpPost]
+        [Route("api/v1/news/add")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void Post([FromBody]News data)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var model = new cms_News()
+                {
+                    NewsId = Guid.NewGuid(),
+                    Name = data.Name,
+                    Location = data.Location,
+                    NewsCategory = data.NewsCategoryId,
+                    //FinishDate = data.FinishDate,
+                    CreatedByUserId = data.CreatedByUserId,
+                    WriterName = db.aspnet_Membership.Where(x => x.UserId == data.CreatedByUserId).First().ShortName,
+                    Body = data.Body,
+                    Introduction = data.Introduction,
+                    CreatedOnDate = DateTime.Now,
+                    ApprovedStatus = false
+                };
+
+                db.cms_News.Add(model);
+                db.SaveChanges();
+            }
+        }
+
+        [HttpPut]
+        [Route("api/v1/news/update")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void Put([FromBody]News data)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var model = db.cms_News.Where(x => x.NewsId == data.NewsId).First();
+
+                model.Name = data.Name;
+                model.Location = data.Location;
+                model.NewsCategory = data.NewsCategoryId;
+                //model.FinishedDate = data.FinishedDate;
+                //model.WriterName = db.aspnet_Membership.Where(x => x.UserId == UserId).First().ShortName;
+                model.Body = data.Body;
+                model.Introduction = data.Introduction;
+                //model.CreatedOnDate = DateTime.Now;
+                //model.ApprovedStatus = false;
+
+                db.SaveChanges();
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/v1/news/delete")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public void Delete(Guid NewsId)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var model = db.cms_News.Where(x => x.NewsId == NewsId).First();
+                db.cms_News.Remove(model);
+                db.SaveChanges();
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2f7bfe33729c4ef1a4647f168ac6761f" Name="Diagram1">
+        <EntityTypeShape EntityType="cms_VKTTVModel.aspnet_Membership" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.aspnet_Rights" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.aspnet_Roles" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.aspnet_Roles_Rights_Relationship" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.aspnet_Users" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_News" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_NewsCategory" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_aspnet_Membership_aspnet_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_News_aspnet_Membership" ManuallyRouted="false" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_aspnet_Roles_Rights_Relationship_aspnet_Rights" ManuallyRouted="false" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_aspnet_Roles_Rights_Relationship_aspnet_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_News_cms_NewsCategory" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
