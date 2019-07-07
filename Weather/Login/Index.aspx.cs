@@ -73,7 +73,7 @@ namespace Weather.Login
                             context.SaveChangesAsync();
 
                             
-                            Response.Redirect("~/CMS/news.aspx");
+                            Response.Redirect("~/Default.aspx");
                         }
                         else
                         {

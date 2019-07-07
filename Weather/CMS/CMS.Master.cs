@@ -26,7 +26,7 @@ namespace Weather.CMS
         protected void Logout_Click(object sender, EventArgs e)
         {
             HttpContext.Current.Session.Abandon();
-            Response.Redirect("~/Login/Index");
+            Response.Redirect("~/Default.aspx");
         }
 
         [WebMethod]

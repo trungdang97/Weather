@@ -60,6 +60,7 @@
     <Property Name="ApprovedStatus" Type="bit" />
     <Property Name="CreatedByUserId" Type="uniqueidentifier" />
     <Property Name="CreatedOnDate" Type="datetime2" Precision="7" />
+    <Property Name="Thumbnail" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="cms_NewsCategory">
     <Key>

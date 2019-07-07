@@ -25,13 +25,27 @@ namespace Weather.Controllers
                 Writer = data.WriterName,
                 Introduction = data.Introduction,
                 Body = data.Body,
-                ApproveStatus = data.ApprovedStatus
+                ApproveStatus = data.ApprovedStatus,
+                Thumbnail = data.Thumbnail
             };
         }
     }
 
     public class NewsController : ApiController
     {
+        [HttpGet]
+        [Route("api/v1/news")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public News GetById(Guid NewsId)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                IQueryable<cms_News> query = null;
+                query = db.cms_News.Where(x => x.NewsId == NewsId);               
+                return query.Select(ConvertData.ConvertNews).First();
+            }
+        }
+
         [HttpPost]
         [Route("api/v1/news/filter")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -45,12 +59,12 @@ namespace Weather.Controllers
                     User = db.aspnet_Membership.Where(x => x.UserId == filter.UserId.Value).First();
                 }
                 IQueryable<cms_News> query = null;
-                
+
                 if (User == null)
                 {
                     query = db.cms_News;
                 }
-                else if(User.aspnet_Roles.Description == "QTHT")
+                else if (User.aspnet_Roles.Description == "QTHT")
                 {
                     query = db.cms_News;
                 }
@@ -65,8 +79,8 @@ namespace Weather.Controllers
                     query = query.Where(x => x.Name.Contains(filter.FilterText));
                 if (filter.FromDate.HasValue && filter.ToDate.HasValue)
                     query = query.Where(x => x.CreatedOnDate >= filter.FromDate && x.CreatedOnDate <= filter.ToDate);
-               
-                int excludedRow = (filter.PageNumber-1) * filter.PageSize;
+
+                int excludedRow = (filter.PageNumber - 1) * filter.PageSize;
                 return query.Skip(excludedRow).Take(filter.PageSize).Select(ConvertData.ConvertNews).ToList();
             }
         }
@@ -97,7 +111,8 @@ namespace Weather.Controllers
                     Body = data.Body,
                     Introduction = data.Introduction,
                     CreatedOnDate = DateTime.Now,
-                    ApprovedStatus = false
+                    ApprovedStatus = false,
+                    Thumbnail = data.Thumbnail
                 };
 
                 db.cms_News.Add(model);
@@ -123,6 +138,7 @@ namespace Weather.Controllers
                 model.Introduction = data.Introduction;
                 //model.CreatedOnDate = DateTime.Now;
                 //model.ApprovedStatus = false;
+                model.Thumbnail = data.Thumbnail;
 
                 db.SaveChanges();
             }

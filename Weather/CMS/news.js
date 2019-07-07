@@ -1,12 +1,77 @@
-﻿var NewsId = null, FilterText = "", NewsCategoryId = null, PageNumber = null, PageSize = null, FromDate = null, ToDate = null;
+﻿CKEDITOR.replace('body');
+CKEDITOR.replace('body2');
+
+var NewsId = null, FilterText = "", NewsCategoryId = null, PageNumber = null, PageSize = null, FromDate = null, ToDate = null;
 
 var SeletedNewsId = [];
 
-$('input[type="checkbox"]').click(function () {
-    if (this.checked) {
-        //alert("FUCK");
+$('#imgFile').hide();
+$('#imgFile2').hide();
+$('#checkImg').click(function () {
+    if ($('#imgFile').css("display") == "none") {
+        $('#imgFile').show();
+        $('#previewImgFile').show();
+    }
+    else {
+        $('#imgFile').hide();
+        $('#previewImgFile').hide();
     }
 });
+$('#checkImg2').click(function () {
+    if ($('#imgFile2').css("display") == "none") {
+        $('#imgFile2').show();
+        $('#previewImgFile2').show();
+    }
+    else {
+        $('#imgFile2').hide();
+        $('#previewImgFile2').hide();
+    }
+});
+
+$('#imgFile').change(function () {
+    readURL(this, "#previewImgFile");
+    //$('#previewImgFile').attr("src", $('#imgFile').val());
+    $('#previewImgFile').show();
+});
+$('#imgFile2').change(function () {
+    readURL(this, "#previewImgFile2");
+    //$('#previewImgFile').attr("src", $('#imgFile').val());
+    $('#previewImgFile2').show();
+});
+
+function readURL(input, imgID) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(imgID).attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+    else if (input.files.length == 0) {
+        $(imgID).attr('src', '');
+    }
+}
+
+var News = {};
+async function Edit(EditBtn) {   
+    News = {};
+    News = await GetNewsById(EditBtn.value);
+    if (News.Thumbnail != null) {
+        if (!$('#checkImg2').is(":checked")) {
+            $('#checkImg2').click();
+        }
+        $('#previewImgFile2').attr("src", News.Thumbnail);
+        //$('#previewImgFile2').show();
+    }
+    
+    $("#MainContent_ListCategory2").val(News.NewsCategoryId);
+    $("#name2").val(News.Name);
+    $("#location2").val(News.Location);
+    $("#introduction2").val(News.Introduction);
+    CKEDITOR.instances.body2.setData(News.Body);
+}
 
 function DeleteMultiple() {
     var postData = {};
@@ -34,15 +99,26 @@ function DeleteMultiple() {
 }
 
 $("#BtnReset").click(function () {
-
+    $('#imgFile').val("");
+    $('#previewImgFile').attr("src", "");
     $('#exampleModal').modal('hide');
     $('#MainContent_ListCategory').get(0).selectedIndex = 0;
-    $('#ListCategory').val('');
     $("#name").val("");
     $("#location").val("");
     $("#introduction").val("");
-    $("#body").val("");
     CKEDITOR.instances.body.setData('');
+
+    GetData();
+});
+
+$("#BtnReset2").click(function () {
+
+    $('#exampleModal2').modal('hide');
+    $('#MainContent_ListCategory2').get(0).selectedIndex = 0;
+    $("#name2").val("");
+    $("#location2").val("");
+    $("#introduction2").val("");
+    CKEDITOR.instances.body2.setData('');
 
     GetData();
 });
@@ -59,12 +135,16 @@ $("#MainContent_OuterListCategory").change(function () {
 
 $("#BtnSave").click(function () {
     var postData = {};
+    postData.Thumbnail = "";
+    if ($('#checkImg').is(":checked")) {
+        postData.Thumbnail = $("#previewImgFile").attr("src");
+    }
     postData.Name = $("#name").val();
     postData.NewsCategoryId = $("#MainContent_ListCategory").val();
     postData.FinishedDate = null;
     postData.Location = $("#location").val();;
     postData.Introduction = $("#introduction").val();;
-    //postData.Body = CKEDITOR.instances['body'].getData();
+    postData.Body = CKEDITOR.instances['body'].getData();
     postData.CreatedByUserId = $("#UserId").val();
 
     $.ajax({
@@ -83,6 +163,42 @@ $("#BtnSave").click(function () {
         },
         error: function () {
             alert("Thêm mới tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+});
+
+$("#BtnSave2").click(function () {
+    var postData = {};
+    postData = News;
+    if ($('#checkImg2').is(":checked")) {
+        postData.Thumbnail = $("#previewImgFile2").attr("src");
+    }
+    else {
+        postData.Thumbnail = null;
+    }
+    postData.Name = $("#name2").val();
+    postData.NewsCategoryId = $("#MainContent_ListCategory2").val();
+    postData.FinishedDate = null;
+    postData.Location = $("#location2").val();;
+    postData.Introduction = $("#introduction2").val();;
+    postData.Body = CKEDITOR.instances['body2'].getData();
+
+    $.ajax({
+        url: "/api/v1/news/update",
+        method: "PUT",
+        contentType: "json",
+        data: JSON.stringify(postData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Cập nhật tin bài thành công!");
+            $("#BtnReset2").click();
+            GetData();
+        },
+        error: function () {
+            alert("Cập nhật tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
         }
     });
 });
@@ -190,7 +306,7 @@ function GetData() {
             for (var i = 0; i < data.length; i++) {
                 $("#table-body").append("<tr>"
                     + "<td class='text-center'>"
-                    + "<input type='checkbox' onclick value='"+data[i].UserId+"' class='multiSelect'>"
+                    + "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
                     + "</td>"
                     + "<td>"
                     + data[i].Name
@@ -208,8 +324,8 @@ function GetData() {
                     + data[i].Writer
                     + "</td>"
                     + "<td class='text-center'>"
-                    + "<button type='button' value='" + data[i].UserId + "' style='background-color:deepskyblue;width:28px;height:28px;padding:4px;margin:5px' class='btn'><i style='font-size:20px;color:white' class='fa fa-edit'></i></button>"
-                    + "<button type='button' onclick='PrepareDelete(this)' data-toggle='modal' data-target='#myModal' value='" + data[i].UserId + "' style='background-color:red;width:28px;height:28px;padding:4px;' class='btn'><i style='font-size:20px;color:white' class='fa fa-trash'></i></button>"
+                    + "<button type='button' onclick='Edit(this)' value='" + data[i].NewsId + "' data-toggle='modal' data-target='#exampleModal2' style='background-color:deepskyblue;width:28px;height:28px;padding:4px;margin:5px' class='btn'><i style='font-size:20px;color:white' class='fa fa-edit'></i></button>"
+                    + "<button type='button' onclick='PrepareDelete(this)' data-toggle='modal' data-target='#myModal' value='" + data[i].NewsId + "' style='background-color:red;width:28px;height:28px;padding:4px;' class='btn'><i style='font-size:20px;color:white' class='fa fa-trash'></i></button>"
                     + "</td>"
                     + "</tr>"
                 );
@@ -222,6 +338,21 @@ function GetData() {
             alert("Kết nối thất bại. Xin hãy kiểm tra lại kết nôi.");
         }
     });
+}
+
+async function GetNewsById(NewsId) {
+    var news = {};
+    await $.ajax({
+        url: '/api/v1/news?NewsId=' + NewsId,
+        method: "GET",
+        contentType: "json",
+        success: function (data) {
+            news = data;
+        }, error: function () {
+            alert("Có lỗi xảy ra khi kết nối");
+        }
+    });
+    return news;
 }
 
 function FormatDateTime(datetime) {

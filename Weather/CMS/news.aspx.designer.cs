@@ -22,6 +22,15 @@ namespace Weather.CMS {
         protected global::System.Web.UI.WebControls.DropDownList ListCategory;
         
         /// <summary>
+        /// ListCategory2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ListCategory2;
+        
+        /// <summary>
         /// OuterListCategory control.
         /// </summary>
         /// <remarks>

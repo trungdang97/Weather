@@ -53,6 +53,7 @@
     <EntitySetMapping Name="cms_News">
       <EntityTypeMapping TypeName="cms_VKTTVModel.cms_News">
         <MappingFragment StoreEntitySet="cms_News">
+          <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
           <ScalarProperty Name="NewsId" ColumnName="NewsId" />
           <ScalarProperty Name="NewsCategory" ColumnName="NewsCategory" />
           <ScalarProperty Name="Name" ColumnName="Name" />

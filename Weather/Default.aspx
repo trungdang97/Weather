@@ -3,14 +3,14 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <link href="Content/Default/default.css" rel="stylesheet" />
     <style>
-        p {
+        /*p {
             text-overflow: ellipsis;
             display: block;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
             padding-right: 15px;
-        }
+        }*/
 
         /*.card-body {
             display: -webkit-box;
@@ -19,6 +19,11 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
         }*/
+        .card-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: .5rem;
+        }
     </style>
     <div class="row" style="padding: 20px 15px">
         <%--<div class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%">--%>
@@ -155,78 +160,16 @@
                         <div class="tab-pane" id="tab_default_1">
                         </div>
                         <div class="tab-pane active" id="tab_default_2">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card" style="border: 1px solid black; margin-bottom: 20px;">
-                                        <img class="card-img-top" src="http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg" style="width: 100%" alt="Card image cap">
-                                        <div class="card-body" style="padding-left: 15px">
-                                            <h6 style="color: #808080">Ngày đăng 02/07/2019</h6>
-                                            <h4 class="card-title"><b>Tiêu đề bài báo</b></h4>
-                                            <p class="card-text">Đây là nội dung bài báo. Nội dung bài báo sẽ được đẩy vào trong khung này.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" style="border: 1px solid black; margin-bottom: 20px;">
-                                        <img class="card-img-top" src="http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg" style="width: 100%" alt="Card image cap">
-                                        <div class="card-body" style="padding-left: 15px">
-                                            <h6 style="color: #808080">Ngày đăng 02/07/2019</h6>
-                                            <h4 class="card-title"><b>Tiêu đề bài báo</b></h4>
-                                            <p class="card-text">Đây là nội dung bài báo. Nội dung bài báo sẽ được đẩy vào trong khung này.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" style="border: 1px solid black; margin-bottom: 20px;">
-                                        <img class="card-img-top" src="http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg" style="width: 100%" alt="Card image cap">
-                                        <div class="card-body" style="padding-left: 15px">
-                                            <h6 style="color: #808080">Ngày đăng 02/07/2019</h6>
-                                            <h4 class="card-title"><b>Tiêu đề bài báo</b></h4>
-                                            <p class="card-text">Đây là nội dung bài báo. Nội dung bài báo sẽ được đẩy vào trong khung này.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" style="border: 1px solid black; margin-bottom: 20px;">
-                                        <img class="card-img-top" src="http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg" style="width: 100%" alt="Card image cap">
-                                        <div class="card-body" style="padding-left: 15px">
-                                            <h6 style="color: #808080">Ngày đăng 02/07/2019</h6>
-                                            <h4 class="card-title"><b>Tiêu đề bài báo</b></h4>
-                                            <p class="card-text">Đây là nội dung bài báo. Nội dung bài báo sẽ được đẩy vào trong khung này.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" style="border: 1px solid black; margin-bottom: 20px;">
-                                        <img class="card-img-top" src="http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg" style="width: 100%" alt="Card image cap">
-                                        <div class="card-body" style="padding-left: 15px">
-                                            <h6 style="color: #808080">Ngày đăng 02/07/2019</h6>
-                                            <h4 class="card-title"><b>Tiêu đề bài báo</b></h4>
-                                            <p class="card-text">Đây là nội dung bài báo. Nội dung bài báo sẽ được đẩy vào trong khung này.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card" style="border: 1px solid black; margin-bottom: 20px;">
-                                        <img class="card-img-top" src="http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg" style="width: 100%" alt="Card image cap">
-                                        <div class="card-body" style="padding-left: 15px">
-                                            <h6 style="color: #808080">Ngày đăng 02/07/2019</h6>
-                                            <h4 class="card-title"><b>Tiêu đề bài báo</b></h4>
-                                            <p class="card-text">Đây là nội dung bài báo. Nội dung bài báo sẽ được đẩy vào trong khung này.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tab_default_3">
-                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_default_3">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script>
-            $("iframe").height($("#citiesWeather").height());
-        </script>
-        <script src="Default.js"></script>
+    </div>
+    <script>
+        $("iframe").height($("#citiesWeather").height());
+    </script>
+    <script src="Default.js"></script>
 </asp:Content>

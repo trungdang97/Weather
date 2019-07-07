@@ -26,6 +26,7 @@ namespace Weather.Data
         public Nullable<bool> ApprovedStatus { get; set; }
         public Nullable<System.Guid> CreatedByUserId { get; set; }
         public Nullable<System.DateTime> CreatedOnDate { get; set; }
+        public string Thumbnail { get; set; }
     
         public virtual aspnet_Membership aspnet_Membership { get; set; }
         public virtual cms_NewsCategory cms_NewsCategory { get; set; }

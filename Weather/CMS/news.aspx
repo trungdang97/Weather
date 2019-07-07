@@ -9,6 +9,7 @@
         td {
             vertical-align: middle !important;
         }
+        
     </style>
     <section class="content-header">
         <h1>Quản lý tin bài cá nhân</h1>
@@ -29,6 +30,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group">
+                            <label for="thumbnail">Sử dụng hình ảnh đại diện tin bài:&ensp;</label><input type="checkbox" id="checkImg"/>
+                            <input type="file" id="imgFile" style="border: 1px solid black"/>
+                            <img id="previewImgFile" style="display: none" width="100px"/>
+                        </div>
                         <div class="form-group">
                             <label for="category">Loại tin bài<span class="required">(*)</span>:</label>
                             <asp:DropDownList ID="ListCategory" runat="server" Height="25px" Width="200px" name="category">
@@ -53,9 +59,7 @@
                                 
                             </textarea>
                             <script>
-                            // Replace the <textarea id="editor1"> with a CKEditor
-                            // instance, using default configuration.
-                            CKEDITOR.replace('body');
+                                //CKEDITOR.replace('body');
                             </script>
                         </div>
                     </div>
@@ -63,8 +67,60 @@
                         <button type="button" id="BtnReset" class="btn btn-danger">Hủy</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tạm đóng</button>
                         <%--<asp:Button runat="server" OnClick="SaveBtn_click"/>--%>
-                        <button type="button" onclick="" id="BtnSave" class="btn btn-secondary">Lưu</button>
-                        <button type="button" class="btn btn-primary">Chờ duyệt</button>
+                        <button type="button" onclick="" id="BtnSave" class="btn btn-primary">Lưu</button>
+                        <%--<button type="button" class="btn btn-primary">Chờ duyệt</button>--%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel2" style="display: inline-block">Sửa tin bài</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: crimson; font-size: 50px">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="thumbnail">Sử dụng hình ảnh đại diện tin bài:&ensp;</label><input type="checkbox" id="checkImg2"/>
+                            <input type="file" id="imgFile2" style="border: 1px solid black"/>
+                            <img id="previewImgFile2" style="display: none; margin-top: 10px" width="300px"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Loại tin bài<span class="required">(*)</span>:</label>
+                            <asp:DropDownList ID="ListCategory2" runat="server" Height="25px" Width="200px" name="category">
+                            </asp:DropDownList>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Tên tin bài<span class="required">(*)</span>:</label>
+                            <input type="text" class="form-control" id="name2" name="name" placeholder="Tên tin bài" />
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Địa điểm:</label>
+                            <input type="text" class="form-control" id="location2" name="location" placeholder="Nơi viết" />
+                        </div>
+                        <div class="form-group">
+                            <label for="introduction">Trích tin hiển thị<span class="required">(*)</span>:</label>
+                            <textarea class="form-control" id="introduction2" name="introduction" placeholder="Trích tin hiển thị..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Nội dung<span class="required">(*)</span>:</label>
+                            <textarea name="body" id="body2" rows="10" cols="80">
+                                
+                            </textarea>
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                //CKEDITOR.replace('body2');
+                            </script>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="BtnReset2" class="btn btn-danger">Hủy</button>
+                        <%--<asp:Button runat="server" OnClick="SaveBtn_click"/>--%>
+                        <button type="button" onclick="" id="BtnSave2" class="btn btn-primary">Lưu</button>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="cms_VKTTVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="cms_VKTTVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="aspnet_Membership">
           <Key>
             <PropertyRef Name="UserId" />
@@ -65,6 +65,7 @@
           <Property Name="ApprovedStatus" Type="bit" />
           <Property Name="CreatedByUserId" Type="uniqueidentifier" />
           <Property Name="CreatedOnDate" Type="datetime2" Precision="7" />
+          <Property Name="Thumbnail" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="cms_NewsCategory">
           <Key>
@@ -174,8 +175,7 @@
             <End Role="cms_News" EntitySet="cms_News" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="cms_VKTTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -248,6 +248,7 @@
           <Property Name="CreatedOnDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="cms_News" ToRole="aspnet_Membership" />
           <NavigationProperty Name="cms_NewsCategory" Relationship="Self.FK_cms_News_cms_NewsCategory" FromRole="cms_News" ToRole="cms_NewsCategory" />
+          <Property Name="Thumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="cms_NewsCategory">
           <Key>
@@ -416,6 +417,7 @@
           <EntitySetMapping Name="cms_News">
             <EntityTypeMapping TypeName="cms_VKTTVModel.cms_News">
               <MappingFragment StoreEntitySet="cms_News">
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
                 <ScalarProperty Name="NewsId" ColumnName="NewsId" />
                 <ScalarProperty Name="NewsCategory" ColumnName="NewsCategory" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

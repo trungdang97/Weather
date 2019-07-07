@@ -1,15 +1,16 @@
 ﻿$(document).ready(function () {
-    GetNews("3af42b3e-5e0c-4f30-bdce-9b020ee4b0c3");
-
+    GetNews("3af42b3e-5e0c-4f30-bdce-9b020ee4b0c3", "TT");
+    GetNews("dac7f4bf-b0c0-4003-bde0-d5eeea71ba03", "NB");
+    GetNews("328e5dbf-966a-4fbd-8642-e5a6f2be6033", "XH");
 });
 
-var GetNews = function (NewsCategoryId) {
+var GetNews = function (NewsCategoryId, Code) {
     var postData = {};
     postData.FilterText = "";
     postData.NewsCategoryId = NewsCategoryId;
     postData.PageNumber = 1;
     postData.PageSize = 6;
-    postData.UserId = $("#UserId").val();
+    postData.UserId = null;
 
     $.ajax({
         url: "/api/v1/news/filter",
@@ -21,19 +22,51 @@ var GetNews = function (NewsCategoryId) {
             'Content-Type': 'application/json'
         },
         success: function (data) {
-            $("#tab_default_2").html("<div class='row' id='tab_default_2_content'></div>");
-            for (var i = 0; i < data.length; i++) {                
-                $("#tab_default_2_content").append(
-                    "<div class='col-md-4'>"
-                    + "<div class='card'style='border: 1px solid black; margin-bottom: 20px;' >"
-                    + "<img class='card-img-top' src='http://giaothongvietnam.vn/wp-content/uploads/2018/03/vinh-bac-bo.jpg' style='width: 100%' alt='Card image cap'>"
-                    + "<div class='card-body' style='padding-left: 15px'>"
-                    + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
-                    + "<h4 class='card-title'><b>"+ data[i].Name +"</b></h4>"
-                    + "<p class='card-text'>"+ data[i].Introduction +"</p>"
-                    + "</div>"
-                    + "</div>"
-                    + "</div>");
+
+            if (Code == 'NB' && data.length != 0) {
+                $("#tab_default_1").html("<div class='card-deck' id='tab_default_1_content'></div>");
+                for (var i = 0; i < data.length; i++) {
+                    $("#tab_default_1_content").append(
+                        "<div class='card' style='border: 1px solid black; margin-bottom: 20px;' >"
+                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%' alt='Card image cap'>"
+                        + "<div class='card-body' style='padding-left: 15px'>"
+                        + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
+                        + "<h4 class='card-title'><b>" + data[i].Name + "</b></h4>"
+                        + "<p class='card-text'>" + data[i].Introduction + "</p>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>");
+                }
+            }
+            else if (Code == 'TT' && data.length != 0) {
+                $("#tab_default_2").html("<div class='card-deck' id='tab_default_2_content'></div>");
+                for (var i = 0; i < data.length; i++) {
+                    $("#tab_default_2_content").append(
+                        "<div class='card' style='border: 1px solid black; margin-bottom: 20px;' >"
+                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%' alt='Card image cap'>"
+                        + "<div class='card-body' style='padding-left: 15px'>"
+                        + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
+                        + "<h4 class='card-title'><b>" + data[i].Name + "</b></h4>"
+                        + "<p class='card-text'>" + data[i].Introduction + "</p>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>");
+                }
+            }
+            else if (Code == 'XH' && data.length != 0) {
+                $("#tab_default_3").html("<div class='card-deck' id='tab_default_3_content'></div>");
+                for (var i = 0; i < data.length; i++) {
+                    $("#tab_default_3_content").append(
+                        "<div class='card' style='border: 1px solid black; margin-bottom: 20px;' >"
+                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%;' alt='Card image cap'>"
+                        + "<div class='card-body' style='padding-left: 15px'>"
+                        + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
+                        + "<h4 class='card-title'><a href='tin-tuc?tin=" + data[i].NewsId +"'>" + data[i].Name + "</a></h4>"
+                        + "<p class='card-text'>" + data[i].Introduction + "</p>"
+                        + "</div>"
+                        + "</div>"
+                        + "</div>");
+                }
             }
             //$("#tab_default_2").append("</div>");
         },
@@ -43,39 +76,3 @@ var GetNews = function (NewsCategoryId) {
     });
 };
 
-function FormatDateTime(datetime) {
-    var time = new Date(datetime);
-    var d, M, y, H, m, s;
-    if (time.getDate() < 10) {
-        d = '0' + time.getDate();
-    }
-    else {
-        d = time.getDate();
-    }
-    if (time.getMonth() < 10) {
-        M = '0' + time.getMonth();
-    }
-    else {
-        M = time.getMonth();
-    }
-    if (time.getHours() < 10) {
-        H = '0' + time.getHours();
-    }
-    else {
-        H = time.getHours();
-    }
-    if (time.getMinutes() < 10) {
-        m = '0' + time.getMinutes();
-    }
-    else {
-        m = time.getMinutes();
-    }
-    if (time.getSeconds() < 10) {
-        s = '0' + time.getSeconds();
-    }
-    else {
-        s = time.getSeconds();
-    }
-    var formattedString = d + "/" + M + "/" + time.getFullYear() + " lúc " + H + ":" + m + ":" + s;
-    return formattedString;
-}

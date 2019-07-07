@@ -69,6 +69,7 @@
     <Property Name="CreatedOnDate" Type="DateTime" Precision="7" />
     <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="cms_News" ToRole="aspnet_Membership" />
     <NavigationProperty Name="cms_NewsCategory" Relationship="Self.FK_cms_News_cms_NewsCategory" FromRole="cms_News" ToRole="cms_NewsCategory" />
+    <Property Name="Thumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="cms_NewsCategory">
     <Key>

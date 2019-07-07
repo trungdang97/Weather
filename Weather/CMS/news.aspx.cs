@@ -36,6 +36,7 @@ namespace Weather.CMS
             public string Introduction { get; set; }
             public string Body { get; set; }
             public bool? ApproveStatus { get; set; }
+            public string Thumbnail { get; set; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -49,6 +50,11 @@ namespace Weather.CMS
                 foreach(var c in category)
                 {
                     ListCategory.Items.Add(new ListItem()
+                    {
+                        Text = c.Name,
+                        Value = c.NewsCategoryId.ToString()
+                    });
+                    ListCategory2.Items.Add(new ListItem()
                     {
                         Text = c.Name,
                         Value = c.NewsCategoryId.ToString()
