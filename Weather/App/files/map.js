@@ -375,17 +375,17 @@ function initMap() {
         hideSelected: false,
         vertical: false
     }));
-    map.addControl(L.ShowfullSelector({
-        showfull: new Array(
+    //map.addControl(L.ShowfullSelector({
+    //    showfull: new Array(
 
-            L.ShowFullObject('en', 'English', 'App/mapicons/showfull.png')
+    //        L.ShowFullObject('en', 'English', 'App/mapicons/showfull.png')
            
-        ),
-        callback: _showfullChanged,
-        initialLanguage: null,
-        hideSelected: false,
-        vertical: false
-    }));
+    //    ),
+    //    callback: _showfullChanged,
+    //    initialLanguage: null,
+    //    hideSelected: false,
+    //    vertical: false
+    //}));
     var baseMaps = {
         "Bản đồ tiêu chuẩn": standard
         , "Bản đồ dân cư": humanitarian
