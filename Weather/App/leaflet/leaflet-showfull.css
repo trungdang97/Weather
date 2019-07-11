@@ -1,0 +1,23 @@
+.leaflet-showfull-title {
+	font-size: larger;
+	font-weight: bold;
+	display: block;
+	position: relative;
+}
+
+.leaflet-showfull-float-left {
+    float: left;
+}
+
+.leaflet-showfull-mleft {
+    margin-left: 7px;
+}
+
+.leaflet-showfull-langdiv {
+    cursor: pointer;
+}
+
+.leaflet-showfull-clearfloat {
+    clear: all;
+}
+
