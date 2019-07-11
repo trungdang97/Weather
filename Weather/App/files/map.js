@@ -94,9 +94,6 @@ function updateURLParameter(url, param, paramVal) {
 function changeLanguage(pLang) {
     window.location.href = updateURLParameter(window.location.href, 'lang', pLang);
 }
-function changeshowfull() {
-    window.location.href = "./index.html";
-}
 
 /**
  * Get all parameters out of the URL.
@@ -319,11 +316,11 @@ function initMap() {
     var localLang = getLocalLanguage();
 
     var city = L.OWM.current({
-        intervall: 15, imageLoadingUrl: 'owmloading.gif', lang: localLang, minZoom: 5,
+        intervall: 15, imageLoadingUrl: 'leaflet/owmloading.gif', lang: localLang, minZoom: 5,
         appId: OWM_API_KEY
     });
     var windrose = L.OWM.current({
-        intervall: 15, imageLoadingUrl: 'owmloading.gif', lang: localLang, minZoom: 4,
+        intervall: 15, imageLoadingUrl: 'leaflet/owmloading.gif', lang: localLang, minZoom: 4,
         appId: OWM_API_KEY, markerFunction: myWindroseMarker, popup: false, clusterSize: 50,
         imageLoadingBgUrl: 'https://openweathermap.org/img/w0/iwind.png'
     });
@@ -355,7 +352,6 @@ function initMap() {
     });
     map.attributionControl.setPrefix("");
 
-   
     map.addControl(L.languageSelector({
         languages: new Array(
 
@@ -375,17 +371,7 @@ function initMap() {
         hideSelected: false,
         vertical: false
     }));
-    map.addControl(L.ShowfullSelector({
-        showfull: new Array(
 
-            L.ShowFullObject('en', 'English', 'App/mapicons/showfull.png')
-           
-        ),
-        callback: _showfullChanged,
-        initialLanguage: null,
-        hideSelected: false,
-        vertical: false
-    }));
     var baseMaps = {
         "Bản đồ tiêu chuẩn": standard
         , "Bản đồ dân cư": humanitarian
@@ -415,7 +401,7 @@ function initMap() {
 
     var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.timelineSlider({
-        timelineItems: ["Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ 7", "Chủ nhật"],
+        timelineItems: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6"],
         changeMap: getDataAddMarkers,
         position: 'bottomleft'
     })
