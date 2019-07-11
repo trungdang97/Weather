@@ -462,89 +462,96 @@ L.OWM.Current = L.Layer.extend({
             mode: 'cors',
             cache: 'default'
         };
+        //var myRequest;
+        //var myVar = setInterval(readdata, 5000);
+        //function readdata() {
+        //    let myRequest = new Request("./doc.json", myInit);
+        //};
         let myRequest = new Request("./doc.json", myInit);
         fetch(myRequest)
             .then(function (resp) {
                 return resp.json();
             })
-            .then(function (data1) { alert(data1.temp) });
+            .then(function (data1) {
+                var stations = {};
+                for (var i in data) {
+
+                    var stat = data[i];
+                    if (stat.name == "Ha Noi") {
+                        stat.tempC = data1.temp;//rs.fields(4);
+                        stat.wind.Values = data1.wind;//rs.fields(11);
+                    }
+                    if (!_this._map) { //maybe layer is gone while we are looping here
+                        return;
+                    }
+                    // only use cities having a minimum distance of some pixels on the map
+                    var pt = _this._map.latLngToLayerPoint(new L.LatLng(stat.coord.Lat, stat.coord.Lon));
+                    var key = '' + (Math.round(pt.x / _this.options.clusterSize)) + "_" + (Math.round(pt.y / _this.options.clusterSize));
+                    if (!stations[key] || parseInt(stations[key].rang) < parseInt(stat.rang)) {
+                        stations[key] = stat;
+                    }
+                }
+
+                // hide LayerGroup from map and remove old markers
+                var markerWithPopup = null;
+                if (_this.options.keepPopup) {
+                    markerWithPopup = _this._getMarkerWithPopup(_this._markers);
+                }
+                if (_this._map && _this._map.hasLayer(_this._layer)) {
+                    _this._map.removeLayer(_this._layer);
+                }
+                _this._layer.clearLayers();
+
+                // add the cities as markers to the LayerGroup
+                _this._markers = new Array();
+                for (var key in stations) {
+
+                    var marker;
+                    if (_this.options.markerFunction != null && typeof _this.options.markerFunction == 'function') {
+                        marker = _this.options.markerFunction.call(_this, stations[key]);
+                    } else {
+                        marker = _this._createMarker(stations[key]);
+                    }
+                    marker.options.owmId = stations[key].id;
+                    _this._layer.addLayer(marker);
+                    _this._markers.push(marker);
+                    if (_this.options.popup) {
+                        if (_this.options.popupFunction != null && typeof _this.options.popupFunction == 'function') {
+                            marker.bindPopup(_this.options.popupFunction.call(_this, stations[key]));
+                        } else {
+                            marker.bindPopup(_this._createPopup(stations[key]));
+                        }
+                    }
+                    if (markerWithPopup != null
+                        && typeof markerWithPopup.options.owmId != 'undefined'
+                        && markerWithPopup.options.owmId == marker.options.owmId) {
+                        markerWithPopup = marker;
+                    }
+                }
+
+                // add the LayerGroup to the map
+                _this._map && _this._map.addLayer(_this._layer);
+                if (markerWithPopup != null) {
+                    markerWithPopup.openPopup();
+                }
+                _this.fire('owmlayeradd', { markers: _this._markers });
+            });//alert(data1.temp) });
         //End test nodejs
         //debugger;
-        //Add info to data
-        var connection = new ActiveXObject("ADODB.Connection");
+        ////Add info to data
+        //var connection = new ActiveXObject("ADODB.Connection");
 
-        var connectionstring = "Data Source=.\\SQLEXPRESS;Initial Catalog=PP_VN_00001;Trusted_Connection=Yes;User ID=dnn;Password=123;Provider=SQLOLEDB";
-        connection.Open(connectionstring);
-        var rs = new ActiveXObject("ADODB.Recordset");
-        rs.Open("select * from SRF_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
-        rs.MoveFirst();
-        var rs1 = new ActiveXObject("ADODB.Recordset");
-        rs1.Open("select * from MRFDLY_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
-        rs1.MoveFirst();
-        //End add info to data
+        //var connectionstring = "Data Source=.\\SQLEXPRESS;Initial Catalog=PP_VN_00001;Trusted_Connection=Yes;User ID=dnn;Password=123;Provider=SQLOLEDB";
+        //connection.Open(connectionstring);
+        //var rs = new ActiveXObject("ADODB.Recordset");
+        //rs.Open("select * from SRF_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
+        //rs.MoveFirst();
+        //var rs1 = new ActiveXObject("ADODB.Recordset");
+        //rs1.Open("select * from MRFDLY_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
+        //rs1.MoveFirst();
+        ////End add info to data
         //read all cities
-        var stations = {};
-        for (var i in data) {
-            
-            var stat = data[i];
-            if (stat.name == "Ha Noi") {
-                    stat.tempC = rs.fields(4);
-                    stat.wind.Values = rs.fields(11);
-            }
-            if (!_this._map) { //maybe layer is gone while we are looping here
-                return;
-            }
-            // only use cities having a minimum distance of some pixels on the map
-            var pt = _this._map.latLngToLayerPoint(new L.LatLng(stat.coord.Lat, stat.coord.Lon));
-            var key = '' + (Math.round(pt.x / _this.options.clusterSize)) + "_" + (Math.round(pt.y / _this.options.clusterSize));
-            if (!stations[key] || parseInt(stations[key].rang) < parseInt(stat.rang)) {
-                stations[key] = stat;
-            }
-        }
 
-        // hide LayerGroup from map and remove old markers
-        var markerWithPopup = null;
-        if (_this.options.keepPopup) {
-            markerWithPopup = _this._getMarkerWithPopup(_this._markers);
-        }
-        if (_this._map && _this._map.hasLayer(_this._layer)) {
-            _this._map.removeLayer(_this._layer);
-        }
-        _this._layer.clearLayers();
-
-        // add the cities as markers to the LayerGroup
-        _this._markers = new Array();
-        for (var key in stations) {
-            
-            var marker;
-            if (_this.options.markerFunction != null && typeof _this.options.markerFunction == 'function') {
-                marker = _this.options.markerFunction.call(_this, stations[key]);
-            } else {
-                marker = _this._createMarker(stations[key]);
-            }
-            marker.options.owmId = stations[key].id;
-            _this._layer.addLayer(marker);
-            _this._markers.push(marker);
-            if (_this.options.popup) {
-                if (_this.options.popupFunction != null && typeof _this.options.popupFunction == 'function') {
-                    marker.bindPopup(_this.options.popupFunction.call(_this, stations[key]));
-                } else {
-                    marker.bindPopup(_this._createPopup(stations[key]));
-                }
-            }
-            if (markerWithPopup != null
-					&& typeof markerWithPopup.options.owmId != 'undefined'
-					&& markerWithPopup.options.owmId == marker.options.owmId) {
-                markerWithPopup = marker;
-            }
-        }
-
-        // add the LayerGroup to the map
-        _this._map && _this._map.addLayer(_this._layer);
-        if (markerWithPopup != null) {
-            markerWithPopup.openPopup();
-        }
-        _this.fire('owmlayeradd', { markers: _this._markers });
     },
 
     _getMarkerWithPopup: function (markers) {
@@ -561,19 +568,18 @@ L.OWM.Current = L.Layer.extend({
 
     _createPopup: function (station) {
         //Add info to data
-        var connection = new ActiveXObject("ADODB.Connection");
+        //var connection = new ActiveXObject("ADODB.Connection");
 
-        var connectionstring = "Data Source=.\\SQLEXPRESS;Initial Catalog=PP_VN_00001;Trusted_Connection=Yes;User ID=dnn;Password=123;Provider=SQLOLEDB";
-        connection.Open(connectionstring);
-        var rs = new ActiveXObject("ADODB.Recordset");
-        rs.Open("select * from SRF_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
-        rs.MoveFirst();
-        var rs1 = new ActiveXObject("ADODB.Recordset");
-        rs1.Open("select * from MRFDLY_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
-        rs1.MoveFirst();
-         //End add info to data
-        if (station.name == "Ha Noi")
-        {
+        //var connectionstring = "Data Source=.\\SQLEXPRESS;Initial Catalog=PP_VN_00001;Trusted_Connection=Yes;User ID=dnn;Password=123;Provider=SQLOLEDB";
+        //connection.Open(connectionstring);
+        //var rs = new ActiveXObject("ADODB.Recordset");
+        //rs.Open("select * from SRF_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
+        //rs.MoveFirst();
+        //var rs1 = new ActiveXObject("ADODB.Recordset");
+        //rs1.Open("select * from MRFDLY_Tbl_Quy_I ORDER BY ID_Quy_I DESC", connection);
+        //rs1.MoveFirst();
+        // //End add info to data
+        if (station.name == "Ha Noi") {
             var showLink = typeof station.id != 'undefined' && this.options.showOwmStationLink;
             var txt = '<div class="owm-popup-name">';
             if (showLink) {
@@ -602,7 +608,7 @@ L.OWM.Current = L.Layer.extend({
             txt += '<div class="owm-popup-main"><img src="' + imgData.url + '" width="' + imgData.width
                 + '" height="' + imgData.height + '" border="0" />';
             if (typeof station.main != 'undefined' && typeof station.main.temp != 'undefined') {
-                txt += '<span class="owm-popup-temp">' + this._temperatureConvert(rs.fields(4))
+                txt += '<span class="owm-popup-temp">' + this._temperatureConvert(station.tempC)
                     + '&nbsp;' + this._displayTemperatureUnit() + '</span>';
             }
             txt += '</div>';
@@ -611,21 +617,21 @@ L.OWM.Current = L.Layer.extend({
                 if (typeof station.main.humidity != 'undefined') {
                     txt += '<div class="owm-popup-detail">'
                         + this.i18n('humidity', 'Humidity')
-                        + ': ' + rs.fields(7) + '&nbsp;%</div>';
+                        + ': ' + station.main.humidity + '&nbsp;%</div>';
                 }
                 if (typeof station.main.pressure != 'undefined') {
                     txt += '<div class="owm-popup-detail">'
                         + this.i18n('pressure', 'Pressure')
-                        + ': ' + rs.fields(5) + '&nbsp;hPa</div>';
+                        + ': ' + station.main.pressure + '&nbsp;hPa</div>';
                 }
                 if (this.options.showTempMinMax) {
                     if (typeof station.main.temp_max != 'undefined' && typeof station.main.temp_min != 'undefined') {
                         txt += '<div class="owm-popup-detail">'
                             + this.i18n('temp_minmax', 'Temp. min/max')
                             + ': '
-                            + this._temperatureConvert(rs.fields(4))
+                            + this._temperatureConvert(station.main.temp_min)
                             + '&nbsp;/&nbsp;'
-                            + this._temperatureConvert(rs.fields(4) + 2)
+                            + this._temperatureConvert(station.main.temp_max + 2)
                             + '&nbsp;' + this._displayTemperatureUnit() + '</div>';
                     }
                 }
@@ -633,21 +639,21 @@ L.OWM.Current = L.Layer.extend({
             if (station.rain != null && typeof station.rain != 'undefined' && typeof station.rain['1h'] != 'undefined') {
                 txt += '<div class="owm-popup-detail">'
                     + this.i18n('rain_1h', 'Rain (1h)')
-                    + ': ' + rs.fields(7) + '&nbsp;ml</div>';
+                    + ': ' + station.main.rain + '&nbsp;ml</div>';
             }
             if (typeof station.wind != 'undefined') {
                 if (typeof station.wind.speed != 'undefined') {
                     txt += '<div class="owm-popup-detail">';
                     if (this.options.showWindSpeed == 'beaufort' || this.options.showWindSpeed == 'both') {
                         txt += this.i18n('windforce', 'Wind Force')
-                            + ': ' + this._windMsToBft(rs.fields(12));
+                            + ': ' + this._windMsToBft(station.wind.windforce);
                         if (this.options.showWindSpeed == 'both') {
-                            txt += '&nbsp;(' + this._convertSpeed(rs.fields(12)) + '&nbsp;'
+                            txt += '&nbsp;(' + this._convertSpeed(station.wind.speed) + '&nbsp;'
                                 + this._displaySpeedUnit() + ')';
                         }
                     } else {
                         txt += this.i18n('wind', 'Wind') + ': '
-                            + this._convertSpeed(rs.fields(12)) + '&nbsp;'
+                            + this._convertSpeed(station.main.wind.speed) + '&nbsp;'
                             + this._displaySpeedUnit();
                     }
                     txt += '</div>';
@@ -656,14 +662,14 @@ L.OWM.Current = L.Layer.extend({
                     txt += '<div class="owm-popup-detail">';
                     if (this.options.showWindSpeed == 'beaufort' || this.options.showWindSpeed == 'both') {
                         txt += this.i18n('gust', 'Gust')
-                            + ': ' + this._windMsToBft(rs.fields(12));
+                            + ': ' + this._windMsToBft(station.main.wind.speed);
                         if (this.options.showWindSpeed == 'both') {
-                            txt += '&nbsp;(' + this._convertSpeed(rs.fields(12)) + '&nbsp;'
+                            txt += '&nbsp;(' + this._convertSpeed(station.main.wind.speed) + '&nbsp;'
                                 + this._displaySpeedUnit() + ')';
                         }
                     } else {
                         txt += this.i18n('gust', 'Gust') + ': '
-                            + this._convertSpeed(rs.fields(12)) + '&nbsp;'
+                            + this._convertSpeed(station.main.gust) + '&nbsp;'
                             + this._displaySpeedUnit();
                     }
                     txt += '</div>';
@@ -672,7 +678,7 @@ L.OWM.Current = L.Layer.extend({
                     txt += '<div class="owm-popup-detail">';
                     txt += this.i18n('direction', 'Windrichtung') + ': ';
                     if (this.options.showWindDirection == 'desc' || this.options.showWindDirection == 'both') {
-                        txt += this._directions[(rs.fields(10) / 22.5).toFixed(0)];
+                        txt += this._directions[(station.wind.deg / 22.5).toFixed(0)];
                         if (this.options.showWindDirection == 'both') {
                             txt += '&nbsp;(' + station.wind.deg + '°)';
                         }
@@ -689,122 +695,121 @@ L.OWM.Current = L.Layer.extend({
             }
             txt += '</div>';
         }
-        else
-        {
-        var showLink = typeof station.id != 'undefined' && this.options.showOwmStationLink;
-        var txt = '<div class="owm-popup-name">';
-        if (showLink) {
-            var typ = 'station';
-            if (typeof station.weather != 'undefined') {
-                typ = 'city';
-            }
-            txt += '<a href="https://osb.com.vn/' + typ + '/' + station.id + '" target="_blank" title="'
-				+ this.i18n('owmlinktitle', 'Details at OpenWeatherMap') + '">';
-            //			txt += '<a href="https://openweathermap.org/' + typ + '/' + station.id + '" target="_blank" title="'
-            //				+ this.i18n('owmlinktitle', 'Details at OpenWeatherMap') + '">';
-        }
-        txt += station.name;
-        if (showLink) {
-            txt += '</a>';
-        }
-        txt += '</div>';
-        if (typeof station.weather != 'undefined' && typeof station.weather[0] != 'undefined') {
-            if (typeof station.weather[0].description != 'undefined' && typeof station.weather[0].id != 'undefined') {
-                txt += '<div class="owm-popup-description">'
-					+ this.i18n('id' + station.weather[0].id, station.weather[0].description + ' (' + station.weather[0].id + ')')
-					+ '</div>';
-            }
-        }
-        var imgData = this._getImageData(station);
-        txt += '<div class="owm-popup-main"><img src="' + imgData.url + '" width="' + imgData.width
-				+ '" height="' + imgData.height + '" border="0" />';
-        if (typeof station.main != 'undefined' && typeof station.main.temp != 'undefined') {
-            txt += '<span class="owm-popup-temp">' + this._temperatureConvert(station.main.temp)
-				+ '&nbsp;' + this._displayTemperatureUnit() + '</span>';
-        }
-        txt += '</div>';
-        txt += '<div class="owm-popup-details">';
-        if (typeof station.main != 'undefined') {
-            if (typeof station.main.humidity != 'undefined') {
-                txt += '<div class="owm-popup-detail">'
-					+ this.i18n('humidity', 'Humidity')
-					+ ': ' + station.main.humidity + '&nbsp;%</div>';
-            }
-            if (typeof station.main.pressure != 'undefined') {
-                txt += '<div class="owm-popup-detail">'
-					+ this.i18n('pressure', 'Pressure')
-					+ ': ' + station.main.pressure + '&nbsp;hPa</div>';
-            }
-            if (this.options.showTempMinMax) {
-                if (typeof station.main.temp_max != 'undefined' && typeof station.main.temp_min != 'undefined') {
-                    txt += '<div class="owm-popup-detail">'
-						+ this.i18n('temp_minmax', 'Temp. min/max')
-						+ ': '
-							+ this._temperatureConvert(station.main.temp_min)
-						+ '&nbsp;/&nbsp;'
-						+ this._temperatureConvert(station.main.temp_max)
-						+ '&nbsp;' + this._displayTemperatureUnit() + '</div>';
+        else {
+            var showLink = typeof station.id != 'undefined' && this.options.showOwmStationLink;
+            var txt = '<div class="owm-popup-name">';
+            if (showLink) {
+                var typ = 'station';
+                if (typeof station.weather != 'undefined') {
+                    typ = 'city';
                 }
+                txt += '<a href="https://osb.com.vn/' + typ + '/' + station.id + '" target="_blank" title="'
+                    + this.i18n('owmlinktitle', 'Details at OpenWeatherMap') + '">';
+                //			txt += '<a href="https://openweathermap.org/' + typ + '/' + station.id + '" target="_blank" title="'
+                //				+ this.i18n('owmlinktitle', 'Details at OpenWeatherMap') + '">';
             }
-        }
-        if (station.rain != null && typeof station.rain != 'undefined' && typeof station.rain['1h'] != 'undefined') {
-            txt += '<div class="owm-popup-detail">'
-				+ this.i18n('rain_1h', 'Rain (1h)')
-				+ ': ' + station.rain['1h'] + '&nbsp;ml</div>';
-        }
-        if (typeof station.wind != 'undefined') {
-            if (typeof station.wind.speed != 'undefined') {
-                txt += '<div class="owm-popup-detail">';
-                if (this.options.showWindSpeed == 'beaufort' || this.options.showWindSpeed == 'both') {
-                    txt += this.i18n('windforce', 'Wind Force')
-						+ ': ' + this._windMsToBft(station.wind.speed);
-                    if (this.options.showWindSpeed == 'both') {
-                        txt += '&nbsp;(' + this._convertSpeed(station.wind.speed) + '&nbsp;'
-							+ this._displaySpeedUnit() + ')';
-                    }
-                } else {
-                    txt += this.i18n('wind', 'Wind') + ': '
-						+ this._convertSpeed(station.wind.speed) + '&nbsp;'
-						+ this._displaySpeedUnit();
-                }
-                txt += '</div>';
+            txt += station.name;
+            if (showLink) {
+                txt += '</a>';
             }
-            if (typeof station.wind.gust != 'undefined') {
-                txt += '<div class="owm-popup-detail">';
-                if (this.options.showWindSpeed == 'beaufort' || this.options.showWindSpeed == 'both') {
-                    txt += this.i18n('gust', 'Gust')
-						+ ': ' + this._windMsToBft(station.wind.gust);
-                    if (this.options.showWindSpeed == 'both') {
-                        txt += '&nbsp;(' + this._convertSpeed(station.wind.gust) + '&nbsp;'
-							+ this._displaySpeedUnit() + ')';
-                    }
-                } else {
-                    txt += this.i18n('gust', 'Gust') + ': '
-						+ this._convertSpeed(station.wind.gust) + '&nbsp;'
-						+ this._displaySpeedUnit();
-                }
-                txt += '</div>';
-            }
-            if (typeof station.wind.deg != 'undefined') {
-                txt += '<div class="owm-popup-detail">';
-                txt += this.i18n('direction', 'Windrichtung') + ': ';
-                if (this.options.showWindDirection == 'desc' || this.options.showWindDirection == 'both') {
-                    txt += this._directions[(station.wind.deg / 22.5).toFixed(0)];
-                    if (this.options.showWindDirection == 'both') {
-                        txt += '&nbsp;(' + station.wind.deg + '°)';
-                    }
-                } else {
-                    txt += station.wind.deg + '°';
-                }
-                txt += '</div>';
-            }
-        }
-        if (typeof station.dt != 'undefined' && this.options.showTimestamp) {
-            txt += '<div class="owm-popup-timestamp">';
-            txt += '(' + this._convertTimestamp(station.dt) + ')';
             txt += '</div>';
-        }
-        txt += '</div>';
+            if (typeof station.weather != 'undefined' && typeof station.weather[0] != 'undefined') {
+                if (typeof station.weather[0].description != 'undefined' && typeof station.weather[0].id != 'undefined') {
+                    txt += '<div class="owm-popup-description">'
+                        + this.i18n('id' + station.weather[0].id, station.weather[0].description + ' (' + station.weather[0].id + ')')
+                        + '</div>';
+                }
+            }
+            var imgData = this._getImageData(station);
+            txt += '<div class="owm-popup-main"><img src="' + imgData.url + '" width="' + imgData.width
+                + '" height="' + imgData.height + '" border="0" />';
+            if (typeof station.main != 'undefined' && typeof station.main.temp != 'undefined') {
+                txt += '<span class="owm-popup-temp">' + this._temperatureConvert(station.main.temp)
+                    + '&nbsp;' + this._displayTemperatureUnit() + '</span>';
+            }
+            txt += '</div>';
+            txt += '<div class="owm-popup-details">';
+            if (typeof station.main != 'undefined') {
+                if (typeof station.main.humidity != 'undefined') {
+                    txt += '<div class="owm-popup-detail">'
+                        + this.i18n('humidity', 'Humidity')
+                        + ': ' + station.main.humidity + '&nbsp;%</div>';
+                }
+                if (typeof station.main.pressure != 'undefined') {
+                    txt += '<div class="owm-popup-detail">'
+                        + this.i18n('pressure', 'Pressure')
+                        + ': ' + station.main.pressure + '&nbsp;hPa</div>';
+                }
+                if (this.options.showTempMinMax) {
+                    if (typeof station.main.temp_max != 'undefined' && typeof station.main.temp_min != 'undefined') {
+                        txt += '<div class="owm-popup-detail">'
+                            + this.i18n('temp_minmax', 'Temp. min/max')
+                            + ': '
+                            + this._temperatureConvert(station.main.temp_min)
+                            + '&nbsp;/&nbsp;'
+                            + this._temperatureConvert(station.main.temp_max)
+                            + '&nbsp;' + this._displayTemperatureUnit() + '</div>';
+                    }
+                }
+            }
+            if (station.rain != null && typeof station.rain != 'undefined' && typeof station.rain['1h'] != 'undefined') {
+                txt += '<div class="owm-popup-detail">'
+                    + this.i18n('rain_1h', 'Rain (1h)')
+                    + ': ' + station.rain['1h'] + '&nbsp;ml</div>';
+            }
+            if (typeof station.wind != 'undefined') {
+                if (typeof station.wind.speed != 'undefined') {
+                    txt += '<div class="owm-popup-detail">';
+                    if (this.options.showWindSpeed == 'beaufort' || this.options.showWindSpeed == 'both') {
+                        txt += this.i18n('windforce', 'Wind Force')
+                            + ': ' + this._windMsToBft(station.wind.speed);
+                        if (this.options.showWindSpeed == 'both') {
+                            txt += '&nbsp;(' + this._convertSpeed(station.wind.speed) + '&nbsp;'
+                                + this._displaySpeedUnit() + ')';
+                        }
+                    } else {
+                        txt += this.i18n('wind', 'Wind') + ': '
+                            + this._convertSpeed(station.wind.speed) + '&nbsp;'
+                            + this._displaySpeedUnit();
+                    }
+                    txt += '</div>';
+                }
+                if (typeof station.wind.gust != 'undefined') {
+                    txt += '<div class="owm-popup-detail">';
+                    if (this.options.showWindSpeed == 'beaufort' || this.options.showWindSpeed == 'both') {
+                        txt += this.i18n('gust', 'Gust')
+                            + ': ' + this._windMsToBft(station.wind.gust);
+                        if (this.options.showWindSpeed == 'both') {
+                            txt += '&nbsp;(' + this._convertSpeed(station.wind.gust) + '&nbsp;'
+                                + this._displaySpeedUnit() + ')';
+                        }
+                    } else {
+                        txt += this.i18n('gust', 'Gust') + ': '
+                            + this._convertSpeed(station.wind.gust) + '&nbsp;'
+                            + this._displaySpeedUnit();
+                    }
+                    txt += '</div>';
+                }
+                if (typeof station.wind.deg != 'undefined') {
+                    txt += '<div class="owm-popup-detail">';
+                    txt += this.i18n('direction', 'Windrichtung') + ': ';
+                    if (this.options.showWindDirection == 'desc' || this.options.showWindDirection == 'both') {
+                        txt += this._directions[(station.wind.deg / 22.5).toFixed(0)];
+                        if (this.options.showWindDirection == 'both') {
+                            txt += '&nbsp;(' + station.wind.deg + '°)';
+                        }
+                    } else {
+                        txt += station.wind.deg + '°';
+                    }
+                    txt += '</div>';
+                }
+            }
+            if (typeof station.dt != 'undefined' && this.options.showTimestamp) {
+                txt += '<div class="owm-popup-timestamp">';
+                txt += '(' + this._convertTimestamp(station.dt) + ')';
+                txt += '</div>';
+            }
+            txt += '</div>';
         }
         return txt;
     },
