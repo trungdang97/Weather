@@ -1,0 +1,393 @@
+﻿CKEDITOR.replace('body');
+CKEDITOR.replace('body2');
+
+var NewsId = null, FilterText = "", NewsCategoryId = null, PageNumber = null, PageSize = null, FromDate = null, ToDate = null;
+
+var SeletedNewsId = [];
+
+$('#imgFile').hide();
+$('#imgFile2').hide();
+$('#checkImg').click(function () {
+    if ($('#imgFile').css("display") == "none") {
+        $('#imgFile').show();
+        $('#previewImgFile').show();
+    }
+    else {
+        $('#imgFile').hide();
+        $('#previewImgFile').hide();
+    }
+});
+$('#checkImg2').click(function () {
+    if ($('#imgFile2').css("display") == "none") {
+        $('#imgFile2').show();
+        $('#previewImgFile2').show();
+    }
+    else {
+        $('#imgFile2').hide();
+        $('#previewImgFile2').hide();
+    }
+});
+
+$('#imgFile').change(function () {
+    readURL(this, "#previewImgFile");
+    //$('#previewImgFile').attr("src", $('#imgFile').val());
+    $('#previewImgFile').show();
+});
+$('#imgFile2').change(function () {
+    readURL(this, "#previewImgFile2");
+    //$('#previewImgFile').attr("src", $('#imgFile').val());
+    $('#previewImgFile2').show();
+});
+
+function readURL(input, imgID) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(imgID).attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+    else if (input.files.length == 0) {
+        $(imgID).attr('src', '');
+    }
+}
+
+var News = {};
+async function Edit(EditBtn) {   
+    News = {};
+    News = await GetNewsById(EditBtn.value);
+    if (News.Thumbnail != null) {
+        if (!$('#checkImg2').is(":checked")) {
+            $('#checkImg2').click();
+        }
+        $('#previewImgFile2').attr("src", News.Thumbnail);
+        //$('#previewImgFile2').show();
+    }
+    
+    $("#MainContent_ListCategory2").val(News.NewsCategoryId);
+    $("#name2").val(News.Name);
+    $("#location2").val(News.Location);
+    $("#introduction2").val(News.Introduction);
+    CKEDITOR.instances.body2.setData(News.Body);
+}
+
+function DeleteMultiple() {
+    var postData = {};
+    postData.SeletedNewsId = SeletedNewsId;
+    $.ajax({
+        url: "/api/v1/news/add",
+        method: "POST",
+        contentType: "json",
+        data: JSON.stringify(postData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Thêm mới tin bài thành công!");
+            $("#BtnReset").click();
+            GetData();
+        },
+        error: function () {
+            alert("Thêm mới tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+    SeletedNewsId = [];
+    return;
+}
+
+$("#BtnReset").click(function () {
+    $('#imgFile').val("");
+    $('#previewImgFile').attr("src", "");
+    $('#exampleModal').modal('hide');
+    $('#MainContent_ListCategory').get(0).selectedIndex = 0;
+    $("#name").val("");
+    $("#location").val("");
+    $("#introduction").val("");
+    CKEDITOR.instances.body.setData('');
+
+    GetData();
+});
+
+$("#BtnReset2").click(function () {
+
+    $('#exampleModal2').modal('hide');
+    $('#MainContent_ListCategory2').get(0).selectedIndex = 0;
+    $("#name2").val("");
+    $("#location2").val("");
+    $("#introduction2").val("");
+    CKEDITOR.instances.body2.setData('');
+
+    GetData();
+});
+
+$("#FilterText").keyup(function () {
+    FilterText = $("#FilterText").val();
+    GetData();
+});
+
+$("#MainContent_OuterListCategory").change(function () {
+    NewsCategoryId = $("#MainContent_OuterListCategory").find(":selected").val();
+    GetData();
+});
+
+$("#BtnSave").click(function () {
+    var postData = {};
+    postData.Thumbnail = "";
+    if ($('#checkImg').is(":checked")) {
+        postData.Thumbnail = $("#previewImgFile").attr("src");
+    }
+    postData.Name = $("#name").val();
+    postData.NewsCategoryId = $("#MainContent_ListCategory").val();
+    postData.FinishedDate = null;
+    postData.Location = $("#location").val();;
+    postData.Introduction = $("#introduction").val();;
+    postData.Body = CKEDITOR.instances['body'].getData();
+    postData.CreatedByUserId = $("#UserId").val();
+
+    $.ajax({
+        url: "/api/v1/news/add",
+        method: "POST",
+        contentType: "json",
+        data: JSON.stringify(postData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Thêm mới tin bài thành công!");
+            $("#BtnReset").click();
+            GetData();
+        },
+        error: function () {
+            alert("Thêm mới tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+});
+
+$("#BtnSave2").click(function () {
+    var postData = {};
+    postData = News;
+    if ($('#checkImg2').is(":checked")) {
+        postData.Thumbnail = $("#previewImgFile2").attr("src");
+    }
+    else {
+        postData.Thumbnail = null;
+    }
+    postData.Name = $("#name2").val();
+    postData.NewsCategoryId = $("#MainContent_ListCategory2").val();
+    postData.FinishedDate = null;
+    postData.Location = $("#location2").val();;
+    postData.Introduction = $("#introduction2").val();;
+    postData.Body = CKEDITOR.instances['body2'].getData();
+
+    $.ajax({
+        url: "/api/v1/news/update",
+        method: "PUT",
+        contentType: "json",
+        data: JSON.stringify(postData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Cập nhật tin bài thành công!");
+            $("#BtnReset2").click();
+            GetData();
+        },
+        error: function () {
+            alert("Cập nhật tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+});
+
+$(document).ready(function () {
+    GetData();
+    //FormatDateTime("2019-07-04T18:03:58.2484073");
+
+});
+
+$('input[name="datefilter"]').daterangepicker({
+    autoUpdateInput: false,
+    locale: {
+        cancelLabel: 'Xóa',
+        applyLabel: 'Chọn',
+        "daysOfWeek": [
+            "CN",
+            "Hai",
+            "Ba",
+            "Tư",
+            "Năm",
+            "Sáu",
+            "Bảy"
+        ],
+        "monthNames": [
+            "Tháng 1",
+            "Tháng 2",
+            "Tháng 3",
+            "Tháng 4",
+            "Tháng 5",
+            "Tháng 6",
+            "Tháng 7",
+            "Tháng 8",
+            "Tháng 9",
+            "Tháng 10",
+            "Tháng 11",
+            "Tháng 12"
+        ],
+    }
+});
+
+$('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+    FromDate = new Date(picker.startDate._d);
+    ToDate = new Date(picker.endDate._d);
+    GetData();
+    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+});
+
+$('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+    $(this).val('');
+    FromDate = null;
+    ToDate = null;
+});
+
+function PrepareDelete(buttonClicked) {
+    NewsId = buttonClicked.value;
+}
+
+function Delete() {
+    $.ajax({
+        url: "/api/v1/news/delete?NewsId=" + NewsId,
+        method: "DELETE",
+        contentType: "json",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Xóa tin bài thành công!");
+            //$("#BtnReset").click();
+            GetData();
+        },
+        error: function () {
+            alert("Xóa tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+}
+
+function GetData() {
+    var postData = {};
+    postData.FilterText = FilterText;
+    postData.NewsCategoryId = NewsCategoryId;
+    postData.PageNumber = PageNumber;
+    postData.PageSize = PageSize;
+    postData.UserId = $("#UserId").val();
+    postData.FromDate = FromDate;
+    postData.ToDate = ToDate;
+
+    $.ajax({
+        url: "/api/v1/news/filter",
+        method: "POST",
+        contentType: "json",
+        data: JSON.stringify(postData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function (data) {
+            $("#table-body").html("");
+            if (data.length == 0) {
+                $("#table-body").html("<tr><td class='text-center' colspan='6'>Không có dữ liệu</td></tr>");
+                return;
+            }
+
+            for (var i = 0; i < data.length; i++) {
+                $("#table-body").append("<tr>"
+                    + "<td class='text-center'>"
+                    + "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
+                    + "</td>"
+                    + "<td>"
+                    + data[i].Name
+                    + "</td>"
+                    + "<td class='text-center'>"
+                    + data[i].NewsCategoryName
+                    + "</td>"
+                    + "<td class='text-center'>"
+                    + data[i].Location
+                    + "</td>"
+                    + "<td class='text-center'>"
+                    + FormatDateTime(data[i].CreatedOnDate)
+                    + "</td>"
+                    + "<td class='text-center'>"
+                    + data[i].Writer
+                    + "</td>"
+                    + "<td class='text-center'>"
+                    + "<button type='button' onclick='Edit(this)' value='" + data[i].NewsId + "' data-toggle='modal' data-target='#exampleModal2' style='background-color:deepskyblue;width:28px;height:28px;padding:4px;margin:5px' class='btn'><i style='font-size:20px;color:white' class='fa fa-edit'></i></button>"
+                    + "<button type='button' onclick='PrepareDelete(this)' data-toggle='modal' data-target='#myModal' value='" + data[i].NewsId + "' style='background-color:red;width:28px;height:28px;padding:4px;' class='btn'><i style='font-size:20px;color:white' class='fa fa-trash'></i></button>"
+                    + "</td>"
+                    + "</tr>"
+                );
+            }
+            //console.log(data);
+            //alert("Thêm mới tin bài thành công!");
+            //$("#BtnReset").click();
+        },
+        error: function () {
+            alert("Kết nối thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+}
+
+async function GetNewsById(NewsId) {
+    var news = {};
+    await $.ajax({
+        url: '/api/v1/news?NewsId=' + NewsId,
+        method: "GET",
+        contentType: "json",
+        success: function (data) {
+            news = data;
+        }, error: function () {
+            alert("Có lỗi xảy ra khi kết nối");
+        }
+    });
+    return news;
+}
+
+function FormatDateTime(datetime) {
+    var time = new Date(datetime);
+    var d, M, y, H, m, s;
+    if (time.getDate() < 10) {
+        d = '0' + time.getDate();
+    }
+    else {
+        d = time.getDate();
+    }
+    if (time.getMonth() < 10) {
+        M = '0' + time.getMonth();
+    }
+    else {
+        M = time.getMonth();
+    }
+    if (time.getHours() < 10) {
+        H = '0' + time.getHours();
+    }
+    else {
+        H = time.getHours();
+    }
+    if (time.getMinutes() < 10) {
+        m = '0' + time.getMinutes();
+    }
+    else {
+        m = time.getMinutes();
+    }
+    if (time.getSeconds() < 10) {
+        s = '0' + time.getSeconds();
+    }
+    else {
+        s = time.getSeconds();
+    }
+    var formattedString = d + "/" + M + "/" + time.getFullYear() + "<br/>" + H + ":" + m + ":" + s;
+    return formattedString;
+}

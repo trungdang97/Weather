@@ -11,6 +11,8 @@
     <Property Name="ShortName" Type="nvarchar" MaxLength="512" />
     <Property Name="NickName" Type="nvarchar" MaxLength="512" />
     <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="512" />
+    <Property Name="Email" Type="varchar" MaxLength="512" />
   </EntityType>
   <EntityType Name="aspnet_Rights">
     <Key>
@@ -43,6 +45,64 @@
     <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="128" Nullable="false" />
     <Property Name="SimpleAuth" Type="uniqueidentifier" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cms_API">
+    <Key>
+      <PropertyRef Name="APIId" />
+    </Key>
+    <Property Name="APIId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="APICode" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="DurationText" Type="nvarchar(max)" />
+    <Property Name="APITypeId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" />
+    <Property Name="Documentation" Type="nvarchar(max)" />
+    <Property Name="DocumentationLink" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cms_API_Membership_Relationship">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="APIId" Type="uniqueidentifier" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="FromDate" Type="date" />
+    <Property Name="ToDate" Type="date" />
+    <Property Name="TotalPrice" Type="int" />
+    <Property Name="AccessToken" Type="uniqueidentifier" />
+    <Property Name="AccessCode" Type="varchar" MaxLength="6" />
+  </EntityType>
+  <EntityType Name="cms_APIType">
+    <Key>
+      <PropertyRef Name="APITypeId" />
+    </Key>
+    <Property Name="APITypeId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cms_Bill">
+    <Key>
+      <PropertyRef Name="BillId" />
+    </Key>
+    <Property Name="BillId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TotalPrice" Type="int" Nullable="false" />
+    <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Paid" Type="bit" Nullable="false" />
+    <Property Name="PaidOnDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="cms_Bill_API">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="BillId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="APIId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FromDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="ToDate" Type="datetime2" Precision="7" Nullable="false" />
   </EntityType>
   <EntityType Name="cms_News">
     <Key>
@@ -116,6 +176,78 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_cms_API_cms_APIType">
+    <End Role="cms_APIType" Type="Self.cms_APIType" Multiplicity="1" />
+    <End Role="cms_API" Type="Self.cms_API" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_APIType">
+        <PropertyRef Name="APITypeId" />
+      </Principal>
+      <Dependent Role="cms_API">
+        <PropertyRef Name="APITypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_API_Membership_Relationship_aspnet_Membership">
+    <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
+    <End Role="cms_API_Membership_Relationship" Type="Self.cms_API_Membership_Relationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Membership">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="cms_API_Membership_Relationship">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_API_Membership_Relationship_cms_API">
+    <End Role="cms_API" Type="Self.cms_API" Multiplicity="0..1" />
+    <End Role="cms_API_Membership_Relationship" Type="Self.cms_API_Membership_Relationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_API">
+        <PropertyRef Name="APIId" />
+      </Principal>
+      <Dependent Role="cms_API_Membership_Relationship">
+        <PropertyRef Name="APIId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_Bill_API_cms_API">
+    <End Role="cms_API" Type="Self.cms_API" Multiplicity="1" />
+    <End Role="cms_Bill_API" Type="Self.cms_Bill_API" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_API">
+        <PropertyRef Name="APIId" />
+      </Principal>
+      <Dependent Role="cms_Bill_API">
+        <PropertyRef Name="APIId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_Bill_API_cms_Bill">
+    <End Role="cms_Bill" Type="Self.cms_Bill" Multiplicity="1" />
+    <End Role="cms_Bill_API" Type="Self.cms_Bill_API" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_Bill">
+        <PropertyRef Name="BillId" />
+      </Principal>
+      <Dependent Role="cms_Bill_API">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_Bill_aspnet_Membership">
+    <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="1" />
+    <End Role="cms_Bill" Type="Self.cms_Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Membership">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="cms_Bill">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_cms_News_aspnet_Membership">
     <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
     <End Role="cms_News" Type="Self.cms_News" Multiplicity="*" />
@@ -146,6 +278,11 @@
     <EntitySet Name="aspnet_Roles" EntityType="Self.aspnet_Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="aspnet_Roles_Rights_Relationship" EntityType="Self.aspnet_Roles_Rights_Relationship" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_API" EntityType="Self.cms_API" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_API_Membership_Relationship" EntityType="Self.cms_API_Membership_Relationship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_APIType" EntityType="Self.cms_APIType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_Bill" EntityType="Self.cms_Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_Bill_API" EntityType="Self.cms_Bill_API" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_News" EntityType="Self.cms_News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_NewsCategory" EntityType="Self.cms_NewsCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -160,6 +297,30 @@
     <AssociationSet Name="FK_aspnet_Roles_Rights_Relationship_aspnet_Roles" Association="Self.FK_aspnet_Roles_Rights_Relationship_aspnet_Roles">
       <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
       <End Role="aspnet_Roles_Rights_Relationship" EntitySet="aspnet_Roles_Rights_Relationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_API_cms_APIType" Association="Self.FK_cms_API_cms_APIType">
+      <End Role="cms_APIType" EntitySet="cms_APIType" />
+      <End Role="cms_API" EntitySet="cms_API" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_API_Membership_Relationship_aspnet_Membership" Association="Self.FK_cms_API_Membership_Relationship_aspnet_Membership">
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+      <End Role="cms_API_Membership_Relationship" EntitySet="cms_API_Membership_Relationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_API_Membership_Relationship_cms_API" Association="Self.FK_cms_API_Membership_Relationship_cms_API">
+      <End Role="cms_API" EntitySet="cms_API" />
+      <End Role="cms_API_Membership_Relationship" EntitySet="cms_API_Membership_Relationship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_Bill_API_cms_API" Association="Self.FK_cms_Bill_API_cms_API">
+      <End Role="cms_API" EntitySet="cms_API" />
+      <End Role="cms_Bill_API" EntitySet="cms_Bill_API" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_Bill_API_cms_Bill" Association="Self.FK_cms_Bill_API_cms_Bill">
+      <End Role="cms_Bill" EntitySet="cms_Bill" />
+      <End Role="cms_Bill_API" EntitySet="cms_Bill_API" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_Bill_aspnet_Membership" Association="Self.FK_cms_Bill_aspnet_Membership">
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+      <End Role="cms_Bill" EntitySet="cms_Bill" />
     </AssociationSet>
     <AssociationSet Name="FK_cms_News_aspnet_Membership" Association="Self.FK_cms_News_aspnet_Membership">
       <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />

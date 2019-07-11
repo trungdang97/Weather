@@ -8,7 +8,7 @@
     </asp:ContentPlaceHolder>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Quản lý tin bài</title>
+    <title>Quản lý nội dung</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -73,6 +73,19 @@
 
                         <ul class="nav navbar-nav">
                             <!-- User Account Menu -->
+                            <% if (HttpContext.Current.Session["User_RoleCode"] != null)
+                                {
+                                    if (HttpContext.Current.Session["User_RoleCode"].ToString() != "QTHT")
+                                    {
+                            %>
+                            <li class="user user-menu">
+                                <a href="#" onclick="GetUserInfo()" data-toggle="modal" data-target="#userInfo"><i class="fa fa-user"></i>&ensp;Thông tin người dùng</a>
+                            </li>
+                            <%
+                                    }
+                                }
+
+                            %>
                             <li class="user user-menu">
                                 <a href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đổi mật khẩu</a>
                             </li>
@@ -107,7 +120,12 @@
                         <li><a href="news.aspx"><i class="fa fa-link"></i><span>Tin bài cá nhân</span></a></li>
                         <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                             {
-                                Response.Write("<li><a href='admin.aspx'><i class='fa fa-link'></i><span>Quản trị người dùng</span></a></li>");
+                        %>
+                        <li><a href='admin.aspx'><i class='fa fa-link'></i><span>Quản trị người dùng</span></a></li>
+                        <li><a href='apimanager.aspx'><i class='fa fa-link'></i><span>Quản trị API</span></a></li>
+                        <li><a href='#'><i class='fa fa-link'></i><span>Quản trị danh mục cấu hình<br />
+                            (ongoing)</span></a></li>
+                        <%   
                             }
                         %>
                     </ul>
@@ -133,25 +151,71 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Mật khẩu cũ</label>
-                                <input class="form-control" id="OldPassword" type="password" name="oldpassword"/>
-                                <span id="OldPasswordWarning" style="color:red;display:none">(*)Mật khẩu cũ không đúng</span>
+                                <input class="form-control" id="OldPassword" type="password" name="oldpassword" />
+                                <span id="OldPasswordWarning" style="color: red; display: none">(*)Mật khẩu cũ không đúng</span>
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu mới</label>
-                                <input class="form-control" id="NewPassword" onfocus="CheckRepeat();ConfirmPassword()" onkeyup="CheckRepeat();ConfirmPassword()" type="password"/>
-                                <span id="NewPasswordWarning" style="color:red;display:none">(*) Mật khẩu mới không được giống mật khẩu cũ</span>
-                                <span id="NewPasswordWarningEmpty" style="color:red;display:none">(*) Mật khẩu mới không được để trống</span>
+                                <input class="form-control" id="NewPassword" onfocus="CheckRepeat();ConfirmPassword()" onkeyup="CheckRepeat();ConfirmPassword()" type="password" />
+                                <span id="NewPasswordWarning" style="color: red; display: none">(*) Mật khẩu mới không được giống mật khẩu cũ</span>
+                                <span id="NewPasswordWarningEmpty" style="color: red; display: none">(*) Mật khẩu mới không được để trống</span>
                             </div>
                             <div class="form-group">
                                 <label>Xác nhận mật khẩu mới</label>
-                                <input class="form-control" id="ConfirmNewPassword" onfocus="CheckRepeat();ConfirmPassword()" onkeyup="CheckRepeat();ConfirmPassword()" type="password" name="newpassword"/>
-                                <span id="ConfirmNewPasswordWarning" style="color:red;display:none"">(*) Mật khẩu xác nhận không khớp</span>
+                                <input class="form-control" id="ConfirmNewPassword" onfocus="CheckRepeat();ConfirmPassword()" onkeyup="CheckRepeat();ConfirmPassword()" type="password" name="newpassword" />
+                                <span id="ConfirmNewPasswordWarning" style="color: red; display: none">(*) Mật khẩu xác nhận không khớp</span>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             <%--<asp:Button runat="server" id="ChangePasswordBtn" CssClass="btn btn-primary" Text="Đổi mật khẩu"  OnClick="ChangePassword"/>--%>
                             <button type="button" id="ChangePasswordBtn" class="btn btn-primary" onclick="ChangePassword()">Đổi mật khẩu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade bd-example-modal-lg" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="exampleModalLabel" style="display: inline-block">Thêm mới người dùng</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: crimson; font-size: 50px">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="roles">Phân quyền người dùng<span class="required" style="color: red">(*)</span>:</label>
+                                <asp:DropDownList ID="ListRoles" runat="server" Height="25px" Width="200px" name="category" Enabled="false">
+                                    <asp:ListItem Text="-- Chọn quyền --" Value=""></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Tên tài khoản<span class="required" style="color: red">(*)</span>:</label>
+                                <input type="text" class="form-control" id="Username" placeholder="Tên tài khoản" disabled="disabled"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Tên đầy đủ<span class="required" style="color: red">(*)</span>:</label>
+                                <input type="text" class="form-control" id="FullName" placeholder="Tên đầy đủ" />
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Tên viết tắt/Bút danh<span class="required" style="color: red">(*)</span>:</label>
+                                <input type="text" class="form-control" id="ShortName" placeholder="Tên viết tắt / Bút danh" />
+                            </div>
+                            <div class="form-group">
+                                <label for="name">SDT<span class="required" style="color: red">(*)</span>:</label>
+                                <input type="tel" class="form-control" id="Phone" placeholder="SDT"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Email<span class="required" style="color: red">(*)</span>:</label>
+                                <input type="email" class="form-control" id="Email" placeholder="VD: contoso@gmail.com" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="BtnCancel" data-dismiss="modal" class="btn btn-danger">Hủy</button>
+                            <%--<asp:Button runat="server" OnClick="SaveBtn_click"/>--%>
+                            <button type="button" onclick="SaveUserInfo()" id="BtnSaveUser" class="btn btn-primary">Lưu</button>
                         </div>
                     </div>
                 </div>

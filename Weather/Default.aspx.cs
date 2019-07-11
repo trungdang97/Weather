@@ -11,7 +11,12 @@ namespace Weather
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if(HttpContext.Current.Session["User_Id"] == null)
+            {
+                HttpContext.Current.Session.Clear();
+            }
+            
+            //Response.Redirect("~/Default.aspx");
         }
     }
 }

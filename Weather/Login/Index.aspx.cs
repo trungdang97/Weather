@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Weather.Controllers;
 using Weather.Data;
 
 namespace Weather.Login
@@ -17,16 +18,23 @@ namespace Weather.Login
         public string Username { get; set; }
         public string FullName { get; set; }
         public string ShortName { get; set; }
+        public Guid RoleId { get; set; }
         public string RoleName { get; set; } 
         public string RoleCode { get; set; }
         public Guid SimpleAuth { get; set; }
-        public List<aspnet_Rights> Rights { get; set; }
+        public List<Right> Rights { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public bool IsActive { get; set; }
     }
     public partial class LoginForm : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (HttpContext.Current.Session["User_Id"] != null)
+            {
+                Response.Redirect("~/CMS/news");
+            }
         }
 
         protected void LoginBtn_click(object sender, EventArgs e)
@@ -48,7 +56,7 @@ namespace Weather.Login
             {
                 using(var context = new cms_VKTTVEntities())
                 {
-                    var query = context.aspnet_Users.Where(x => x.Username == username);
+                    var query = context.aspnet_Users.Where(x => x.Username == username && x.IsActive);
                     aspnet_Users user_ref = query.Count() == 0 ? null : query.First();
                     if(user_ref != null)
                     {
@@ -92,15 +100,20 @@ namespace Weather.Login
 
         public static User ConvertUser(aspnet_Membership asp_user, string username, List<aspnet_Rights> rights)
         {
-            User user = new User(){
+            User user = new User() {
                 UserId = asp_user.UserId,
                 FullName = asp_user.FullName,
                 ShortName = asp_user.ShortName,
                 Username = username,
                 RoleName = asp_user.aspnet_Roles.Name,
                 RoleCode = asp_user.aspnet_Roles.Description,
-                Rights = rights
+                Rights = new List<Right>()
             };
+            foreach(var r in rights)
+            {
+                user.Rights.Add(new Right(r));
+            }
+
             return user;
         }
 

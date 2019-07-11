@@ -33,5 +33,10 @@ namespace Weather.Data
         public virtual DbSet<cms_News> cms_News { get; set; }
         public virtual DbSet<cms_NewsCategory> cms_NewsCategory { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<cms_API> cms_API { get; set; }
+        public virtual DbSet<cms_API_Membership_Relationship> cms_API_Membership_Relationship { get; set; }
+        public virtual DbSet<cms_APIType> cms_APIType { get; set; }
+        public virtual DbSet<cms_Bill> cms_Bill { get; set; }
+        public virtual DbSet<cms_Bill_API> cms_Bill_API { get; set; }
     }
 }

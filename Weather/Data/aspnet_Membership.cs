@@ -18,6 +18,8 @@ namespace Weather.Data
         public aspnet_Membership()
         {
             this.cms_News = new HashSet<cms_News>();
+            this.cms_API_Membership_Relationship = new HashSet<cms_API_Membership_Relationship>();
+            this.cms_Bill = new HashSet<cms_Bill>();
         }
     
         public System.Guid UserId { get; set; }
@@ -27,9 +29,15 @@ namespace Weather.Data
         public string ShortName { get; set; }
         public string NickName { get; set; }
         public System.Guid RoleId { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
     
         public virtual aspnet_Roles aspnet_Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cms_News> cms_News { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cms_API_Membership_Relationship> cms_API_Membership_Relationship { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cms_Bill> cms_Bill { get; set; }
     }
 }

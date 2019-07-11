@@ -21,6 +21,22 @@ namespace Weather.CMS
             {
                 Response.Redirect("~/Login/Index");
             }
+            else
+            {
+                using (var db = new cms_VKTTVEntities())
+                {
+                    var roles = db.aspnet_Roles;
+                    foreach (var r in roles)
+                    {
+                        ListRoles.Items.Add(new ListItem()
+                        {
+                            Text = r.Name,
+                            Value = r.RoleId.ToString()
+                        });                       
+                    }
+
+                }
+            }
         }
 
         protected void Logout_Click(object sender, EventArgs e)

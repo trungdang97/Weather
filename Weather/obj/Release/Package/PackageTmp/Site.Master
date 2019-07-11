@@ -1,0 +1,249 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Weather.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> Trung tâm khí tượng thủy văn Việt Nam</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" type="text/css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="row">
+            <div class="container" style="padding-left: 0; padding-right: 0">
+                <div class="col-md-6" style="padding: 0">
+                    <img src="" alt="Your organization logo stands here" />
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <div class="row">
+                        <div class="pull-right" style="padding: 10px">
+                            <div class="col-md-4 new-nav-link-underline" style="width: auto !important">
+                                <a href="#">Thư nội bộ</a>
+                            </div>
+                            <div class="col-md-4 new-nav-link-underline" style="width: auto !important">
+                                <a href="#">Văn bản pháp quy</a>
+                            </div>
+                            <div class="col-md-4 new-nav-link-underline" style="width: auto !important">
+                                <a href="#">Liên kết website</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="pull-right" style="padding: 10px">
+                            <div class="col-md-3 new-nav-link-underline-active" style="width: auto !important">
+                                <h4><a href="Default.aspx" class="active font-weight bold">Trang chủ</a></h4>
+                            </div>
+                            <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
+                                <h4><a href="#">Giới thiệu</a></h4>
+                            </div>
+                            <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
+                                <h4><a href="#">Tin tức sự kiện</a></h4>
+                            </div>
+                            <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
+                                <h4><a href="#">Dịch vụ</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row nav-search">
+            <div class="container">
+                <div class="col-md-5" style="padding-top: 5px">
+                    <input type="text" class="input search-bar form-control" placeholder="Gõ để tra cứu thời tiết các tỉnh, thành phố..." />
+                </div>
+                <div class="col-md-2 force-margin">
+                    <a href="#" style="color: white; font-weight: bold"><i class="fas fa-location-arrow"></i>&ensp;Vị trí của tôi</a>
+                </div>
+                <div class="col-md-5 force-margin">
+                    <div class="pull-right" id="basicDateTime" style="color: white; font-weight: bold">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row nav-detail">
+            <div class="container">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="new-nav-link">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Thủy văn<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Đường dẫn 1</a></li>
+                                <li><a href="#">Đường dẫn 2</a></li>
+                                <li><a href="#">Đường dẫn 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="new-nav-link">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Hải văn<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Đường dẫn 1</a></li>
+                                <li><a href="#">Đường dẫn 2</a></li>
+                                <li><a href="#">Đường dẫn 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="new-nav-link">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Thủy văn Đặc biệt<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Đường dẫn 1</a></li>
+                                <li><a href="#">Đường dẫn 2</a></li>
+                                <li><a href="#">Đường dẫn 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="new-nav-link">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Phổ biến kiến thức<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Đường dẫn 1</a></li>
+                                <li><a href="#">Đường dẫn 2</a></li>
+                                <li><a href="#">Đường dẫn 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="new-nav-link">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Hỏi đáp về KTTV<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Đường dẫn 1</a></li>
+                                <li><a href="#">Đường dẫn 2</a></li>
+                                <li><a href="#">Đường dẫn 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="new-nav-link">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Nghiên cứu KH<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Đường dẫn 1</a></li>
+                                <li><a href="#">Đường dẫn 2</a></li>
+                                <li><a href="#">Đường dẫn 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="pull-right new-nav-link dropdown" style="padding: 15px 0px 15px;">
+                        <% if (HttpContext.Current.Session["User_Id"] == null)
+                            { %>
+                        <a href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="#">Đăng ký</a>
+                        <% } %>
+                        <% else
+                            { %>
+                            <a class="dropdown-toggle" id="userPanel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="Login/Index.aspx">Xin chào,&ensp;<% Response.Write(HttpContext.Current.Session["User_ShortName"]); %></a>
+                            <ul class="dropdown-menu dropdown-menu-tip-n" style="position:absolute;top:40px;" role="menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="CMS/news.aspx">Quản lý tin bài</a></li>
+                                <%--<li><a href="#">Quản lý tài khoản</a></li>--%>
+                                <li><i class="fa fa-sign-out"></i><a runat="server" id="LogoutBtn" onserverclick="Logout_Click" href="#">Đăng xuất</a></li>
+                            </ul>
+                        <% } %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+
+        </div>
+        <footer style="background-color: #3a3e45; margin-top: 50px">
+            <div class="row text-center">
+                <img style="border-radius: 10px; border: 2px solid silver; position: relative; top: -40px" width="100px" src="data:image/png;base64,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" />
+            </div>
+            <div class="row">
+                <div class="container">
+                    <br />
+                    <div class="col-md-6">
+                        <blockquote class="small" style="color: white; border-left: 5px solid lawngreen">
+                            <p>
+                                Trung tâm Dự báo khí tượng thủy văn quốc gia (Trung tâm DB KTTV QG - National Centre for Hydrometeorological Forecasting - NCHMF)
+                            là đơn vị trực thuộc Tổng cục Khí tượng Thủy văn, Bộ Tài nguyên và Môi trường.
+                            </p>
+                            <p>
+                                Trung tâm Dự báo khí tượng thủy văn quốc gia được thành lập theo quyết định 696/QĐ-BTNMT ngày 08 tháng 03 năm 2018 của Bộ Tài nguyên
+                                    và môi trường quy định nhiệm vụ, quyền hạn và cơ cấu tổ chức của Trung tâm Dự báo khí tượng thủy văn quốc gia.
+                            </p>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-6">
+                        <blockquote class="small" style="color: white; border-left: 5px solid lawngreen; padding: 0 5px;">
+                            Địa chỉ: Tầng 12, tòa nhà Trung tâm Điều hành tác nghiệp khí tượng thủy văn, số 8, phố Pháo Đài Láng, phường Láng Thượng,
+                            quận Đống Đa, thành phố Hà Nội
+                        </blockquote>
+                        <blockquote class="small" style="color: white; border-left: 5px solid lawngreen; padding: 0 5px; margin-bottom: 5px">
+                            Điện thoại: 84-4-32673199 - số máy lẻ: 701
+                        </blockquote>
+                        <blockquote class="small" style="color: white; border-left: 5px solid lawngreen; padding: 0 5px; margin-bottom: 15px">
+                            Email: vanphong@nchmf.gov.vn
+                        </blockquote>
+                        <div>
+                            <a href="http://facebook.com"><i class="fab fa-facebook-square sharing-media"></i></a>
+                            <a href="http://twitter.com"><i class="fab fa-twitter-square sharing-media"></i></a>
+                            <a href="http://instagram.com"><i class="fab fa-instagram sharing-media"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center" style="background-color: black; color: white; font-weight: bold; padding-top: 7px;">
+                <p>&copy; 2008 - Copyright by Trung tâm Dự báo khí tượng thủy văn quốc gia</p>
+            </div>
+        </footer>
+
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" style="display: inline-block"><i class="fa fa-key"></i>&ensp;Đăng nhập hệ thống</h3>
+                            <button type="button" class="close" style="display: inline-block; font-size: 30px" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên tài khoản</label>
+                                <input class="form-control" id="Username" type="text" name="username"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input class="form-control" id="Password" type="password" name="password"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <asp:Button runat="server" id="ChangePasswordBtn" CssClass="btn btn-primary" Text="Đăng nhập"  OnClick="LoginBtn_click"/>
+                            <%--<button type="button" id="ChangePasswordBtn" class="btn btn-primary" onclick="ChangePassword()">Đăng nhập</button>--%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+
+    <script src="Scripts/SiteMaster/script.js"></script>
+</body>
+</html>

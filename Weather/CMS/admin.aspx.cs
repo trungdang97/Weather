@@ -12,7 +12,11 @@ namespace Weather.CMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(HttpContext.Current.Session["User_RoleCode"].ToString() != "QTHT")
+            if (HttpContext.Current.Session["User_Id"] == null)
+            {
+                Response.Redirect("~/Login/Index");
+            }
+            else if (HttpContext.Current.Session["User_RoleCode"].ToString() != "QTHT")
             {
                 Response.Redirect("~/CMS/news.aspx");
             }
@@ -27,7 +31,18 @@ namespace Weather.CMS
                         Text = r.Name,
                         Value = r.RoleId.ToString()
                     });
+                    ListRoles2.Items.Add(new ListItem()
+                    {
+                        Text = r.Name,
+                        Value = r.RoleId.ToString()
+                    });
+                    ListRolesOutter.Items.Add(new ListItem()
+                    {
+                        Text = r.Name,
+                        Value = r.RoleId.ToString()
+                    });
                 }
+                
             }
         }
     }

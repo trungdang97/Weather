@@ -4,6 +4,8 @@
     <EntitySetMapping Name="aspnet_Membership">
       <EntityTypeMapping TypeName="cms_VKTTVModel.aspnet_Membership">
         <MappingFragment StoreEntitySet="aspnet_Membership">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
@@ -44,6 +46,7 @@
     <EntitySetMapping Name="aspnet_Users">
       <EntityTypeMapping TypeName="cms_VKTTVModel.aspnet_Users">
         <MappingFragment StoreEntitySet="aspnet_Users">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="SimpleAuth" ColumnName="SimpleAuth" />
@@ -86,6 +89,68 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cms_API">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_API">
+        <MappingFragment StoreEntitySet="cms_API">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="APICode" ColumnName="APICode" />
+          <ScalarProperty Name="DurationText" ColumnName="DurationText" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="DocumentationLink" ColumnName="DocumentationLink" />
+          <ScalarProperty Name="Documentation" ColumnName="Documentation" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="APITypeId" ColumnName="APITypeId" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="APIId" ColumnName="APIId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cms_API_Membership_Relationship">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_API_Membership_Relationship">
+        <MappingFragment StoreEntitySet="cms_API_Membership_Relationship">
+          <ScalarProperty Name="AccessCode" ColumnName="AccessCode" />
+          <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="APIId" ColumnName="APIId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cms_APIType">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_APIType">
+        <MappingFragment StoreEntitySet="cms_APIType">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="APITypeId" ColumnName="APITypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cms_Bill">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_Bill">
+        <MappingFragment StoreEntitySet="cms_Bill">
+          <ScalarProperty Name="PaidOnDate" ColumnName="PaidOnDate" />
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cms_Bill_API">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_Bill_API">
+        <MappingFragment StoreEntitySet="cms_Bill_API">
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="APIId" ColumnName="APIId" />
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

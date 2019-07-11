@@ -49,7 +49,7 @@ var ChangePassword = function () {
     postData.NewPassword = $("input[name=newpassword]").val();
     postData.UserId = $("#UserId").val();
     $.ajax({
-        url: "/api/v1/user/update",
+        url: "/api/v1/user/update/password",
         method: "PUT",
         contentType: "json",
         headers: {
@@ -75,4 +75,54 @@ var ChangePassword = function () {
 
 var ResetModal = function () {
 
+}
+
+var GetUserInfo = function () {
+    var id = $("#UserId").val();
+    $.ajax({
+        url: "/api/v1/user/single/" + id,
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+            //console.log(data);
+            $("#ListRoles").val(data.RoleId);
+            $("#FullName").val(data.FullName);
+            $("#ShortName").val(data.ShortName);
+            $("#Phone").val(data.Phone);
+            $("#Email").val(data.Email);
+            $("#Username").val(data.Username);
+        },
+        error: function () {
+            console.log("ERROR");
+        }
+    });
+}
+
+var SaveUserInfo = function () {
+    var postData = {};
+    postData.UserId = $("#UserId").val();
+    postData.FullName = $("#FullName").val();
+    postData.ShortName = $("#ShortName").val();
+    postData.Phone = $("#Phone").val();
+    postData.Email = $("#Email").val();
+    //console.log(postData);
+    $.ajax({
+        url: "/api/v1/user/update",
+        dataType: "json",
+        method: "PUT",
+        data: postData,
+        success: function () {
+            $("#userInfo").modal('hide');
+            alert("Cập nhật thông tin thành công!");
+            //$("#ListRoles").val(data.RoleId);
+            //$("#FullName").val(data.FullName);
+            //$("#ShortName").val(data.ShortName);
+            //$("#Phone").val(data.Phone);
+            //$("#Email").val(data.Email);
+            //$("#Username").val(data.Username);
+        },
+        error: function () {
+            console.log("ERROR");
+        }
+    });
 }

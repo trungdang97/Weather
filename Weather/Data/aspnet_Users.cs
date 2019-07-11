@@ -17,5 +17,6 @@ namespace Weather.Data
         public System.Guid UserId { get; set; }
         public string Username { get; set; }
         public Nullable<System.Guid> SimpleAuth { get; set; }
+        public bool IsActive { get; set; }
     }
 }

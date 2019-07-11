@@ -15,7 +15,7 @@ namespace Weather
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void Logout_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace Weather
             {
                 using (var context = new cms_VKTTVEntities())
                 {
-                    var query = context.aspnet_Users.Where(x => x.Username == username);
+                    var query = context.aspnet_Users.Where(x => x.Username == username && x.IsActive);
                     aspnet_Users user_ref = query.Count() == 0 ? null : query.First();
                     if (user_ref != null)
                     {

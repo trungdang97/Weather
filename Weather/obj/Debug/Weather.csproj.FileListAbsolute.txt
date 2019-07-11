@@ -167,7 +167,6 @@ C:\Users\Trung\Desktop\Weather\Weather\bin\System.Web.Mvc.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Trung\Desktop\Weather\Weather\obj\Debug\Weather.csprojAssemblyReference.cache
 C:\Users\Trung\Desktop\Weather\Weather\obj\Debug\Weather.csproj.CoreCompileInputs.cache
 C:\Users\Trung\Desktop\Weather\Weather\obj\Debug\Weather.csproj.CopyComplete
 C:\Users\Trung\Desktop\Weather\Weather\obj\Debug\Weather.dll
@@ -185,3 +184,4 @@ C:\Users\Trung\Desktop\Weather\Weather\bin\EntityFramework.SqlServer.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\System.Web.Cors.dll
 C:\Users\Trung\Desktop\Weather\Weather\bin\System.Web.Http.Cors.dll
 C:\Users\Trung\Desktop\Weather\Weather\bin\System.Web.Http.Cors.xml
+C:\Users\Trung\Desktop\Weather\Weather\obj\Debug\Weather.csprojAssemblyReference.cache

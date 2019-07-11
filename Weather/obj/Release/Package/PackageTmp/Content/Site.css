@@ -1,0 +1,186 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/*.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }*/
+
+.new-nav-link-underline a {
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+}
+
+.new-nav-link-underline:hover {
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    border-bottom: 2px solid blue;
+}
+
+.new-nav-link-underline-active a {
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+}
+
+.new-nav-link-underline-active {
+    border-bottom: 2px solid blue;
+}
+
+.new-nav-link a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.new-nav-control {
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+}
+
+    .new-nav-control:hover {
+        border-bottom: 1px solid black;
+    }
+
+.nav-search {
+    background-color: dodgerblue;
+    padding-bottom: 5px;
+}
+
+.nav-detail {
+    background-color: lightgrey;
+}
+
+.search-bar {
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px 0px 5px 20px;
+}
+
+.force-margin {
+    margin-top: 13px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.table-cell {
+    display: table-cell;
+    padding: 0;
+}
+
+.sharing-media {
+    font-size: 20px;
+    color: white;
+    padding-right: 25px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+select,
+textarea {
+    max-width: 280px;
+}
+
+.nav-force-style {
+    padding: 0px;
+}
+
+    .nav-force-style a {
+        padding: 0px;
+        color: white;
+        font-weight: bold;
+    }
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+[class*="dropdown-menu-tip-"]::after {
+    content: '';
+    position: absolute;
+    width: .5rem;
+    height: .5rem;
+    background-color: white;
+    border: solid 1px rgba(0, 0, 0, .15);
+    border-bottom: none;
+    border-left: none;
+}
+
+/* North */
+.dropdown-menu-tip-n::after {
+    top: calc(-.25rem - 1px);
+    left: calc(50% - .25rem);
+    transform: rotate(-45deg);
+}
+
+/* Northeast */
+.dropdown-menu-tip-ne::after {
+    top: calc(-.25rem - 1px);
+    right: 1rem;
+    transform: rotate(-45deg);
+}
+
+/* Northwest */
+.dropdown-menu-tip-nw::after {
+    top: calc(-.25rem - 1px);
+    left: 1rem;
+    transform: rotate(-45deg);
+}
+
+/* South */
+.dropdown-menu-tip-s::after {
+    left: calc(50% - .25rem);
+    bottom: calc(-.25rem - 1px);
+    transform: rotate(135deg);
+}
+
+/* Southeast */
+.dropdown-menu-tip-se::after {
+    right: 1rem;
+    bottom: calc(-.25rem - 1px);
+    transform: rotate(135deg);
+}
+
+/* Southwest */
+.dropdown-menu-tip-sw::after {
+    left: 1rem;
+    bottom: calc(-.25rem - 1px);
+    transform: rotate(135deg);
+}

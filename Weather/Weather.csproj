@@ -245,6 +245,8 @@
     <Content Include="App\owm_.ico" />
     <Content Include="CMS\admin.aspx" />
     <Content Include="CMS\admin.js" />
+    <Content Include="CMS\apimanager.aspx" />
+    <Content Include="CMS\apimanager.js" />
     <Content Include="CMS\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="CMS\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="CMS\bower_components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
@@ -573,6 +575,7 @@
     <Content Include="CMS\bower_components\ckeditor\.npm\assets\ckeditor4.png" />
     <Content Include="CMS\bower_components\ckeditor\adapters\jquery.js" />
     <Content Include="CMS\bower_components\ckeditor\ckeditor.js" />
+    <Content Include="CMS\bower_components\ckeditor\code_config.js" />
     <Content Include="CMS\bower_components\ckeditor\config.js" />
     <Content Include="CMS\bower_components\ckeditor\contents.css" />
     <Content Include="CMS\bower_components\ckeditor\lang\af.js" />
@@ -6677,6 +6680,7 @@
     <Content Include="Content\Default\demo.css" />
     <Content Include="Content\Default\normalize.css" />
     <Content Include="Content\Icons\kttv_logo.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Data\cms_VKTTV.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>cms_VKTTV.edmx</DependentUpon>
@@ -7345,6 +7349,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="gulpfile.js" />
     <Content Include="index.html" />
@@ -7431,6 +7436,13 @@
     <Compile Include="CMS\admin.aspx.designer.cs">
       <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CMS\apimanager.aspx.cs">
+      <DependentUpon>apimanager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMS\apimanager.aspx.designer.cs">
+      <DependentUpon>apimanager.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CMS\CMS.Master.cs">
       <DependentUpon>CMS.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7445,6 +7457,8 @@
     <Compile Include="CMS\news.aspx.designer.cs">
       <DependentUpon>news.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\APITypeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\aspnet_Membership.cs">
@@ -7460,6 +7474,21 @@
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\aspnet_Users.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_API.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_APIType.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_API_Membership_Relationship.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_Bill.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_Bill_API.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\cms_News.cs">
@@ -7535,7 +7564,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Login\JS\" />
   </ItemGroup>
   <ItemGroup>
