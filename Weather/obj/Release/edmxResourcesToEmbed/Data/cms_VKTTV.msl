@@ -112,6 +112,8 @@
     <EntitySetMapping Name="cms_API_Membership_Relationship">
       <EntityTypeMapping TypeName="cms_VKTTVModel.cms_API_Membership_Relationship">
         <MappingFragment StoreEntitySet="cms_API_Membership_Relationship">
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="AccessCode" ColumnName="AccessCode" />
           <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
           <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
@@ -126,14 +128,15 @@
     <EntitySetMapping Name="cms_APIType">
       <EntityTypeMapping TypeName="cms_VKTTVModel.cms_APIType">
         <MappingFragment StoreEntitySet="cms_APIType">
+          <ScalarProperty Name="TypeOrder" ColumnName="TypeOrder" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="APITypeId" ColumnName="APITypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="cms_Bill">
-      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_Bill">
-        <MappingFragment StoreEntitySet="cms_Bill">
+    <EntitySetMapping Name="cms_UserTransaction">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_UserTransaction">
+        <MappingFragment StoreEntitySet="cms_UserTransaction">
           <ScalarProperty Name="PaidOnDate" ColumnName="PaidOnDate" />
           <ScalarProperty Name="Paid" ColumnName="Paid" />
           <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
@@ -143,9 +146,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="cms_Bill_API">
-      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_Bill_API">
-        <MappingFragment StoreEntitySet="cms_Bill_API">
+    <EntitySetMapping Name="cms_UserTransaction_API">
+      <EntityTypeMapping TypeName="cms_VKTTVModel.cms_UserTransaction_API">
+        <MappingFragment StoreEntitySet="cms_UserTransaction_API">
+          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="ToDate" ColumnName="ToDate" />
           <ScalarProperty Name="FromDate" ColumnName="FromDate" />
           <ScalarProperty Name="APIId" ColumnName="APIId" />

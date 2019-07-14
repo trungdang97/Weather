@@ -365,10 +365,10 @@ function FormatDateTime(datetime) {
         d = time.getDate();
     }
     if (time.getMonth() < 10) {
-        M = '0' + time.getMonth();
+        M = '0' + (time.getMonth() + 1);
     }
     else {
-        M = time.getMonth();
+        M = (time.getMonth() + 1);
     }
     if (time.getHours() < 10) {
         H = '0' + time.getHours();
