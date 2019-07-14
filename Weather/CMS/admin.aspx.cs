@@ -18,7 +18,7 @@ namespace Weather.CMS
             }
             else if (HttpContext.Current.Session["User_RoleCode"].ToString() != "QTHT")
             {
-                Response.Redirect("~/CMS/news.aspx");
+                Response.Redirect("~/Login/Index");
             }
 
             using (var db = new cms_VKTTVEntities())

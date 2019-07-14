@@ -44,7 +44,7 @@
         <style>
             
         </style>
-
+        <input id="UserId" value="<% if(Session["User_Id"]!=null) Response.Write(Session["User_Id"].ToString()); %>" hidden/>
         <div class="row">
             <div class="container" style="padding-left: 0; padding-right: 0">
                 <div class="col-md-6" style="padding-top: 15px">
@@ -102,61 +102,21 @@
         <div class="row nav-detail">
             <div class="container">
                 <div class="navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="new-nav-link">
+                    <ul class="nav navbar-nav" id="TopNav">
+                        <%--<li class="new-nav-link">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Thủy văn<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Đường dẫn 1</a></li>
                                 <li><a href="#">Đường dẫn 2</a></li>
                                 <li><a href="#">Đường dẫn 3</a></li>
                             </ul>
-                        </li>
-                        <li class="new-nav-link">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Hải văn<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Đường dẫn 1</a></li>
-                                <li><a href="#">Đường dẫn 2</a></li>
-                                <li><a href="#">Đường dẫn 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="new-nav-link">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Thủy văn Đặc biệt<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Đường dẫn 1</a></li>
-                                <li><a href="#">Đường dẫn 2</a></li>
-                                <li><a href="#">Đường dẫn 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="new-nav-link">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Phổ biến kiến thức<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Đường dẫn 1</a></li>
-                                <li><a href="#">Đường dẫn 2</a></li>
-                                <li><a href="#">Đường dẫn 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="new-nav-link">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Hỏi đáp về KTTV<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Đường dẫn 1</a></li>
-                                <li><a href="#">Đường dẫn 2</a></li>
-                                <li><a href="#">Đường dẫn 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="new-nav-link">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" runat="server" href="#">Nghiên cứu KH<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Đường dẫn 1</a></li>
-                                <li><a href="#">Đường dẫn 2</a></li>
-                                <li><a href="#">Đường dẫn 3</a></li>
-                            </ul>
-                        </li>
+                        </li>--%>
                     </ul>
                     <div class="pull-right new-nav-link dropdown" style="padding: 15px 0px 15px;">
                         <% if (HttpContext.Current.Session["User_Id"] == null)
                             {
                         %>
-                        <a href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="#">Đăng ký</a>
+                        <a id="LoginModal" href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="login/register.aspx">Đăng ký</a>
                         <%
                             }
                         %>
@@ -165,7 +125,16 @@
                             { %>
                         <a class="dropdown-toggle" id="userPanel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="Login/Index.aspx">Xin chào,&ensp;<% Response.Write(HttpContext.Current.Session["User_ShortName"]); %></a>
                         <ul class="dropdown-menu dropdown-menu-tip-n" style="position: absolute; top: 40px;" role="menu" aria-labelledby="dropdownMenu1">
+                            <% if (((List<string>)Session["User_RightsCode"]).Contains("APICONSUMER"))
+                                { %>
+                            <li><a href="CMS/service-manager.aspx">Quản lý dịch vụ</a></li>
+                            <%  
+                                }%>
+                            <% if (((List<string>)Session["User_RightsCode"]).Contains("VIETTIN"))
+                                { %>
                             <li><a href="CMS/news.aspx">Quản lý tin bài</a></li>
+                            <%  
+                                }%>
                             <%--<li><a href="#">Quản lý tài khoản</a></li>--%>
                             <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                                 { %>

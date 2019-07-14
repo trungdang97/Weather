@@ -45,9 +45,16 @@ namespace Weather.CMS
             {
                 Response.Redirect("~/Login/Index.aspx");
             }
-            using (var db = new cms_VKTTVEntities()) {
+
+            var rights = (List<string>)Session["User_RightsCode"];
+            if (!rights.Contains("VIETTIN"))
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+            using (var db = new cms_VKTTVEntities())
+            {
                 var category = db.cms_NewsCategory.ToList();
-                foreach(var c in category)
+                foreach (var c in category)
                 {
                     ListCategory.Items.Add(new ListItem()
                     {
@@ -65,19 +72,19 @@ namespace Weather.CMS
                         Value = c.NewsCategoryId.ToString()
                     });
                 }
-                
+
             }
             if (!this.IsPostBack)
             {
                 var filter = new Filter();
                 //GetData(filter);
-                
+
             }
         }
 
         void GetData(Filter filter)
         {
-            
+
         }
 
         protected void SaveBtn_click(object sender, EventArgs e)

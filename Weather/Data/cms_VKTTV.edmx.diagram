@@ -24,11 +24,11 @@
         <AssociationConnector Association="cms_VKTTVModel.FK_cms_API_Membership_Relationship_aspnet_Membership" />
         <AssociationConnector Association="cms_VKTTVModel.FK_cms_API_cms_APIType" />
         <AssociationConnector Association="cms_VKTTVModel.FK_cms_API_Membership_Relationship_cms_API" />
-        <EntityTypeShape EntityType="cms_VKTTVModel.cms_Bill" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="cms_VKTTVModel.cms_Bill_API" Width="1.5" PointX="7.5" PointY="9.25" />
-        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Bill_aspnet_Membership" />
-        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Bill_API_cms_API" />
-        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Bill_API_cms_Bill" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_UserTransaction" Width="1.5" PointX="5.25" PointY="13" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_UserTransaction_API" Width="1.5" PointX="7.5" PointY="12.375" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_UserTransaction_aspnet_Membership" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_API" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_UserTransaction" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

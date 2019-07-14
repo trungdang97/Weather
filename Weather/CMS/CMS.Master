@@ -8,7 +8,7 @@
     </asp:ContentPlaceHolder>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Quản lý nội dung</title>
+    <title>Quản lý nội dung - </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -117,7 +117,18 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">MENU</li>
                         <!-- Optionally, you can add icons to the links -->
+                        <% if (((List<string>)Session["User_RightsCode"]).Contains("APICONSUMER"))
+                            {
+                        %>
+                        <li><a href="service-manager.aspx"><i class="fa fa-link"></i><span>Quản lý dịch vụ</span></a></li>
+                        <%  }
+                        %>
+                        <% if (((List<string>)Session["User_RightsCode"]).Contains("VIETTIN"))
+                            {
+                        %>
                         <li><a href="news.aspx"><i class="fa fa-link"></i><span>Tin bài cá nhân</span></a></li>
+                        <%  }
+                        %>
                         <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                             {
                         %>
@@ -193,7 +204,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Tên tài khoản<span class="required" style="color: red">(*)</span>:</label>
-                                <input type="text" class="form-control" id="Username" placeholder="Tên tài khoản" disabled="disabled"/>
+                                <input type="text" class="form-control" id="Username" placeholder="Tên tài khoản" disabled="disabled" />
                             </div>
                             <div class="form-group">
                                 <label for="name">Tên đầy đủ<span class="required" style="color: red">(*)</span>:</label>
@@ -205,7 +216,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">SDT<span class="required" style="color: red">(*)</span>:</label>
-                                <input type="tel" class="form-control" id="Phone" placeholder="SDT"/>
+                                <input type="tel" class="form-control" id="Phone" placeholder="SDT" />
                             </div>
                             <div class="form-group">
                                 <label for="name">Email<span class="required" style="color: red">(*)</span>:</label>

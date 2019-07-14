@@ -12,15 +12,16 @@ namespace Weather.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class cms_Bill_API
+    public partial class cms_UserTransaction_API
     {
         public System.Guid Id { get; set; }
         public System.Guid BillId { get; set; }
         public System.Guid APIId { get; set; }
         public System.DateTime FromDate { get; set; }
         public System.DateTime ToDate { get; set; }
+        public int Price { get; set; }
     
         public virtual cms_API cms_API { get; set; }
-        public virtual cms_Bill cms_Bill { get; set; }
+        public virtual cms_UserTransaction cms_UserTransaction { get; set; }
     }
 }

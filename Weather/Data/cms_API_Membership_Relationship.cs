@@ -17,11 +17,13 @@ namespace Weather.Data
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> APIId { get; set; }
         public Nullable<System.Guid> UserId { get; set; }
-        public Nullable<System.DateTime> FromDate { get; set; }
-        public Nullable<System.DateTime> ToDate { get; set; }
+        public System.DateTime FromDate { get; set; }
+        public System.DateTime ToDate { get; set; }
         public Nullable<int> TotalPrice { get; set; }
-        public Nullable<System.Guid> AccessToken { get; set; }
+        public System.Guid AccessToken { get; set; }
         public string AccessCode { get; set; }
+        public bool IsActive { get; set; }
+        public bool Disabled { get; set; }
     
         public virtual aspnet_Membership aspnet_Membership { get; set; }
         public virtual cms_API cms_API { get; set; }

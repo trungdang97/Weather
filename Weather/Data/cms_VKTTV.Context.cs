@@ -36,7 +36,7 @@ namespace Weather.Data
         public virtual DbSet<cms_API> cms_API { get; set; }
         public virtual DbSet<cms_API_Membership_Relationship> cms_API_Membership_Relationship { get; set; }
         public virtual DbSet<cms_APIType> cms_APIType { get; set; }
-        public virtual DbSet<cms_Bill> cms_Bill { get; set; }
-        public virtual DbSet<cms_Bill_API> cms_Bill_API { get; set; }
+        public virtual DbSet<cms_UserTransaction> cms_UserTransaction { get; set; }
+        public virtual DbSet<cms_UserTransaction_API> cms_UserTransaction_API { get; set; }
     }
 }

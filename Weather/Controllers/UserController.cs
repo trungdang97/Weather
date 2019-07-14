@@ -228,6 +228,70 @@ namespace Weather.Controllers
             }
             return false;
         }
+
+        [HttpPost]
+        [Route("api/v1/user/register")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<string> RegisterAccount([FromBody]UserRegistrationRequestModel model)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var UsernameValid = db.aspnet_Users.Where(x => x.Username == model.Username).ToList();
+                var PhoneValid = db.aspnet_Membership.Where(x => x.Phone == model.Phone).ToList();
+                List<string> error = new List<string>();
+                if (UsernameValid.Count > 0)
+                {
+                    error.Add("Tên tài khoản đã được sử dụng!");
+                }
+                if (PhoneValid.Count > 0)
+                {
+                    error.Add("Số điện thoại đã được sử dụng!");
+                }
+                if(UsernameValid.Count > 0 || PhoneValid.Count > 0)
+                {
+                    return error;
+                }
+
+                aspnet_Users user = new aspnet_Users()
+                {
+                    UserId = Guid.NewGuid(),
+                    Username = model.Username,
+                    IsActive = true,
+                    SimpleAuth = Guid.NewGuid()
+                };
+
+                var salt = Salt.CreateSalt(64);
+                var normalRoleId = db.aspnet_Roles.Where(x => x.Description == "USER").First().RoleId;
+                aspnet_Membership membership = new aspnet_Membership()
+                {
+                    UserId = user.UserId,
+                    FullName = model.FullName,
+                    ShortName = model.ShortName,
+                    PasswordSalt = salt,
+                    Password = ComputeSha256Hash(model.Password + salt),
+                    Phone = model.Phone,
+                    RoleId = normalRoleId
+                };
+
+                db.aspnet_Users.Add(user);
+                db.aspnet_Membership.Add(membership);
+                db.SaveChanges();
+
+                error.Add("OK. No errors.");
+                return error;
+            }
+        }
+    }
+
+    public class UserRegistrationRequestModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FullName { get; set; }
+        public string ShortName { get; set; }
+        //public string Email { get; set; }
+        public string Phone { get; set; }
+        public Guid RoleId { get; set; }
     }
     
     public class UserFilter

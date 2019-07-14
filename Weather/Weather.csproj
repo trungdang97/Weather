@@ -6670,6 +6670,8 @@
     <Content Include="CMS\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="CMS\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="CMS\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="CMS\service-manager.aspx" />
+    <Content Include="CMS\service-manager.js" />
     <Content Include="CMS\starter.html" />
     <Content Include="CMS\news.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -6692,8 +6694,8 @@
       <LastGenOutput>cms_VKTTV.cs</LastGenOutput>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Login\CSS\CookedCrazyCrayfish-poster.jpg" />
-    <Content Include="Login\CSS\sky-1467177_1280.jpg" />
+    <Content Include="login\CSS\CookedCrazyCrayfish-poster.jpg" />
+    <Content Include="login\CSS\sky-1467177_1280.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="dateprogressbar.css" />
     <Content Include="dateprogressbar.js" />
@@ -6711,8 +6713,10 @@
     <Content Include="leafletVelocity\demo\wind-gbr.json" />
     <Content Include="leafletVelocity\demo\wind-global.json" />
     <Content Include="libman.json" />
-    <Content Include="Login\Index.aspx" />
-    <Content Include="Login\CSS\Index.css" />
+    <Content Include="login\index.aspx" />
+    <Content Include="login\CSS\Index.css" />
+    <Content Include="login\JS\register.js" />
+    <Content Include="login\register.aspx" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="CMS\CMS.Master" />
@@ -7457,7 +7461,15 @@
     <Compile Include="CMS\news.aspx.designer.cs">
       <DependentUpon>news.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CMS\service-manager.aspx.cs">
+      <DependentUpon>service-manager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMS\service-manager.aspx.designer.cs">
+      <DependentUpon>service-manager.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\APIRegisterController.cs" />
     <Compile Include="Controllers\APITypeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -7485,16 +7497,16 @@
     <Compile Include="Data\cms_API_Membership_Relationship.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\cms_Bill.cs">
-      <DependentUpon>cms_VKTTV.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\cms_Bill_API.cs">
-      <DependentUpon>cms_VKTTV.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\cms_News.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\cms_NewsCategory.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_UserTransaction.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_UserTransaction_API.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\cms_VKTTV.Context.cs">
@@ -7525,11 +7537,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Login\Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="login\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Login\Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="login\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login\register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login\register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -7564,7 +7583,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Login\JS\" />
+    <Folder Include="Views\APIRegister\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -62,6 +62,28 @@ namespace Weather.Controllers
         public bool IsActive { get; set; }
         public string APITypeName { get; set; }
     }
+    public class APIUserResponseModel
+    {
+        public Guid APIId { get; set; }
+        public string Name { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class UserTransactionResponseModel
+    {
+        public Guid BillId { get; set; }
+        //public Guid UserId { get; set; }
+        public int TotalPrice { get; set; }
+        public DateTime CreatedOnDate { get; set; }
+        public List<UserTransactionResponseDetailModel> LstAPI { get; set; }
+    }
+    public class UserTransactionResponseDetailModel
+    {
+        public string APIName { get; set; }
+        public int Price { get; set; }
+    }
 
     public class APIController : ApiController
     {
@@ -78,10 +100,46 @@ namespace Weather.Controllers
             var models = db.cms_API.Where(x => x.Name.Contains(filter.FilterText) || x.DurationText.Contains(filter.FilterText));
             if (filter.APITypeId.HasValue)
             {
-                models = models.Where(x => x.APITypeId == filter.APITypeId);
+                models = models.Where(x => x.APITypeId == filter.APITypeId && x.IsActive);
             }
 
-            lstAPI = models.OrderBy(x => x.cms_APIType.Name).Select(Convert).ToList();
+            lstAPI = models.OrderBy(x => x.cms_APIType.Name).ThenBy(x => x.Name).Select(Convert).ToList();
+            return lstAPI;
+        }
+
+        // GET: api/API
+        [HttpGet]
+        [Route("api/v1/API/list")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<APIUserResponseModel> GetFilter(Guid userid)
+        {
+            bool needToSave = false;
+            List<APIUserResponseModel> lstAPI = new List<APIUserResponseModel>();
+            var models = db.cms_API_Membership_Relationship.Where(x => x.UserId == userid).Include(x => x.cms_API);
+            foreach (var m in models)
+            {
+                var api = db.cms_API.Where(x => x.APIId == m.APIId).First();
+                APIUserResponseModel item = new APIUserResponseModel()
+                {
+                    APIId = api.APIId,
+                    Name = api.Name,
+                    FromDate = m.FromDate,
+                    ToDate = m.ToDate,
+                    IsActive = DateTime.Now < m.ToDate ? true : false
+                };
+                lstAPI.Add(item);
+                if (!lstAPI.Last().IsActive)
+                {
+                    var rel = db.cms_API_Membership_Relationship.Where(x => x.UserId == userid && x.APIId == item.APIId).First();
+                    rel.IsActive = false;
+                    needToSave = true;
+                }
+            }
+            if (needToSave)
+            {
+                db.SaveChanges();
+            }
+
             return lstAPI;
         }
 
@@ -162,9 +220,45 @@ namespace Weather.Controllers
         {
             var api = db.cms_API.Where(x => x.APIId == id).First();
             api.IsActive = !api.IsActive;
+            var rel = db.cms_API_Membership_Relationship.Where(x => x.APIId == id);
+            foreach (var r in rel)
+            {
+                r.Disabled = !api.IsActive; // disable các API bị khóa
+            }
             db.SaveChanges();
 
             return Convert(api);
+        }
+
+        [HttpGet]
+        [Route("api/v1/API/transaction")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<UserTransactionResponseModel> GetTransaction(Guid userid)
+        {
+            var trans = db.cms_UserTransaction.Where(x => x.UserId == userid).OrderByDescending(x => x.CreatedOnDate).Take(10);
+            List<UserTransactionResponseModel> LstTrans = new List<UserTransactionResponseModel>();
+            foreach(var t in trans)
+            {
+                LstTrans.Add(new UserTransactionResponseModel()
+                {
+                    BillId = t.BillId,
+                    CreatedOnDate = t.CreatedOnDate,
+                    TotalPrice = t.TotalPrice,
+                    LstAPI = new List<UserTransactionResponseDetailModel>()
+                });
+                var detail = db.cms_UserTransaction_API.Where(x => x.BillId == t.BillId);
+                foreach(var d in detail)
+                {
+                    var api = db.cms_API.Where(x => x.APIId == d.APIId).First();
+                    LstTrans.Last().LstAPI.Add(new UserTransactionResponseDetailModel()
+                    {
+                        APIName = api.Name,
+                        Price = d.Price
+                    });
+                }
+            }
+
+            return LstTrans;
         }
 
         private APIResponseModel Convert(cms_API model)
@@ -176,10 +270,10 @@ namespace Weather.Controllers
                 Body = model.Body,
                 Documentation = model.Documentation,
                 DocumentationLink = model.DocumentationLink,
-                Duration = model.Duration.Value,
+                Duration = model.Duration,
                 DurationText = model.DurationText,
                 Name = model.Name,
-                Price = model.Price.Value,
+                Price = model.Price,
                 APICode = model.APICode,
                 IsActive = model.IsActive,
                 APITypeName = model.cms_APIType.Name

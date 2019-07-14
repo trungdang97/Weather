@@ -18,6 +18,17 @@
         <AssociationConnector Association="cms_VKTTVModel.FK_aspnet_Roles_Rights_Relationship_aspnet_Rights" ManuallyRouted="false" />
         <AssociationConnector Association="cms_VKTTVModel.FK_aspnet_Roles_Rights_Relationship_aspnet_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="cms_VKTTVModel.FK_cms_News_cms_NewsCategory" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_API" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_API_Membership_Relationship" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_APIType" Width="1.5" PointX="0.75" PointY="12.25" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_API_Membership_Relationship_aspnet_Membership" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_API_cms_APIType" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_API_Membership_Relationship_cms_API" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_Bill" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="cms_VKTTVModel.cms_Bill_API" Width="1.5" PointX="7.5" PointY="9.25" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Bill_aspnet_Membership" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Bill_API_cms_API" />
+        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Bill_API_cms_Bill" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

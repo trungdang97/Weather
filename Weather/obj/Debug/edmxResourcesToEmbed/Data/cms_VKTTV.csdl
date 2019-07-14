@@ -13,10 +13,10 @@
     <Property Name="RoleId" Type="Guid" Nullable="false" />
     <NavigationProperty Name="aspnet_Roles" Relationship="Self.FK_aspnet_Membership_aspnet_Roles" FromRole="aspnet_Membership" ToRole="aspnet_Roles" />
     <NavigationProperty Name="cms_News" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_News" />
-    <Property Name="Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="cms_API_Membership_Relationship" Relationship="cms_VKTTVModel.FK_cms_API_Membership_Relationship_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_API_Membership_Relationship" />
-    <NavigationProperty Name="cms_Bill" Relationship="cms_VKTTVModel.FK_cms_Bill_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_Bill" />
+    <NavigationProperty Name="cms_UserTransaction" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_UserTransaction" />
   </EntityType>
   <EntityType Name="aspnet_Rights">
     <Key>
@@ -199,19 +199,19 @@
       <End Role="cms_API" EntitySet="cms_API" />
       <End Role="cms_API_Membership_Relationship" EntitySet="cms_API_Membership_Relationship" />
     </AssociationSet>
-    <EntitySet Name="cms_Bill" EntityType="cms_VKTTVModel.cms_Bill" />
-    <EntitySet Name="cms_Bill_API" EntityType="cms_VKTTVModel.cms_Bill_API" />
-    <AssociationSet Name="FK_cms_Bill_aspnet_Membership" Association="cms_VKTTVModel.FK_cms_Bill_aspnet_Membership">
+    <EntitySet Name="cms_UserTransaction" EntityType="cms_VKTTVModel.cms_UserTransaction" />
+    <EntitySet Name="cms_UserTransaction_API" EntityType="cms_VKTTVModel.cms_UserTransaction_API" />
+    <AssociationSet Name="FK_cms_UserTransaction_aspnet_Membership" Association="cms_VKTTVModel.FK_cms_UserTransaction_aspnet_Membership">
       <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
-      <End Role="cms_Bill" EntitySet="cms_Bill" />
+      <End Role="cms_UserTransaction" EntitySet="cms_UserTransaction" />
     </AssociationSet>
-    <AssociationSet Name="FK_cms_Bill_API_cms_API" Association="cms_VKTTVModel.FK_cms_Bill_API_cms_API">
+    <AssociationSet Name="FK_cms_UserTransaction_API_cms_API" Association="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_API">
       <End Role="cms_API" EntitySet="cms_API" />
-      <End Role="cms_Bill_API" EntitySet="cms_Bill_API" />
+      <End Role="cms_UserTransaction_API" EntitySet="cms_UserTransaction_API" />
     </AssociationSet>
-    <AssociationSet Name="FK_cms_Bill_API_cms_Bill" Association="cms_VKTTVModel.FK_cms_Bill_API_cms_Bill">
-      <End Role="cms_Bill" EntitySet="cms_Bill" />
-      <End Role="cms_Bill_API" EntitySet="cms_Bill_API" />
+    <AssociationSet Name="FK_cms_UserTransaction_API_cms_UserTransaction" Association="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_UserTransaction">
+      <End Role="cms_UserTransaction" EntitySet="cms_UserTransaction" />
+      <End Role="cms_UserTransaction_API" EntitySet="cms_UserTransaction_API" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="cms_API">
@@ -219,19 +219,19 @@
       <PropertyRef Name="APIId" />
     </Key>
     <Property Name="APIId" Type="Guid" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Duration" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
     <Property Name="APITypeId" Type="Guid" Nullable="false" />
     <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Documentation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="DocumentationLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="cms_APIType" Relationship="cms_VKTTVModel.FK_cms_API_cms_APIType" FromRole="cms_API" ToRole="cms_APIType" />
     <NavigationProperty Name="cms_API_Membership_Relationship" Relationship="cms_VKTTVModel.FK_cms_API_Membership_Relationship_cms_API" FromRole="cms_API" ToRole="cms_API_Membership_Relationship" />
-    <Property Name="Price" Type="Int32" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
     <Property Name="DurationText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="APICode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="APICode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="cms_Bill_API" Relationship="cms_VKTTVModel.FK_cms_Bill_API_cms_API" FromRole="cms_API" ToRole="cms_Bill_API" />
+    <NavigationProperty Name="cms_UserTransaction_API" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_API" FromRole="cms_API" ToRole="cms_UserTransaction_API" />
   </EntityType>
   <EntityType Name="cms_API_Membership_Relationship">
     <Key>
@@ -240,13 +240,15 @@
     <Property Name="Id" Type="Guid" Nullable="false" />
     <Property Name="APIId" Type="Guid" />
     <Property Name="UserId" Type="Guid" />
-    <Property Name="FromDate" Type="DateTime" Precision="0" />
-    <Property Name="ToDate" Type="DateTime" Precision="0" />
+    <Property Name="FromDate" Type="DateTime" Precision="0" Nullable="false" />
+    <Property Name="ToDate" Type="DateTime" Precision="0" Nullable="false" />
     <Property Name="TotalPrice" Type="Int32" />
-    <Property Name="AccessToken" Type="Guid" />
-    <Property Name="AccessCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="AccessToken" Type="Guid" Nullable="false" />
+    <Property Name="AccessCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="aspnet_Membership" Relationship="cms_VKTTVModel.FK_cms_API_Membership_Relationship_aspnet_Membership" FromRole="cms_API_Membership_Relationship" ToRole="aspnet_Membership" />
     <NavigationProperty Name="cms_API" Relationship="cms_VKTTVModel.FK_cms_API_Membership_Relationship_cms_API" FromRole="cms_API_Membership_Relationship" ToRole="cms_API" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Disabled" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="cms_APIType">
     <Key>
@@ -255,6 +257,7 @@
     <Property Name="APITypeId" Type="Guid" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="cms_API" Relationship="cms_VKTTVModel.FK_cms_API_cms_APIType" FromRole="cms_APIType" ToRole="cms_API" />
+    <Property Name="TypeOrder" Type="Int32" />
   </EntityType>
   <Association Name="FK_cms_API_Membership_Relationship_aspnet_Membership">
     <End Type="cms_VKTTVModel.aspnet_Membership" Role="aspnet_Membership" Multiplicity="0..1" />
@@ -292,7 +295,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="cms_Bill">
+  <EntityType Name="cms_UserTransaction">
     <Key>
       <PropertyRef Name="BillId" />
     </Key>
@@ -302,10 +305,10 @@
     <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="Paid" Type="Boolean" Nullable="false" />
     <Property Name="PaidOnDate" Type="DateTime" Precision="7" />
-    <NavigationProperty Name="aspnet_Membership" Relationship="cms_VKTTVModel.FK_cms_Bill_aspnet_Membership" FromRole="cms_Bill" ToRole="aspnet_Membership" />
-    <NavigationProperty Name="cms_Bill_API" Relationship="cms_VKTTVModel.FK_cms_Bill_API_cms_Bill" FromRole="cms_Bill" ToRole="cms_Bill_API" />
+    <NavigationProperty Name="aspnet_Membership" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_aspnet_Membership" FromRole="cms_UserTransaction" ToRole="aspnet_Membership" />
+    <NavigationProperty Name="cms_UserTransaction_API" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_UserTransaction" FromRole="cms_UserTransaction" ToRole="cms_UserTransaction_API" />
   </EntityType>
-  <EntityType Name="cms_Bill_API">
+  <EntityType Name="cms_UserTransaction_API">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -314,41 +317,42 @@
     <Property Name="APIId" Type="Guid" Nullable="false" />
     <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="7" />
-    <NavigationProperty Name="cms_API" Relationship="cms_VKTTVModel.FK_cms_Bill_API_cms_API" FromRole="cms_Bill_API" ToRole="cms_API" />
-    <NavigationProperty Name="cms_Bill" Relationship="cms_VKTTVModel.FK_cms_Bill_API_cms_Bill" FromRole="cms_Bill_API" ToRole="cms_Bill" />
+    <NavigationProperty Name="cms_API" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_API" FromRole="cms_UserTransaction_API" ToRole="cms_API" />
+    <NavigationProperty Name="cms_UserTransaction" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_API_cms_UserTransaction" FromRole="cms_UserTransaction_API" ToRole="cms_UserTransaction" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
   </EntityType>
-  <Association Name="FK_cms_Bill_aspnet_Membership">
+  <Association Name="FK_cms_UserTransaction_aspnet_Membership">
     <End Type="cms_VKTTVModel.aspnet_Membership" Role="aspnet_Membership" Multiplicity="1" />
-    <End Type="cms_VKTTVModel.cms_Bill" Role="cms_Bill" Multiplicity="*" />
+    <End Type="cms_VKTTVModel.cms_UserTransaction" Role="cms_UserTransaction" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="aspnet_Membership">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="cms_Bill">
+      <Dependent Role="cms_UserTransaction">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_cms_Bill_API_cms_API">
+  <Association Name="FK_cms_UserTransaction_API_cms_API">
     <End Type="cms_VKTTVModel.cms_API" Role="cms_API" Multiplicity="1" />
-    <End Type="cms_VKTTVModel.cms_Bill_API" Role="cms_Bill_API" Multiplicity="*" />
+    <End Type="cms_VKTTVModel.cms_UserTransaction_API" Role="cms_UserTransaction_API" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="cms_API">
         <PropertyRef Name="APIId" />
       </Principal>
-      <Dependent Role="cms_Bill_API">
+      <Dependent Role="cms_UserTransaction_API">
         <PropertyRef Name="APIId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_cms_Bill_API_cms_Bill">
-    <End Type="cms_VKTTVModel.cms_Bill" Role="cms_Bill" Multiplicity="1" />
-    <End Type="cms_VKTTVModel.cms_Bill_API" Role="cms_Bill_API" Multiplicity="*" />
+  <Association Name="FK_cms_UserTransaction_API_cms_UserTransaction">
+    <End Type="cms_VKTTVModel.cms_UserTransaction" Role="cms_UserTransaction" Multiplicity="1" />
+    <End Type="cms_VKTTVModel.cms_UserTransaction_API" Role="cms_UserTransaction_API" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="cms_Bill">
+      <Principal Role="cms_UserTransaction">
         <PropertyRef Name="BillId" />
       </Principal>
-      <Dependent Role="cms_Bill_API">
+      <Dependent Role="cms_UserTransaction_API">
         <PropertyRef Name="BillId" />
       </Dependent>
     </ReferentialConstraint>

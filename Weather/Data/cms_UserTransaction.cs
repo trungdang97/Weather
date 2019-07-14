@@ -12,12 +12,12 @@ namespace Weather.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class cms_Bill
+    public partial class cms_UserTransaction
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cms_Bill()
+        public cms_UserTransaction()
         {
-            this.cms_Bill_API = new HashSet<cms_Bill_API>();
+            this.cms_UserTransaction_API = new HashSet<cms_UserTransaction_API>();
         }
     
         public System.Guid BillId { get; set; }
@@ -29,6 +29,6 @@ namespace Weather.Data
     
         public virtual aspnet_Membership aspnet_Membership { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cms_Bill_API> cms_Bill_API { get; set; }
+        public virtual ICollection<cms_UserTransaction_API> cms_UserTransaction_API { get; set; }
     }
 }

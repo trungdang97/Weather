@@ -19,7 +19,7 @@ namespace Weather.Data
         {
             this.cms_News = new HashSet<cms_News>();
             this.cms_API_Membership_Relationship = new HashSet<cms_API_Membership_Relationship>();
-            this.cms_Bill = new HashSet<cms_Bill>();
+            this.cms_UserTransaction = new HashSet<cms_UserTransaction>();
         }
     
         public System.Guid UserId { get; set; }
@@ -38,6 +38,6 @@ namespace Weather.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cms_API_Membership_Relationship> cms_API_Membership_Relationship { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cms_Bill> cms_Bill { get; set; }
+        public virtual ICollection<cms_UserTransaction> cms_UserTransaction { get; set; }
     }
 }

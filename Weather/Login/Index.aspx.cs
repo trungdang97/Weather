@@ -66,9 +66,11 @@ namespace Weather.Login
                             //HttpContext.Current.Session.Clear();
                             var rel = context.aspnet_Roles_Rights_Relationship.Where(x => x.RoleId == user.RoleId);
                             var rights = new List<aspnet_Rights>();
-                            foreach(var r in rel)
+                            var rightsCodes = new List<string>();
+                            foreach (var r in rel)
                             {
                                 rights.Add(context.aspnet_Rights.Where(x => x.RightId == r.RightId).First());
+                                rightsCodes.Add(context.aspnet_Rights.Where(x => x.RightId == r.RightId).First().Description);
                             }
                             User webUser = ConvertUser(user, username, rights);
                             HttpContext.Current.Session["User_Id"] = webUser.UserId;
@@ -76,6 +78,8 @@ namespace Weather.Login
                             HttpContext.Current.Session["User_ShortName"] = webUser.ShortName;
                             HttpContext.Current.Session["User_RoleName"] = webUser.RoleName;
                             HttpContext.Current.Session["User_RoleCode"] = webUser.RoleCode;
+                            HttpContext.Current.Session["User_Rights"] = webUser.Rights;
+                            HttpContext.Current.Session["User_RightsCode"] = rightsCodes;
                             HttpContext.Current.Session["SimpleAuth"] = webUser.SimpleAuth = Guid.NewGuid();
                             user_ref.SimpleAuth = webUser.SimpleAuth;
                             context.SaveChangesAsync();

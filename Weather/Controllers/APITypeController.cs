@@ -18,6 +18,22 @@ namespace Weather.Controllers
     {
         public string FilterText { get; set; }
     }
+    public class APITypeResponseModel
+    {
+        public Guid APITypeId { get; set; }
+        public string Name { get; set; }
+    }
+    public static class ConvertResponse
+    {
+        public static APITypeResponseModel GetAPIType(cms_APIType type)
+        {
+            return new APITypeResponseModel()
+            {
+                APITypeId = type.APITypeId,
+                Name = type.Name
+            };
+        }
+    }
 
     public class APITypeController : ApiController
     {
@@ -27,41 +43,45 @@ namespace Weather.Controllers
         [HttpGet]
         [Route("api/v1/APIType/{id}")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public cms_APIType GetById(Guid APITypeId)
+        public APITypeResponseModel GetById(Guid APITypeId)
         {
             var model = db.cms_APIType.Where(x => x.APITypeId == APITypeId).First();
-            return model;
+            return ConvertResponse.GetAPIType(model);
         }
 
         // GET: api/APIType/5
         [HttpGet]
-        [Route("api/v1/APIType/{filterText}")]
+        [Route("api/v1/APIType")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<cms_APIType> GetFilter(string filterText)
+        public List<APITypeResponseModel> GetFilter(string filterText)
         {
-            var models = db.cms_APIType.Where(x => x.Name.Contains(filterText));
-            return models.ToList();
+            if (string.IsNullOrEmpty(filterText))
+            {
+                filterText = "";
+            }
+            var models = db.cms_APIType.Where(x => x.Name.Contains(filterText)).OrderBy(x => x.TypeOrder);//.OrderBy(x=>x.Name);
+            return models.Select(ConvertResponse.GetAPIType).ToList();
         }
 
         // PUT: api/APIType/5
         [HttpPut]
         [Route("api/v1/APIType/update")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public cms_APIType Update([FromBody]cms_APIType APIType)
+        public APITypeResponseModel Update([FromBody]cms_APIType APIType)
         {
             var model = db.cms_APIType.Where(x => x.APITypeId == APIType.APITypeId).First();
             model.Name = APIType.Name;
             db.SaveChanges();
             model = db.cms_APIType.Where(x => x.APITypeId == APIType.APITypeId).First();
 
-            return model;
+            return ConvertResponse.GetAPIType(model);
         }
 
         // POST: api/APIType
         [HttpPost]
         [Route("api/v1/APIType/create")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public cms_APIType Create(string name)
+        public APITypeResponseModel Create(string name)
         {
             cms_APIType model = new cms_APIType()
             {
@@ -71,22 +91,22 @@ namespace Weather.Controllers
             db.cms_APIType.Add(model);
             db.SaveChanges();
 
-            return model;
+            return ConvertResponse.GetAPIType(model);
         }
 
         [HttpDelete]
         [Route("api/v1/APIType/delete/{id}")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public cms_APIType Delete(Guid id)
+        public APITypeResponseModel Delete(Guid id)
         {
             var model = db.cms_APIType.Where(x => x.APITypeId == id).First();
-            if(model != null)
+            if (model != null)
             {
                 db.cms_APIType.Remove(model);
                 db.SaveChanges();
-                return model;
+                return ConvertResponse.GetAPIType(model);
             }
             return null;
-        }        
+        }
     }
 }

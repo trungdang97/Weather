@@ -14,7 +14,7 @@ function startTime() {
     if (timezone > 0) {
         timezone = '(GMT+' + timezone + ')';
     }
-    $('#basicDateTime').html(getDayOfWeek() + ', ' + checkTime(d) + "/" + checkTime(M) + "/" + checkTime(y) + ', ' + checkTime(H) + ":" + checkTime(m) + ' ' + timezone);
+    $('#basicDateTime').html(getDayOfWeek() + ', ' + checkTime(d) + "/" + checkTime(M+1) + "/" + checkTime(y) + ', ' + checkTime(H) + ":" + checkTime(m) + ' ' + timezone);
     var t = setTimeout(startTime, 500);
 }
 function checkTime(i) {
@@ -53,11 +53,11 @@ function FormatDateTime(datetime) {
     else {
         d = time.getDate();
     }
-    if (time.getMonth() < 10) {
-        M = '0' + time.getMonth();
+    if (time.getMonth()+1 < 10) {
+        M = '0' + (time.getMonth()+1);
     }
     else {
-        M = time.getMonth();
+        M = time.getMonth() + 1;
     }
     if (time.getHours() < 10) {
         H = '0' + time.getHours();

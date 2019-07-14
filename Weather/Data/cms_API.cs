@@ -18,17 +18,17 @@ namespace Weather.Data
         public cms_API()
         {
             this.cms_API_Membership_Relationship = new HashSet<cms_API_Membership_Relationship>();
-            this.cms_Bill_API = new HashSet<cms_Bill_API>();
+            this.cms_UserTransaction_API = new HashSet<cms_UserTransaction_API>();
         }
     
         public System.Guid APIId { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Duration { get; set; }
+        public int Duration { get; set; }
         public System.Guid APITypeId { get; set; }
         public string Body { get; set; }
         public string Documentation { get; set; }
         public string DocumentationLink { get; set; }
-        public Nullable<int> Price { get; set; }
+        public int Price { get; set; }
         public string DurationText { get; set; }
         public string APICode { get; set; }
         public bool IsActive { get; set; }
@@ -37,6 +37,6 @@ namespace Weather.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cms_API_Membership_Relationship> cms_API_Membership_Relationship { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cms_Bill_API> cms_Bill_API { get; set; }
+        public virtual ICollection<cms_UserTransaction_API> cms_UserTransaction_API { get; set; }
     }
 }

@@ -306,7 +306,7 @@ function GetData() {
             for (var i = 0; i < data.length; i++) {
                 $("#table-body").append("<tr>"
                     + "<td class='text-center'>"
-                    + "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
+                    + "<input type='checkbox' onclick value='" + data[i].NewsId + "' class='multiSelect'>"
                     + "</td>"
                     + "<td>"
                     + data[i].Name
