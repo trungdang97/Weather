@@ -84,6 +84,8 @@
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="cms_News" Relationship="Self.FK_cms_News_cms_NewsCategory" FromRole="cms_NewsCategory" ToRole="cms_News" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Order" Type="Int32" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

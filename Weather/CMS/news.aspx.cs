@@ -17,7 +17,7 @@ namespace Weather.CMS
             public string FilterText { get; set; } = "";
             public Guid? NewsCategoryId { get; set; }
             public int PageNumber { get; set; } = 1;
-            public int PageSize { get; set; } = 20;
+            public int PageSize { get; set; } = 10;
             public Guid? UserId { get; set; }
             public DateTime? FromDate { get; set; }
             public DateTime? ToDate { get; set; }

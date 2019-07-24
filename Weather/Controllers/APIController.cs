@@ -21,6 +21,8 @@ namespace Weather.Controllers
         //public int PriceBottom { get; set; }
         //public int PriceTop { get; set; }
         //public int Duration { get; set; }
+        public int PageSize { get; set; } = 10;
+        public int PageNumber { get; set; } = 1;
     }
     public class APIUpdateRequestModel
     {
@@ -102,8 +104,12 @@ namespace Weather.Controllers
             {
                 models = models.Where(x => x.APITypeId == filter.APITypeId && x.IsActive);
             }
+            models = models.OrderBy(x => x.cms_APIType.Name).ThenBy(x => x.Name);
 
-            lstAPI = models.OrderBy(x => x.cms_APIType.Name).ThenBy(x => x.Name).Select(Convert).ToList();
+            int excludedRow = (filter.PageNumber - 1) * filter.PageSize;
+            models = models.Skip(excludedRow).Take(filter.PageSize);
+
+            lstAPI = models.Select(Convert).ToList();
             return lstAPI;
         }
 

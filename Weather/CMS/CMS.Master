@@ -53,7 +53,7 @@
             <header class="main-header">
 
                 <!-- Logo -->
-                <a href="index2.html" class="logo  text-center">
+                <a href="#" class="logo  text-center">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini">
                         <img src="../Content/Icons/kttv_logo.jpg" width="50px" height="50px" /></span>
@@ -98,7 +98,7 @@
                 </nav>
             </header>
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="main-sidebar">
+            <aside class="main-sidebar" style="background-color:#3c8dbc">
 
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
@@ -115,26 +115,26 @@
                     </div>
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">MENU</li>
+                        <li class="header" style="font-size:14px;color:white;background-color:#357ca5"><b>MENU</b></li>
                         <!-- Optionally, you can add icons to the links -->
                         <% if (((List<string>)Session["User_RightsCode"]).Contains("APICONSUMER"))
                             {
                         %>
-                        <li><a href="service-manager.aspx"><i class="fa fa-link"></i><span>Quản lý dịch vụ</span></a></li>
+                        <li><a style="color:#fff" href="service-manager.aspx"><i class="fa fa-link"></i><span>Quản lý dịch vụ</span></a></li>
                         <%  }
                         %>
                         <% if (((List<string>)Session["User_RightsCode"]).Contains("VIETTIN"))
                             {
                         %>
-                        <li><a href="news.aspx"><i class="fa fa-link"></i><span>Tin bài cá nhân</span></a></li>
+                        <li><a style="color:#fff" href="news.aspx"><i class="fa fa-link"></i><span>Tin bài cá nhân</span></a></li>
                         <%  }
                         %>
                         <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                             {
                         %>
-                        <li><a href='admin.aspx'><i class='fa fa-link'></i><span>Quản trị người dùng</span></a></li>
-                        <li><a href='apimanager.aspx'><i class='fa fa-link'></i><span>Quản trị API</span></a></li>
-                        <li><a href='#'><i class='fa fa-link'></i><span>Quản trị danh mục cấu hình<br />
+                        <li><a style="color:#fff" href='admin.aspx'><i class='fa fa-link'></i><span>Quản trị người dùng</span></a></li>
+                        <li><a style="color:#fff" href='apimanager.aspx'><i class='fa fa-link'></i><span>Quản trị API</span></a></li>
+                        <li><a style="color:#fff" href='#'><i class='fa fa-link'></i><span>Quản trị danh mục cấu hình<br />
                             (ongoing)</span></a></li>
                         <%   
                             }

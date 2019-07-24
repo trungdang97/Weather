@@ -98,6 +98,10 @@ namespace Weather.Controllers
                     };
                     lstUser.Add(user);
                 }
+
+                int excludedRow = (filter.PageNumber - 1) * filter.PageSize;
+                lstUser = lstUser.Skip(excludedRow).Take(filter.PageSize).ToList();
+
                 return lstUser;
             }
         }
@@ -298,6 +302,8 @@ namespace Weather.Controllers
     {
         public string FilterText { get; set; }
         public Guid? RoleId { get; set; }
+        public int PageSize { get; set; } = 10;
+        public int PageNumber { get; set; } = 1;
     }
 
     public class UpdatePasswordModel

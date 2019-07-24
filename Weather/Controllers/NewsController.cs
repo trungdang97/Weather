@@ -10,6 +10,13 @@ using static Weather.CMS.NewsForm;
 
 namespace Weather.Controllers
 {
+    public class NewsCategory
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Description { get; set; }
+    }
+
     public static class ConvertData
     {
         public static News ConvertNews(cms_News data)
@@ -41,7 +48,7 @@ namespace Weather.Controllers
             using (var db = new cms_VKTTVEntities())
             {
                 IQueryable<cms_News> query = null;
-                query = db.cms_News.Where(x => x.NewsId == NewsId);               
+                query = db.cms_News.Where(x => x.NewsId == NewsId);
                 return query.Select(ConvertData.ConvertNews).First();
             }
         }
@@ -154,6 +161,27 @@ namespace Weather.Controllers
                 var model = db.cms_News.Where(x => x.NewsId == NewsId).First();
                 db.cms_News.Remove(model);
                 db.SaveChanges();
+            }
+        }
+
+        [HttpGet]
+        [Route("api/v1/news/category")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<NewsCategory> GetCategories(string Type)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                List<NewsCategory> categories = new List<NewsCategory>();
+                var models = db.cms_NewsCategory.Where(x => x.Type == Type).OrderBy(x => x.Order);
+                foreach(var m in models)
+                {
+                    categories.Add(new NewsCategory() {
+                        Name = m.Name,
+                        Description = m.Description,
+                        Type = m.Type
+                    });
+                }
+                return categories;
             }
         }
     }
