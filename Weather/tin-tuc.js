@@ -8,6 +8,11 @@ Filter.NewsCategoryId = NewsCategoryId;
 var NewsId = $("#newsid").val();
 var NewsCategoryId = $("#newsCategory").val();
 
+
+$("#PageNumber").change(function () {
+    ShowListNews();
+});
+
 $(document).ready(function () {
     NewsId = $("#newsid").val();
     NewsCategoryId = $("#newsCategory").val();
@@ -28,6 +33,7 @@ $(document).ready(function () {
 var ShowListNews = async function () {
     var ListNews = await GetNewsByFilter();
     //console.log(ListNews);
+    $("#InnerList").html("");
     for (var i = 0; i < ListNews.length; i++) {
         $("#InnerList").append("<div class='row' style='padding: 5px 0;'>"
             + "<div class='col-md-12' style='padding-bottom: 10px'><b><a href='?tin=" + ListNews[i].NewsId + "'>" + ListNews[i].Name + "<a/></b></div>"
@@ -67,6 +73,7 @@ async function GetNewsById(NewsId) {
 
 async function GetNewsByFilter() {
     var listNews = [];
+    Filter.PageNumber = $("#PageNumber").val();
     await $.ajax({
         url: '/api/v1/news/filter',
         method: "POST",

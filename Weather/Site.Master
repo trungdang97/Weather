@@ -78,7 +78,7 @@
                                 <h4><a href="#">Tin tức sự kiện</a></h4>
                             </div>
                             <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
-                                <h4><a href="#">Dịch vụ</a></h4>
+                                <h4><a href="/CMS/service-manager">Dịch vụ</a></h4>
                             </div>
                         </div>
                     </div>

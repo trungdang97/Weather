@@ -153,6 +153,11 @@
                 <tbody id="table-body">
                 </tbody>
             </table>
+            <div class="pull-right">
+                <div id="pagination">
+                    <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width:50px" type="number" min="1" value="1"/><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
+                </div>
+            </div>
         </div>
 
         <div class="modal fade" id="myModal" role="dialog">

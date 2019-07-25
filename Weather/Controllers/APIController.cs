@@ -23,6 +23,7 @@ namespace Weather.Controllers
         //public int Duration { get; set; }
         public int PageSize { get; set; } = 10;
         public int PageNumber { get; set; } = 1;
+        public Guid? UserId { get; set; }
     }
     public class APIUpdateRequestModel
     {
@@ -117,11 +118,12 @@ namespace Weather.Controllers
         [HttpGet]
         [Route("api/v1/API/list")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<APIUserResponseModel> GetFilter(Guid userid)
+        public List<APIUserResponseModel> GetFilterByUser(string filterString)
         {
+            APIFilter filter = JsonConvert.DeserializeObject<APIFilter>(filterString);
             bool needToSave = false;
             List<APIUserResponseModel> lstAPI = new List<APIUserResponseModel>();
-            var models = db.cms_API_Membership_Relationship.Where(x => x.UserId == userid).Include(x => x.cms_API);
+            var models = db.cms_API_Membership_Relationship.Where(x => x.UserId == filter.UserId.Value).Include(x => x.cms_API);
             foreach (var m in models)
             {
                 var api = db.cms_API.Where(x => x.APIId == m.APIId).First();
@@ -136,7 +138,7 @@ namespace Weather.Controllers
                 lstAPI.Add(item);
                 if (!lstAPI.Last().IsActive)
                 {
-                    var rel = db.cms_API_Membership_Relationship.Where(x => x.UserId == userid && x.APIId == item.APIId).First();
+                    var rel = db.cms_API_Membership_Relationship.Where(x => x.UserId == filter.UserId.Value && x.APIId == item.APIId).First();
                     rel.IsActive = false;
                     needToSave = true;
                 }
@@ -145,6 +147,9 @@ namespace Weather.Controllers
             {
                 db.SaveChanges();
             }
+
+            int excludedRow = (filter.PageNumber - 1) * filter.PageSize;
+            lstAPI = lstAPI.Skip(excludedRow).Take(filter.PageSize).ToList();
 
             return lstAPI;
         }

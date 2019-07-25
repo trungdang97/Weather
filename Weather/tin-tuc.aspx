@@ -4,8 +4,8 @@
     <style>
         
     </style>
-    <input id="newsid" value="<% Response.Write(HttpContext.Current.Session["NewsId"]); %>" hidden/>
-    <input id="newsCategory" value="<% Response.Write(HttpContext.Current.Session["NewsCategory"]); %>" hidden/>
+    <input id="newsid" value="<% Response.Write(HttpContext.Current.Session["NewsId"]); %>" hidden />
+    <input id="newsCategory" value="<% Response.Write(HttpContext.Current.Session["NewsCategory"]); %>" hidden />
     <div class="container">
         <div id="News">
             <span style="display: block"><small id="CreatedOnDate" style="font-weight: bold"></small></span>
@@ -25,6 +25,14 @@
             <div id="InnerList" class="col-md-7"></div>
             <div class="col-md-1"></div>
             <div class="col-md-4"></div>
+            <br />
+            <div class="col-md-7">
+                <div class="pull-right">
+                    <div id="pagination">
+                        <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="/tin-tuc.js"></script>
