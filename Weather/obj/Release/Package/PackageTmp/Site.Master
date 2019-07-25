@@ -48,8 +48,8 @@
         <div class="row">
             <div class="container" style="padding-left: 0; padding-right: 0">
                 <div class="col-md-6" style="padding-top: 15px">
-                    <img src="Content/Icons/kttv_logo.jpg" width="70px" />
-                    <img src="Content/Images/logo.png" />
+                    <img src="/Content/Icons/kttv_logo.jpg" width="70px" />
+                    <img src="/Content/Images/logo.png" />
                 </div>
                 <div class="col-md-6" style="padding: 0">
                     <div class="row">
@@ -69,7 +69,7 @@
                     <div class="row">
                         <div class="pull-right" style="padding: 10px">
                             <div class="col-md-3 new-nav-link-underline-active" style="width: auto !important">
-                                <h4><a href="Default.aspx" class="active font-weight bold">Trang chủ</a></h4>
+                                <h4><a href="/Default.aspx" class="active font-weight bold">Trang chủ</a></h4>
                             </div>
                             <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
                                 <h4><a href="#">Giới thiệu</a></h4>
@@ -78,7 +78,7 @@
                                 <h4><a href="#">Tin tức sự kiện</a></h4>
                             </div>
                             <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
-                                <h4><a href="#">Dịch vụ</a></h4>
+                                <h4><a href="/CMS/service-manager">Dịch vụ</a></h4>
                             </div>
                         </div>
                     </div>
@@ -116,30 +116,30 @@
                         <% if (HttpContext.Current.Session["User_Id"] == null)
                             {
                         %>
-                        <a id="LoginModal" href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="login/register.aspx">Đăng ký</a>
+                        <a id="LoginModal" href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="/login/register.aspx">Đăng ký</a>
                         <%
                             }
                         %>
                         <% 
                             else
                             { %>
-                        <a class="dropdown-toggle" id="userPanel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="Login/Index.aspx">Xin chào,&ensp;<% Response.Write(HttpContext.Current.Session["User_ShortName"]); %></a>
+                        <a class="dropdown-toggle" id="userPanel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/Login/Index.aspx">Xin chào,&ensp;<% Response.Write(HttpContext.Current.Session["User_ShortName"]); %></a>
                         <ul class="dropdown-menu dropdown-menu-tip-n" style="position: absolute; top: 40px;" role="menu" aria-labelledby="dropdownMenu1">
                             <% if (((List<string>)Session["User_RightsCode"]).Contains("APICONSUMER"))
                                 { %>
-                            <li><a href="CMS/service-manager.aspx">Quản lý dịch vụ</a></li>
+                            <li><a href="/CMS/service-manager.aspx">Quản lý dịch vụ</a></li>
                             <%  
                                 }%>
                             <% if (((List<string>)Session["User_RightsCode"]).Contains("VIETTIN"))
                                 { %>
-                            <li><a href="CMS/news.aspx">Quản lý tin bài</a></li>
+                            <li><a href="/CMS/news.aspx">Quản lý tin bài</a></li>
                             <%  
                                 }%>
                             <%--<li><a href="#">Quản lý tài khoản</a></li>--%>
                             <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                                 { %>
-                            <li><a href="CMS/admin.aspx">Quản lý tài khoản</a></li>
-                            <li><a href="CMS/apimanager.aspx">Quản lý API</a></li>
+                            <li><a href="/CMS/admin.aspx">Quản lý tài khoản</a></li>
+                            <li><a href="/CMS/apimanager.aspx">Quản lý API</a></li>
                             <%  
                                 }%>
                             <li><i class="fa fa-sign-out"></i><a runat="server" id="LogoutBtn" onserverclick="Logout_Click" href="#">Đăng xuất</a></li>
@@ -228,6 +228,6 @@
         </div>
     </form>
 
-    <script src="Scripts/SiteMaster/script.js"></script>
+    <script src="/Scripts/SiteMaster/script.js"></script>
 </body>
 </html>

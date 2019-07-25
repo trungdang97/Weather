@@ -131,10 +131,16 @@ function GetDetail(btn) {
     });
 }
 
+$("#PageNumber").change(function () {
+    GetFilter();
+});
+
 function GetFilter() {
     var filter = {};
     filter.FilterText = $("#FilterText").val();
     filter.RoleId = $("#MainContent_ListRolesOutter").val();
+    filter.PageSize = 10;
+    filter.PageNumber = $("#PageNumber").val();
     $.ajax({
         url: "/api/v1/user/filter?filterString=" + JSON.stringify(filter),
         method: "GET",

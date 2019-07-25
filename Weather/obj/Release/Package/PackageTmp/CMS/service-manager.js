@@ -24,8 +24,12 @@ var GetTransaction = function () {
 };
 
 var GetData = async function () {
+    var filter = {};
+    filter.UserId = userid;
+    filter.PageSize = 10;
+    filter.PageNumber = $("#PageNumber").val();
     $.ajax({
-        url: "/api/v1/API/list?userid=" + userid,
+        url: "/api/v1/API/list?filterString=" + JSON.stringify(filter),
         method: "GET",
         dataType: "json",
         success: await function (data) {
@@ -319,13 +323,15 @@ async function GetFilter(index) {
     var filter = {};
     filter.FilterText = "";
     filter.APITypeId = Services[index].Id;
+    //filter.PageSize = 3;
+    //filter.PageNumber = $("#PageNumber").val();
 
     $.ajax({
         url: "/api/v1/API/filter?filterString=" + JSON.stringify(filter),
         method: "GET",
         contentType: "json",
         success: await function (data) {
-            //console.log("OK DETAIL", data);
+            console.log("OK DETAIL", data);
             Services[index].Available = data;
         },
         error: function () {
@@ -370,3 +376,7 @@ function FormatDateTime(datetime) {
     var formattedString = d + "/" + M + "/" + time.getFullYear();
     return formattedString;
 }
+
+$("#PageNumber").change(function () {
+    GetData();
+});

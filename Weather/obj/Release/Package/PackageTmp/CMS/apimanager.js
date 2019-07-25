@@ -58,10 +58,16 @@ $("#BtnSave").click(function () {
     });
 });
 
+$("#PageNumber").change(function () {
+    GetFilter();
+});
+
 function GetFilter() {
     var filter = {};
     filter.FilterText = $("#FilterText").val();
     filter.APITypeId = $("#MainContent_ListAPITypeOutter").val();
+    filter.PageNumber = $("#PageNumber").val();
+    filter.PageSize = 10;
 
     $.ajax({
         url: "/api/v1/API/filter?filterString=" + JSON.stringify(filter),

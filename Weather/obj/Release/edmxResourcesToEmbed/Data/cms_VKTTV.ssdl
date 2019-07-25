@@ -111,6 +111,8 @@
     <Property Name="NewsCategoryId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Type" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Order" Type="int" />
   </EntityType>
   <EntityType Name="cms_UserTransaction">
     <Key>

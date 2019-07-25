@@ -277,12 +277,16 @@ function Delete() {
     });
 }
 
+$("#PageNumber").change(function () {
+    GetData();
+});
+
 function GetData() {
     var postData = {};
     postData.FilterText = FilterText;
     postData.NewsCategoryId = NewsCategoryId;
-    postData.PageNumber = PageNumber;
-    postData.PageSize = PageSize;
+    postData.PageNumber = $("#PageNumber").val();
+    postData.PageSize = 10;
     postData.UserId = $("#UserId").val();
     postData.FromDate = FromDate;
     postData.ToDate = ToDate;
@@ -299,7 +303,7 @@ function GetData() {
         success: function (data) {
             $("#table-body").html("");
             if (data.length == 0) {
-                $("#table-body").html("<tr><td class='text-center' colspan='6'>Không có dữ liệu</td></tr>");
+                $("#table-body").html("<tr><td class='text-center' colspan='20'>Không có dữ liệu</td></tr>");
                 return;
             }
 
