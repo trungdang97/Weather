@@ -185,7 +185,7 @@ var GetNewsCategory = function () {
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 $("#TopNav").append("<li class='new-nav-link'>"
-                    + "<a href='kttv/" + data[i].Description + "'>" + data[i].Name + "</a>"
+                    + "<a href='/tin-tuc/" + data[i].Description + "'>" + data[i].Name + "</a>"
                     + "</li>");
             }
         },
