@@ -46,16 +46,21 @@
     <script src="https://npmcdn.com/leaflet@1.1.0/dist/leaflet.js"></script>
     <script src="./leaflet-timeline-slider-master/src/leaflet-timeline-slider.js"></script>
     <script src="./leaflet-timeline-slider-master/dist/leaflet-timeline-slider.min.js"></script>
+    <style>
+        #HideMap {
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+        }
+    </style>
 </head>
+
 <body>
     <!--<body onload="load()">-->
     <div id="map"></div>
     <!--<input id="hd" style="Z-INDEX: 101; LEFT: 16px; POSITION: absolute; TOP: 144px" type="hidden" value='<%= this.Variable_codebehind %>' />
     <input type="file" id="files" name="file" />
     <pre id="Filecontents"></pre>-->
-    
-    
-
     <!--leaflet-velocity-->
     <link rel="stylesheet" href="leafletVelocity/dist/leaflet-velocity.css" />
     <script src="leafletVelocity/dist/leaflet-velocity.js"></script>
@@ -66,12 +71,11 @@
 
     <script>
         initMap();
-                                //		if (!confirm("Please not that this page is only a demonstration for an OpenWeatherMap leaflet plugin.\nIt is not intended for productive use.\n\nVisit https://osb.com/buche/leaflet-openweathermap for more information.\n\nClick OK to proceed with the map or click Cancel to visit osb.com.")) {
-                                //			window.location.href = "https://osb.com/buche/leaflet-openweathermap";
-                                //				}
+                                    //		if (!confirm("Please not that this page is only a demonstration for an OpenWeatherMap leaflet plugin.\nIt is not intended for productive use.\n\nVisit https://osb.com/buche/leaflet-openweathermap for more information.\n\nClick OK to proceed with the map or click Cancel to visit osb.com.")) {
+                                    //			window.location.href = "https://osb.com/buche/leaflet-openweathermap";
+                                    //				}
     </script>
     <script type="tedious" src="leaflet-openweathermap.js">
-    </script>
+    </script>    
 </body>
 </html>
-

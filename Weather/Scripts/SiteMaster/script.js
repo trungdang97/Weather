@@ -27,6 +27,18 @@ $(document).ready(async function () {
     //        }
     //    }
     //});
+    var toggleCount = 0;
+    $("#ToggleMap").click(function () {
+        if (++toggleCount % 2 != 0) {
+            $("#MainForm").hide();
+            $("#FullExpand").show();
+        }
+        else {
+            $("#MainForm").show();
+            $("#FullExpand").hide();
+        }
+
+    });
 });
 
 var LstApi = [];

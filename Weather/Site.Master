@@ -16,11 +16,20 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" type="text/css">
     <style>
-        
+        #ToggleMap{
+            z-index: 1000;
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+
+            height: 50px;
+            width: 50px;
+        }
     </style>
 </head>
 <body>
-    <form runat="server">
+    <button id="ToggleMap" title="Click vào tôi để mở/đóng bản đồ thời tiết cỡ lớn"><i class="fa fa-map" style="font-size: 30px" aria-hidden="true"></i></button>
+    <form id="MainForm" runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -44,7 +53,7 @@
         <style>
             
         </style>
-        <input id="UserId" value="<% if(Session["User_Id"]!=null) Response.Write(Session["User_Id"].ToString()); %>" hidden/>
+        <input id="UserId" value="<% if (Session["User_Id"] != null) Response.Write(Session["User_Id"].ToString()); %>" hidden />
         <div class="row">
             <div class="container" style="padding-left: 0; padding-right: 0">
                 <div class="col-md-6" style="padding-top: 15px">
@@ -229,5 +238,9 @@
     </form>
 
     <script src="/Scripts/SiteMaster/script.js"></script>
+
+    <iframe id="FullExpand" class="col-md-8" style="display:none;position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999;" src="index.html">
+        <p>Your browser does not support iframes.</p>
+    </iframe>
 </body>
 </html>

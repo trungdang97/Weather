@@ -269,6 +269,7 @@ L.OWM.Current = L.Layer.extend({
         this._markedMarker = null;
         this._map = null;
         this._urlTemplate = 'https://api.openweathermap.org/data/2.5/box/{type}?{appId}cnt=300&format=json&units=metric&bbox={minlon},{minlat},{maxlon},{maxlat},10';
+        this._urlTemplate_VN_001 = 'https://pt-wrap.wni.com/api/V1/fcst/WNI_SRF_GLOBAL_COMPAS/id/GLOBAL_COMPAS_VN_00001/latest.json?user_key=8b540fc6433041acc94b2e07d77ae60a';
         this._directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];
         this._msbft = [0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7, 37.0, 41.5, 46.2, 51.0, 56.1, 61.3]; // Beaufort scala
         this._tempUnits = { K: 'K', C: '°C', F: 'F' };
@@ -453,89 +454,263 @@ L.OWM.Current = L.Layer.extend({
         alert('%= Variable_codebehind  %');
     },
     
-    _processRequestedData: function (_this, data) {
-        //test nodejs
-        "use strict";
-        var myInit = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            mode: 'cors',
-            cache: 'default'
-        };
-        //var myRequest;
-        //var myVar = setInterval(readdata, 5000);
-        //function readdata() {
-        //    let myRequest = new Request("./doc.json", myInit);
-        //};
-        let myRequest = new Request("./doc.json", myInit);
-        fetch(myRequest)
-            .then(function (resp) {
-                return resp.json();
-            })
-            .then(function (data1) {
-                var stations = {};
-                for (var i in data) {
+    _processRequestedData: async function (_this, data) {
+        //"use strict";
+        //let url_new = 'https://pt-wrap.wni.com/api/V1/fcst/WNI_SRF_GLOBAL_COMPAS/id/GLOBAL_COMPAS_VN_00055/latest.json?user_key=8b540fc6433041acc94b2e07d77ae60a';
+        let header_url = 'https://pt-wrap.wni.com/api/V1/fcst/WNI_SRF_GLOBAL_COMPAS/id/';
+        let last_url = '/latest.json?user_key=8b540fc6433041acc94b2e07d77ae60a';
+        var url_new1 = 'https://api.openweathermap.org/data/2.5/box/city?APPID=16b70425f1e02c96fcd43f7a0c03ee17&cnt=300&format=json&units=metric&bbox=105.33485412597656,20.82030827119848,106.27281188964845,21.265700300747,10';
+        //Khai bao array pp va khu vuc
+        var PP = ['GLOBAL_COMPAS_VN_00055', 'GLOBAL_COMPAS_VN_00003', 'GLOBAL_COMPAS_VN_00004', 'GLOBAL_COMPAS_VN_00006', 'GLOBAL_COMPAS_VN_00007', 'GLOBAL_COMPAS_VN_00008', 'GLOBAL_COMPAS_VN_00009', 'GLOBAL_COMPAS_VN_00011', 'GLOBAL_COMPAS_VN_00012', 'GLOBAL_COMPAS_VN_00014', 'GLOBAL_COMPAS_VN_00015', 'GLOBAL_COMPAS_VN_00016', 'GLOBAL_COMPAS_VN_00017', 'GLOBAL_COMPAS_VN_00018', 'GLOBAL_COMPAS_VN_00019', 'GLOBAL_COMPAS_VN_00020', 'GLOBAL_COMPAS_VN_00021', 'GLOBAL_COMPAS_VN_00024', 'GLOBAL_COMPAS_VN_00024', 'GLOBAL_COMPAS_VN_00025', 'GLOBAL_COMPAS_VN_00026', 'GLOBAL_COMPAS_VN_00028', 'GLOBAL_COMPAS_VN_00031', 'GLOBAL_COMPAS_VN_00032', 'GLOBAL_COMPAS_VN_00037', 'GLOBAL_COMPAS_VN_00048', 'GLOBAL_COMPAS_VN_00042', 'GLOBAL_COMPAS_VN_00079', 'GLOBAL_COMPAS_VN_00224', 'GLOBAL_COMPAS_VN_00042', 'GLOBAL_COMPAS_VN_00043', 'GLOBAL_COMPAS_VN_00044', 'GLOBAL_COMPAS_VN_00047', 'GLOBAL_COMPAS_VN_00051', 'GLOBAL_COMPAS_VN_00052', 'GLOBAL_COMPAS_VN_00054', 'GLOBAL_COMPAS_VN_00056', 'GLOBAL_COMPAS_VN_00057', 'GLOBAL_COMPAS_VN_00058', 'GLOBAL_COMPAS_VN_00061', 'GLOBAL_COMPAS_VN_00064', 'GLOBAL_COMPAS_VN_00066', 'GLOBAL_COMPAS_VN_00068', 'GLOBAL_COMPAS_VN_00075', 'GLOBAL_COMPAS_VN_00080', 'GLOBAL_COMPAS_VN_00081', 'GLOBAL_COMPAS_VN_00082', 'GLOBAL_COMPAS_VN_00083', 'GLOBAL_COMPAS_VN_00108', 'GLOBAL_COMPAS_VN_00122', 'GLOBAL_COMPAS_VN_00142', 'GLOBAL_COMPAS_VN_00157', 'GLOBAL_COMPAS_VN_00158', 'GLOBAL_COMPAS_VN_00160', 'GLOBAL_COMPAS_VN_00058', 'GLOBAL_COMPAS_VN_00058', 'GLOBAL_COMPAS_VN_00058', 'GLOBAL_COMPAS_VN_00053', 'GLOBAL_COMPAS_VN_00053', 'GLOBAL_COMPAS_VN_00053', 'GLOBAL_COMPAS_VN_00053', 'GLOBAL_COMPAS_VN_00053'];
+        var KhuVuc = ['Ha Noi', 'Vung Tau', 'Vinh Phuc', 'Nghe An', 'Phu Tho', 'Hau Giang', 'Phu Yen', 'Binh Duong', 'Quang Ninh', 'Thai Nguyen', 'Thai Binh', 'Ha Nam', 'Ninh Binh', 'Nam Đinh', 'Lang Son', 'Hoa Binh', 'Hai Duong', 'Cao Bang', 'Bac Lieu', 'Thanh Hoa', 'Long An', 'Quang Nam', 'Son Tay', 'Son La', 'Qui Nhon', 'Binh Thuan', 'Đong Nai', 'Ben Tre', 'Quang Binh', 'Ninh Thuan', 'Khanh Hoa', 'Tien Giang', 'Lao Cai', 'Hung Yen', 'Hue', 'Ho Chi Minh', 'Hai Phong', 'Ha Tinh', 'Kien Giang', 'Quang Tri', 'Da Nang', 'Cu Chi', 'Cat Ba', 'Ca Mau', 'Lam Đong', 'Bac Ninh', 'Bac Kan', 'Bac Giang', 'Binh Dinh', 'Tuy Hoa', 'Dien Bien', 'Lai Chau', 'Yen Bai', 'Ha Giang', 'Gia Lai', 'Dak Lak', 'Tay Ninh', 'An Giang', 'Soc Trang', 'Can Tho', 'Binh Phuoc', 'Đong Thap'];
+        var KhuVuc1 = ['Hà Nội', 'Bà Rịa – Vũng Tàu', 'Vĩnh Phúc', 'Nghệ An', 'Phú Thọ', 'Hậu Giang', 'Phú Yên', 'Bình Dương', 'Quảng Ninh', 'Thái Nguyên', 'Thái Bình', 'Hà Nam', 'Ninh Bình', 'Nam Định', 'Lạng Sơn', 'Hòa Bình', 'Hải Dương', 'Cao Bằng', 'Bạc Liêu', 'Thanh Hóa', 'Long An', 'Quảng Nam', 'Sơn Tây', 'Sơn La', 'Qui Nhơn', 'Bình Thuận', 'Đồng Nai', 'Bến Tre', 'Quảng Bình', 'Ninh Thuận', 'Khánh Hòa', 'Tiền Giang', 'Lào Cai', 'Hưng Yên', 'Thừa Thiên Huế', 'Hồ Chí Minh', 'Hải Phòng', 'Hà Tĩnh', 'Kiên Giang', 'Quảng Trị', 'Đà Nẵng', 'Củ Chi', 'Cát Bà', 'Cà Mau', 'Lâm Đồng', 'Bắc Ninh', 'Bắc Kạn', 'Bắc Giang', 'Bình Định', 'Tuy Hòa', 'Điện Biên', 'Lai Châu', 'Yên Bái', 'Hà Giang', 'Gia Lai', 'Đắk Lắk', 'Tây Ninh', 'An Giang', 'Sóc Trăng', 'Cần Thơ', 'Bình Phước', 'Đồng Tháp'];
+        //$(document).ready(async function () {
+        //    // nếu là tuần tự có thể dùng chay: nếu thấy chạy mà ra undefined thì cần kiểm tra async/await
+        //    Data = await GetForecast("https://pt-wrap.wni.com/api/V1/fcst/WNI_SRF_GLOBAL_COMPAS/id/GLOBAL_COMPAS_VN_00001/latest.json?user_key=8b540fc6433041acc94b2e07d77ae60a");
+            
+        //    console.log("SUCCESS", Data);
+        //});
 
-                    var stat = data[i];
-                    if (stat.name == "Ha Noi") {
-                        stat.tempC = data1.temp;//rs.fields(4);
-                        stat.wind.Values = data1.wind;//rs.fields(11);
-                    }
-                    if (!_this._map) { //maybe layer is gone while we are looping here
-                        return;
-                    }
-                    // only use cities having a minimum distance of some pixels on the map
-                    var pt = _this._map.latLngToLayerPoint(new L.LatLng(stat.coord.Lat, stat.coord.Lon));
-                    var key = '' + (Math.round(pt.x / _this.options.clusterSize)) + "_" + (Math.round(pt.y / _this.options.clusterSize));
-                    if (!stations[key] || parseInt(stations[key].rang) < parseInt(stat.rang)) {
-                        stations[key] = stat;
-                    }
+
+        // CORE
+        var Data = []; //đây là mảng chứa các object FORECAST (dự báo thời tiết)
+        /* 
+            Đây là các property của ResponseData
+            .BaseTime
+            .data = {}
+            .data.GLOBAL_COMPAS_VN_00001 = {}                  // cái này nó không phải mảng, nó là một object => các phần tử trong nó phải lấy bằng KEY chứ không phải bằng index
+        
+        */
+
+        // Hàm này trả về một mảng nếu truyền vào URL đúng như trên
+        var GetForecast = async function (url, GLOBAL_COMPAS) {
+            var data2 = [];
+            await $.ajax({
+                url: url,
+                method: "GET",
+                dataType: "json",
+                success: function (response) {
+                    var keys = Object.keys(response.data[GLOBAL_COMPAS]);
+                    //var keys = Object.keys(response.data.GLOBAL_COMPAS);
+                    data2 = ReadForecast(keys, response, GLOBAL_COMPAS);
+                    //data2 = ReadForecast(keys, response, GLOBAL_COMPAS);
+                },
+                error: function (response) {
+                    alert("Không lấy được dữ liệu! Kiểm tra kết nối.");
                 }
-
-                // hide LayerGroup from map and remove old markers
-                var markerWithPopup = null;
-                if (_this.options.keepPopup) {
-                    markerWithPopup = _this._getMarkerWithPopup(_this._markers);
-                }
-                if (_this._map && _this._map.hasLayer(_this._layer)) {
-                    _this._map.removeLayer(_this._layer);
-                }
-                _this._layer.clearLayers();
-
-                // add the cities as markers to the LayerGroup
-                _this._markers = new Array();
-                for (var key in stations) {
-
-                    var marker;
-                    if (_this.options.markerFunction != null && typeof _this.options.markerFunction == 'function') {
-                        marker = _this.options.markerFunction.call(_this, stations[key]);
-                    } else {
-                        marker = _this._createMarker(stations[key]);
-                    }
-                    marker.options.owmId = stations[key].id;
-                    _this._layer.addLayer(marker);
-                    _this._markers.push(marker);
-                    if (_this.options.popup) {
-                        if (_this.options.popupFunction != null && typeof _this.options.popupFunction == 'function') {
-                            marker.bindPopup(_this.options.popupFunction.call(_this, stations[key]));
-                        } else {
-                            marker.bindPopup(_this._createPopup(stations[key]));
+            });
+            return data2;
+        }
+        var ReadForecast = function (keys, response, GLOBAL_COMPAS) {
+            var data1 = [];
+            keys.forEach(function (element) {
+                data1.push(response.data[GLOBAL_COMPAS][element]);
+                //data1.push(response.data.GLOBAL_COMPAS[element]);
+            });
+            return data1;
+        }
+        //Data = GetForecast(url_new1);
+        //add new set focast data weather
+        var stations = {};
+        for (var k in data) {
+            // for (var l in KhuVuc)
+            for (var l = 0; l < KhuVuc.length; l = l + 1){
+                if (data[k].name == KhuVuc[l]) {
+                    var url_new = header_url + PP[l] + last_url;
+                    Data = await GetForecast(url_new, PP[l]);
+                    //for (var m in Data)
+                    for (var m = 0; m < Data.length; m = m + 1){
+                        var tg = new Date();
+                        var tg_Json = tg.toJSON();
+                        if (tg_Json.substring(0, 13) == Data[m]['forecast_time'].substring(0, 13)) {
+                            //alert(Data[m]['forecast_time'].substring(0, 13));
+                            //add forecast_time Data to data
+                            data[k].main.temp = Data[m]['AIRTMP'];
+                            data[k].tempC = data[k].main.temp;
+                            data[k].wind.speed = Data[m]['WNDSPD'];
+                            data[k].wind.direction = Data[m]['WNDDIR'];
                         }
                     }
-                    if (markerWithPopup != null
-                        && typeof markerWithPopup.options.owmId != 'undefined'
-                        && markerWithPopup.options.owmId == marker.options.owmId) {
-                        markerWithPopup = marker;
-                    }
                 }
+            }
+            
+            if (!_this._map) { //maybe layer is gone while we are looping here
+                return;
+            }
+            // only use cities having a minimum distance of some pixels on the map
+            var pt = _this._map.latLngToLayerPoint(new L.LatLng(data[k].coord.Lat, data[k].coord.Lon));
+            var key = '' + (Math.round(pt.x / _this.options.clusterSize)) + "_" + (Math.round(pt.y / _this.options.clusterSize));
+            if (!stations[key] || parseInt(stations[key].rang) < parseInt(data[k].rang)) {
+                stations[key] = data[k];
+            }
+            
+        }
+        var markerWithPopup = null;
+        if (_this.options.keepPopup) {
+            markerWithPopup = _this._getMarkerWithPopup(_this._markers);
+        }
+        if (_this._map && _this._map.hasLayer(_this._layer)) {
+            _this._map.removeLayer(_this._layer);
+        }
+        _this._layer.clearLayers();
 
-                // add the LayerGroup to the map
-                _this._map && _this._map.addLayer(_this._layer);
-                if (markerWithPopup != null) {
-                    markerWithPopup.openPopup();
+        // add the cities as markers to the LayerGroup
+        _this._markers = new Array();
+        for (var key in stations) {
+
+            var marker;
+            if (_this.options.markerFunction != null && typeof _this.options.markerFunction == 'function') {
+                marker = _this.options.markerFunction.call(_this, stations[key]);
+            } else {
+                marker = _this._createMarker(stations[key]);
+            }
+            marker.options.owmId = stations[key].id;
+            _this._layer.addLayer(marker);
+            _this._markers.push(marker);
+            if (_this.options.popup) {
+                if (_this.options.popupFunction != null && typeof _this.options.popupFunction == 'function') {
+                    marker.bindPopup(_this.options.popupFunction.call(_this, stations[key]));
+                } else {
+                    marker.bindPopup(_this._createPopup(stations[key]));
                 }
-                _this.fire('owmlayeradd', { markers: _this._markers });
-            });//alert(data1.temp) });
+            }
+            if (markerWithPopup != null
+                && typeof markerWithPopup.options.owmId != 'undefined'
+                && markerWithPopup.options.owmId == marker.options.owmId) {
+                markerWithPopup = marker;
+            }
+        }
+
+        // add the LayerGroup to the map
+        _this._map && _this._map.addLayer(_this._layer);
+        if (markerWithPopup != null) {
+            markerWithPopup.openPopup();
+        }
+        _this.fire('owmlayeradd', { markers: _this._markers });
+        //for (var k in data) {
+        //    var stat = data[k];
+        //    for (var l in KhuVuc) {
+        //        if (stat.name == KhuVuc[l])
+        //        {
+        //            var url_new = header_url + PP[l] + last_url; //PP[l] + last_url;'GLOBAL_COMPAS_VN_00044'
+        //            Data = GetForecast(url_new);
+        //            var tg = new Date();
+        //            var tg_Json = tg.toJSON();
+                    
+        //            for (var m in Data) {
+        //                if (tg_Json.substring(0, 13) == Data[m]['forecast_time'].substring(0, 13)) {
+        //                    alert(Data[m]['forecast_time'].substring(0, 13));
+        //                    //add forecast_time Data to data
+        //                    data[k].main.temp = Data[m]['AIRTMP'];
+        //                    data[k].tempC = data[k].main.temp;
+        //                    data[k].wind.speed = Data[m]['WNDSPD'];
+        //                    data[k].wind.direction = Data[m]['WNDDIR'];
+        //                }
+        //            }
+        //        }
+        //    }
+            
+        //}
+        
+        //end add new set focast data weather
+        //let headers = new Headers();
+
+        //headers.append('Content-Type', 'application/json');
+        //headers.append('Accept', 'application/json');
+        //headers.append('Origin', 'http://localhost:56579/');
+
+        //var myInit = {
+        //    method: 'GET',
+        //    //headers: { 'Content-Type': 'application/json' },
+        //    headers: headers,
+        //    mode: 'no-cors',
+        //    cache: 'default'
+        //};
+       
+        ////var myRequest;
+        ////var myVar = setInterval(readdata, 5000);
+        ////function readdata() {
+        ////    let myRequest = new Request("./doc.json", myInit);
+        ////};./data_VN_001.json
+        //let myRequest = new Request('./data_VN_001.json', myInit);
+        //fetch(myRequest)
+        //    .then(function (resp) {
+        //        return resp.json()
+                
+        //    })
+        //    //.then(function (resp) {
+        //    //    return resp.text().then(function (text) {
+        //    //        return text ? JSON.parse(text) : {}
+        //    //    })})
+
+        //    .then(function (data1) {
+        //        //JSON.stringify(data1);
+        //        //let result = data1.results;
+
+        //        var stations = {};
+        //        for (var i in data) {
+
+        //            var stat = data[i];
+        //            if (stat.name == "Ha Noi") {
+        //                //stat.main.temp = data1[0].data['GLOBAL_COMPAS_VN_00001']['2019-07-23T16:00:00Z'].AIRTMP;//rs.fields(4);
+        //                //stat.wind.speed = data1[0].data['GLOBAL_COMPAS_VN_00001']['2019-07-23T16:00:00Z'].WNDSPD;//rs.fields(11);
+        //                //stat.tempC = stat.main.temp;
+        //            }
+        //            if (!_this._map) { //maybe layer is gone while we are looping here
+        //                return;
+        //            }
+        //            // only use cities having a minimum distance of some pixels on the map
+        //            var pt = _this._map.latLngToLayerPoint(new L.LatLng(stat.coord.Lat, stat.coord.Lon));
+        //            var key = '' + (Math.round(pt.x / _this.options.clusterSize)) + "_" + (Math.round(pt.y / _this.options.clusterSize));
+        //            if (!stations[key] || parseInt(stations[key].rang) < parseInt(stat.rang)) {
+        //                stations[key] = stat;
+        //            }
+        //        }
+
+        //        // hide LayerGroup from map and remove old markers
+        //        var markerWithPopup = null;
+        //        if (_this.options.keepPopup) {
+        //            markerWithPopup = _this._getMarkerWithPopup(_this._markers);
+        //        }
+        //        if (_this._map && _this._map.hasLayer(_this._layer)) {
+        //            _this._map.removeLayer(_this._layer);
+        //        }
+        //        _this._layer.clearLayers();
+
+        //        // add the cities as markers to the LayerGroup
+        //        _this._markers = new Array();
+        //        for (var key in stations) {
+
+        //            var marker;
+        //            if (_this.options.markerFunction != null && typeof _this.options.markerFunction == 'function') {
+        //                marker = _this.options.markerFunction.call(_this, stations[key]);
+        //            } else {
+        //                marker = _this._createMarker(stations[key]);
+        //            }
+        //            marker.options.owmId = stations[key].id;
+        //            _this._layer.addLayer(marker);
+        //            _this._markers.push(marker);
+        //            if (_this.options.popup) {
+        //                if (_this.options.popupFunction != null && typeof _this.options.popupFunction == 'function') {
+        //                    marker.bindPopup(_this.options.popupFunction.call(_this, stations[key]));
+        //                } else {
+        //                    marker.bindPopup(_this._createPopup(stations[key]));
+        //                }
+        //            }
+        //            if (markerWithPopup != null
+        //                && typeof markerWithPopup.options.owmId != 'undefined'
+        //                && markerWithPopup.options.owmId == marker.options.owmId) {
+        //                markerWithPopup = marker;
+        //            }
+        //        }
+
+        //        // add the LayerGroup to the map
+        //        _this._map && _this._map.addLayer(_this._layer);
+        //        if (markerWithPopup != null) {
+        //            markerWithPopup.openPopup();
+        //        }
+        //        _this.fire('owmlayeradd', { markers: _this._markers });
+        //    });//alert(data1.temp) });
         //End test nodejs
         //debugger;
         ////Add info to data
@@ -551,7 +726,16 @@ L.OWM.Current = L.Layer.extend({
         //rs1.MoveFirst();
         ////End add info to data
         //read all cities
-
+        //this._requests = {};
+        //this._requests[this.options.type] = L.OWM.Utils.jsonp("https://pt-wrap.wni.com/api/V1/fcst/WNI_SRF_GLOBAL_COMPAS/id/GLOBAL_COMPAS_VN_00001/latest.json?user_key=8b540fc6433041acc94b2e07d77ae60a", function (data2) { });
+        //$.getJSON('https://pt-wrap.wni.com/api/V1/fcst/WNI_SRF_GLOBAL_COMPAS/id/GLOBAL_COMPAS_VN_00001/latest.json?user_key=8b540fc6433041acc94b2e07d77ae60a', function (err, data3) {
+        //    if (err != null) {
+        //        alert('Something went wrong: ' + err);
+        //    } else {
+        //        alert('Your Json result is:  ' + data3.result);
+        //        result.innerText = data3.result;
+        //    }
+        //});
     },
 
     _getMarkerWithPopup: function (markers) {
