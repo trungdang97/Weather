@@ -273,9 +273,35 @@ function toggleWheel(localLang) {
     }
 }
 
+function get_day_name(current_day) {
+    switch (current_day % 7) {
+        case 0:
+            var day_name = "Chủ nhật";
+            break;
+        case 1:
+            var day_name = "Thứ hai";
+            break;
+        case 2:
+            var day_name = "Thứ ba";
+            break;
+        case 3:
+            var day_name = "Thứ tư";
+            break;
+        case 4:
+            var day_name = "Thứ năm";
+            break;
+        case 5:
+            var day_name = "Thứ sáu";
+            break;
+        case 6:
+            var day_name = "Thứ bảy";
+    }
+    return day_name;
+}
 /**
  * Initialize the map.
  */
+
 function initMap() {
 
     var standard = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -412,10 +438,22 @@ function initMap() {
     var getDataAddMarkers = function () {
 
     };
-
+    
     var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    var date = new Date();
+    // Lấy số thứ tự của ngày hiện tại
+    var current_day = date.getDay();
+    var firt_day = get_day_name(current_day);
+    var second_day = get_day_name(current_day + 1);
+    var thirth_day = get_day_name(current_day + 2);
+    var fourth_day = get_day_name(current_day + 3);
+    var five_day = get_day_name(current_day + 4);
+    var sixth_day = get_day_name(current_day + 5);
+    var seventh_day = get_day_name(current_day + 6);
     L.control.timelineSlider({
-        timelineItems: ["Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ 7", "Chủ nhật"],
+        //timelineItems: ["Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ 7", "Chủ nhật"],
+        //timelineItems: ["Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ 7", "Chủ nhật"],
+        timelineItems: [firt_day, second_day, thirth_day, fourth_day, five_day, sixth_day, seventh_day],
         changeMap: getDataAddMarkers,
         position: 'bottomleft'
     })
