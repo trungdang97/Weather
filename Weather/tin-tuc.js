@@ -50,7 +50,7 @@ var ShowListNews = async function () {
 var ShowNews = async function () {
     var News = await GetNewsById(NewsId);
     $("#CreatedOnDate").html("Ngày " + FormatDateTime(News.CreatedOnDate));
-    $("#Name").html(News.Name);
+    $("#Name").html(News.Name+"<br/>"+"<div class='text-center'><img src='"+News.Thumbnail+"'/></div>");
     $("#Introduction").html(News.Introduction);
     $("#Body").html(News.Body);
     $("#Credit").html("<b>Người thực hiện: " + News.Writer + "</b>");
