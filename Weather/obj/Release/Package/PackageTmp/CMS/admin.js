@@ -9,33 +9,30 @@
 
 $("#BtnSave").click(function () {
     var postData = {};
-    if (CreateState == true) {
-        postData.username = $("#username").val();
-        postData.password = $("#password").val();
-        postData.roleid = $("#MainContent_ListRoles").find(":selected").val();
-        postData.fullname = $("#fullname").val();
-        postData.shortname = $("#shortname").val();
-        $.ajax({
-            url: "/api/v1/user/create",
-            method: "POST",
-            contentType: "json",
-            data: JSON.stringify(postData),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            success: function () {
-                alert("Thêm mới người dùng thành công!");
-                $("#BtnReset").click();
-            },
-            error: function () {
-                alert("Thêm mới người dùng thất bại. Xin hãy kiểm tra lại kết nôi.");
-            }
-        });
-    }
-    else if (CreateState == false) {
-
-    }
+    postData.username = $("#username").val();
+    postData.password = $("#password").val();
+    postData.roleid = $("#MainContent_ListRoles").find(":selected").val();
+    postData.fullname = $("#fullname").val();
+    postData.shortname = $("#shortname").val();
+    postData.phone = $("#phone").val();
+    $.ajax({
+        url: "/api/v1/user/create",
+        method: "POST",
+        contentType: "json",
+        data: JSON.stringify(postData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Thêm mới người dùng thành công!");
+            $("#BtnReset").click();
+            GetFilter();
+        },
+        error: function () {
+            alert("Thêm mới người dùng thất bại. Tên người dùng đã được sử dụng hoặc kết nối bị mất.");
+        }
+    });
 });
 
 
@@ -111,11 +108,14 @@ $("#BtnReset2").click(function () {
     $("#username2").val("");
     $("#fullname2").val("");
     $("#shortname2").val("");
+    $("#phone2").val("");
 });
+
+var editId = null;
 function GetDetail(btn) {
-    var id = btn.value;
+    editId = btn.value;
     $.ajax({
-        url: "/api/v1/user/single/" + id,
+        url: "/api/v1/user/single/" + editId,
         method: "GET",
         contentType: "json",
         headers: {
@@ -127,9 +127,34 @@ function GetDetail(btn) {
             $("#username2").val(data.Username);
             $("#fullname2").val(data.FullName);
             $("#shortname2").val(data.ShortName);
+            $("#phone2").val(data.Phone);
         }
     });
 }
+
+$("#BtnSave2").click(function () {
+    var putData = {};
+    putData.UserId = editId;
+    putData.RoleId = $("#MainContent_ListRoles2").val();
+    $.ajax({
+        url: "/api/v1/user/updaterole",
+        method: "PUT",
+        contentType: "json",
+        data: JSON.stringify(putData),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function () {
+            alert("Sửa quyền người dùng thành công!");
+            $("#BtnReset2").click();
+            GetFilter();
+        },
+        error: function () {
+            alert("Sửa quyền người dùng thất bại. Xin hãy kiểm tra lại kết nối.");
+        }
+    });
+});
 
 $("#PageNumber").change(function () {
     GetFilter();

@@ -17,6 +17,9 @@ $(document).ready(function () {
     NewsId = $("#newsid").val();
     NewsCategoryId = $("#newsCategory").val();
 
+    GetCategoryQuantity();
+    GetRecentNews();
+
     if (NewsId != null && NewsId != undefined && NewsId != "") {
         $("#News").show();
         $("#ListNews").hide();
@@ -50,7 +53,7 @@ var ShowListNews = async function () {
 var ShowNews = async function () {
     var News = await GetNewsById(NewsId);
     $("#CreatedOnDate").html("Ngày " + FormatDateTime(News.CreatedOnDate));
-    $("#Name").html(News.Name);
+    $("#Name").html(News.Name + "<br/>" + "<div class='text-center'><img src='" + News.Thumbnail + "'/></div>");
     $("#Introduction").html(News.Introduction);
     $("#Body").html(News.Body);
     $("#Credit").html("<b>Người thực hiện: " + News.Writer + "</b>");
@@ -90,4 +93,49 @@ async function GetNewsByFilter() {
         }
     });
     return listNews;
+}
+
+function GetCategoryQuantity() {
+    //var lstCM = [];
+    $.ajax({
+        url: "/api/v1/news/category/quantity",
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+            //lstCM = data;
+            //console.log(lstCM);
+            $("#LstCM").html("");
+            for (var i = 0; i < data.length; i++) {
+                $("#LstCM").append("<div style='padding: 10px 0px;'><a style='color:black;' href='#'>" + data[i].Name + " (" + data[i].Quantity + ")</a></div>");
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+}
+
+function GetRecentNews() {
+    $.ajax({
+        url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=" + NewsCategoryId,
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+            $("#LstRecentNews").html("");
+            for (var i = 0; i < data.length; i++) {
+                $("#LstRecentNews").append("<div style='padding: 10px 0px;'>"
+                    + "<div class='col-md-5' style='display: inline-block; height: 50px; padding-left: 0'>"
+                    + "<img height='100%' src='" + data[i].Thumbnail + "'>"
+                    + "</div>"
+                    + "<div class='col-md-7 pull-right' style='display: inline-block'>"
+                    + "<div><a href=" + window.location.pathname + "?tin=" + data[i].NewsId + ">" + data[i].Name + "</a></div>"
+                    + "<div style='padding-top:5px; color:grey'>31/07/2019</div>"
+                    + "</div>"
+                    + "</div>");
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
 }

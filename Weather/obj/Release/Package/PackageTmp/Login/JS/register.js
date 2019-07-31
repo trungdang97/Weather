@@ -13,6 +13,7 @@
         data: postData,
         success: function (data) {
             console.log(data);
+            window.location.href = "/login/index";
         },
         error: function () {
             alert("Không thể gửi được yêu cầu. Xin hãy thử lại sau ít phút.");

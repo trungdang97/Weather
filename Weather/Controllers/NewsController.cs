@@ -15,6 +15,7 @@ namespace Weather.Controllers
         public string Name { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
+        public int Quantity { get; set; } = 0;
     }
 
     public static class ConvertData
@@ -173,15 +174,66 @@ namespace Weather.Controllers
             {
                 List<NewsCategory> categories = new List<NewsCategory>();
                 var models = db.cms_NewsCategory.Where(x => x.Type == Type).OrderBy(x => x.Order);
-                foreach(var m in models)
+                foreach (var m in models)
                 {
-                    categories.Add(new NewsCategory() {
+                    categories.Add(new NewsCategory()
+                    {
                         Name = m.Name,
                         Description = m.Description,
                         Type = m.Type
                     });
                 }
                 return categories;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/v1/news/category/quantity")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<NewsCategory> GetCategoriesQuantity()
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                List<NewsCategory> categories = new List<NewsCategory>();
+                var models = db.cms_NewsCategory;
+                foreach(var m in models)
+                {
+                    var quantity = db.cms_News.Where(x => x.NewsCategory == m.NewsCategoryId).Count();
+                    categories.Add(new NewsCategory()
+                    {
+                        Name = m.Name,
+                        Description = m.Description,
+                        Type = m.Type,
+                        Quantity = quantity
+                    });
+                }
+                return categories;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/v1/news/category/recent")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<News> GetRecentNews(int quantity, Guid? NewsId, Guid Category)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                List<News> lstNews = new List<News>();
+                var models = db.cms_News.Where(x => x.NewsCategory == Category);
+                if (NewsId.HasValue)
+                {
+                    models = models.Where(x => x.NewsId != NewsId);
+                }
+                models = models.OrderByDescending(x => x.CreatedOnDate);
+
+                if (models.Count() > quantity)
+                {
+                    models = models.Take(quantity);
+                }
+
+                lstNews.AddRange(models.Select(ConvertData.ConvertNews));
+
+                return lstNews;
             }
         }
     }

@@ -44,6 +44,10 @@
                             <input type="text" class="form-control" id="shortname" name="username" placeholder="Tên viết tắt / Bút danh" />
                         </div>
                         <div class="form-group">
+                            <label for="name">SDT<span class="required" style="color: red">(*)</span>:</label>
+                            <input type="text" class="form-control" id="phone" name="username" placeholder="Số điện thoại" />
+                        </div>
+                        <div class="form-group">
                             <label for="location">Mật khẩu<span class="required" style="color: red">(*)</span>:</label>
                             <input type="text" class="form-control" id="password" name="password" placeholder="Mật khẩu" />
                         </div>
@@ -83,7 +87,11 @@
                         <div class="form-group">
                             <label for="name">Tên viết tắt / Bút danh<span class="required" style="color: red">(*)</span>:</label>
                             <input type="text" class="form-control" id="shortname2" name="username" placeholder="Tên viết tắt / Bút danh" disabled="disabled"/>
-                        </div>                        
+                        </div>
+                        <div class="form-group">
+                            <label for="name">SDT<span class="required" style="color: red">(*)</span>:</label>
+                            <input type="text" class="form-control" id="phone2" name="username" placeholder="Số điện thoại" disabled="disabled"/>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="BtnReset2" class="btn btn-danger">Hủy</button>
@@ -99,7 +107,7 @@
                 <asp:DropDownList ID="ListRolesOutter" runat="server" Height="25px" Width="200px" name="role">
                     <asp:ListItem Text="-- Chọn phân quyền --" Value=""></asp:ListItem>
                 </asp:DropDownList>
-                <button type="button" onclick="ChangeToCreate()" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
                     <i class="fa fa-plus"></i>&ensp;Thêm mới người dùng
                 </button>
             </div>
