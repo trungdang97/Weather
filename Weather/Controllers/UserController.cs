@@ -142,32 +142,46 @@ namespace Weather.Controllers
         [HttpPost]
         [Route("api/v1/user/create")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public void CreateUser([FromBody]UserCreateModel data)
+        public User CreateUser([FromBody]UserCreateModel data)
         {
-            using (var db = new cms_VKTTVEntities())
+            try
             {
-                Guid id = Guid.NewGuid();
-                string salt = Salt.CreateSalt(32);
-                string pw = ComputeSha256Hash(data.Password + salt);
-                var user = new aspnet_Membership()
+                using (var db = new cms_VKTTVEntities())
                 {
-                    UserId = id,
-                    PasswordSalt = salt,
-                    Password = pw,
-                    FullName = data.FullName,
-                    ShortName = data.ShortName,
-                    RoleId = data.RoleId
-                };
-                var user_ref = new aspnet_Users()
-                {
-                    Username = data.Username,
-                    UserId = id
-                };
+                    Guid id = Guid.NewGuid();
+                    string salt = Salt.CreateSalt(32);
+                    string pw = ComputeSha256Hash(data.Password + salt);
+                    var user = new aspnet_Membership()
+                    {
+                        UserId = id,
+                        PasswordSalt = salt,
+                        Password = pw,
+                        FullName = data.FullName,
+                        Phone = data.Phone,
+                        ShortName = data.ShortName,
+                        RoleId = data.RoleId
+                    };
+                    var user_ref = new aspnet_Users()
+                    {
+                        Username = data.Username,
+                        UserId = id
+                    };
 
-                db.aspnet_Membership.Add(user);
-                db.aspnet_Users.Add(user_ref);
+                    db.aspnet_Membership.Add(user);
+                    db.aspnet_Users.Add(user_ref);
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    return new User()
+                    {
+                        UserId = user_ref.UserId,
+                        Username = user_ref.Username,
+                    };
+                }
+            }
+            catch(Exception ex)
+            {
+                return null;
             }
         }
 
@@ -227,6 +241,21 @@ namespace Weather.Controllers
                 user.FullName = model.FullName;
                 user.ShortName = model.ShortName;
                 user.Phone = model.Phone;
+
+                db.SaveChanges();
+            }
+            return false;
+        }
+
+        [HttpPut]
+        [Route("api/v1/user/updaterole")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public bool UpdateRole([FromBody]UserUpdateRequestModel model)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var user = db.aspnet_Membership.Where(x => x.UserId == model.UserId).First();
+                user.RoleId = model.RoleId;
 
                 db.SaveChanges();
             }
@@ -320,6 +349,7 @@ namespace Weather.Controllers
         public string ShortName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public Guid RoleId { get; set; }
     }
 
     public class UserCreateModel
@@ -328,6 +358,7 @@ namespace Weather.Controllers
         public string Password { get; set; }
         public string FullName { get; set; }
         public string ShortName { get; set; }
+        public string Phone { get; set; }
         public Guid RoleId { get; set; }
     }
 
