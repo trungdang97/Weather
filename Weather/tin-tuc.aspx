@@ -8,11 +8,13 @@
     <input id="newsCategory" value="<% Response.Write(HttpContext.Current.Session["NewsCategory"]); %>" hidden />
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9" style="padding-top: 20px">
                 <div id="News">
                     <span style="display: block"><small id="CreatedOnDate" style="font-weight: bold"></small></span>
                     <div class="row">
                         <h3 id="Name" style="font-weight: bold"></h3>
+                    </div>
+                    <div class='text-center' style="padding: 20px 0px" id="Thumbnail">                        
                     </div>
                     <div class="row" id="Introduction">
                     </div>
@@ -22,8 +24,11 @@
                         <div class="pull-right" style="padding-right: 50px;" id="Credit">
                         </div>
                     </div>
-                    <div class="row" id="LstRecentCategoryNews">
+                    <div class="row" style="padding-top: 50px">
+                        <div><h5><b>Các tin liên quan</b></h5></div>
+                        <div id="LstRecentCategoryNews">
 
+                        </div>
                     </div>
                 </div>
                 <div id="ListNews">

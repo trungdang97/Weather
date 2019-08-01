@@ -18,6 +18,7 @@ $(document).ready(function () {
     NewsCategoryId = $("#newsCategory").val();
 
     GetCategoryQuantity();
+    GetRecentCategoryNews();
     GetRecentNews();
 
     if (NewsId != null && NewsId != undefined && NewsId != "") {
@@ -53,7 +54,8 @@ var ShowListNews = async function () {
 var ShowNews = async function () {
     var News = await GetNewsById(NewsId);
     $("#CreatedOnDate").html("Ngày " + FormatDateTime(News.CreatedOnDate));
-    $("#Name").html(News.Name + "<br/>" + "<div class='text-center'><img src='" + News.Thumbnail + "'/></div>");
+    $("#Name").html(News.Name);
+    $("#Thumbnail").html("<img src='" + News.Thumbnail + "'/>");
     $("#Introduction").html(News.Introduction);
     $("#Body").html(News.Body);
     $("#Credit").html("<b>Người thực hiện: " + News.Writer + "</b>");
@@ -115,7 +117,7 @@ function GetCategoryQuantity() {
     });
 }
 
-function GetRecentNews() {
+function GetRecentCategoryNews() {
     $.ajax({
         url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=",
         dataType: "json",
@@ -123,7 +125,10 @@ function GetRecentNews() {
         success: function (data) {
             $("#LstRecentCategoryNews").html("");
             for (var i = 0; i < data.length; i++) {
-                $("#LstRecentCategoryNews").append("<a href='" + window.location.href + "?tin=" + data[i].NewsId + "'>" + data[i].Name + "</a><br/>");
+                $("#LstRecentCategoryNews").append("<div class='row' style='padding-top:5px'>"
+                    + "<div class='col-md-9'><i style='font-size: 10px' class='fa fa-circle' aria-hidden='true'></i><a style='color:black' href = '" + window.location.pathname + "?tin=" + data[i].NewsId + "' > " + data[i].Name + "</a></div>"
+                    + "<div class='col-md-3'><i>" + FormatDate(data[i].CreatedOnDate) +"</i><div>"
+                    + "</div>");
             }
         },
         error: function (response) {
@@ -132,7 +137,7 @@ function GetRecentNews() {
     });
 }
 
-function GetRecentCategoryNews() {
+function GetRecentNews() {
     $.ajax({
         url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=" + NewsCategoryId,
         dataType: "json",
@@ -140,7 +145,7 @@ function GetRecentCategoryNews() {
         success: function (data) {
             $("#LstRecentNews").html("");
             for (var i = 0; i < data.length; i++) {
-                $("#LstRecentNews").append("<div style='padding: 10px 0px;'>"
+                $("#LstRecentNews").append("<div class='row' style='padding: 10px 0px;'>"
                     + "<div class='col-md-5' style='display: inline-block; height: 50px; padding-left: 0'>"
                     + "<img height='100%' src='" + data[i].Thumbnail + "'>"
                     + "</div>"
