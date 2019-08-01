@@ -28,13 +28,13 @@
             src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.css">
     <!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
               integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
               crossorigin="" />-->
@@ -46,7 +46,12 @@
     <script src="https://npmcdn.com/leaflet@1.1.0/dist/leaflet.js"></script>
     <script src="./leaflet-timeline-slider-master/src/leaflet-timeline-slider.js"></script>
     <script src="./leaflet-timeline-slider-master/dist/leaflet-timeline-slider.min.js"></script>
+    <!--<link rel="stylesheet" href="./Leaflet.TimeDimension-master/dist/leaflet.timedimension.control.min.css">-->
+    <!--<script src="./leaflet-timeline-slider-master/src/slidercontrol.js"></script>
+    <script src="./leaflet-timeline-slider-master/dist/slidercontrol.min.js"></script>-->
+
     <style>
+
         #HideMap {
             position: fixed;
             bottom: 0px;
@@ -64,18 +69,24 @@
     <!--leaflet-velocity-->
     <link rel="stylesheet" href="leafletVelocity/dist/leaflet-velocity.css" />
     <script src="leafletVelocity/dist/leaflet-velocity.js"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.js"></script>
+    <!--<script type="text/javascript" src="./Leaflet.TimeDimension-master/src/leaflet.timedimension.js"></script>
+    <script type="text/javascript" src="./Leaflet.TimeDimension-master/src/leaflet.timedimension.util.js"></script>
+    <script type="text/javascript" src="./Leaflet.TimeDimension-master/src/leaflet.timedimension.layer.js"></script>
+    <script type="text/javascript" src="./Leaflet.TimeDimension-master/src/leaflet.timedimension.layer.wms.js"></script>
+    <script type="text/javascript" src="./Leaflet.TimeDimension-master/src/leaflet.timedimension.player.js"></script>
+    <script type="text/javascript" src="./Leaflet.TimeDimension-master/src/leaflet.timedimension.control.js"></script>-->
     <!--demo-->
     <!--<link rel="stylesheet" href="leafletVelocity/demo/demo.css" />
     <script  src="leafletVelocity/demo/demo.js"></script>-->
 
     <script>
         initMap();
-                                    //		if (!confirm("Please not that this page is only a demonstration for an OpenWeatherMap leaflet plugin.\nIt is not intended for productive use.\n\nVisit https://osb.com/buche/leaflet-openweathermap for more information.\n\nClick OK to proceed with the map or click Cancel to visit osb.com.")) {
-                                    //			window.location.href = "https://osb.com/buche/leaflet-openweathermap";
-                                    //				}
+                                                            //		if (!confirm("Please not that this page is only a demonstration for an OpenWeatherMap leaflet plugin.\nIt is not intended for productive use.\n\nVisit https://osb.com/buche/leaflet-openweathermap for more information.\n\nClick OK to proceed with the map or click Cancel to visit osb.com.")) {
+                                                            //			window.location.href = "https://osb.com/buche/leaflet-openweathermap";
+                                                            //				}
     </script>
     <script type="tedious" src="leaflet-openweathermap.js">
-    </script>    
+    </script>
 </body>
 </html>
