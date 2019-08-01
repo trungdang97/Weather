@@ -22,6 +22,9 @@
                         <div class="pull-right" style="padding-right: 50px;" id="Credit">
                         </div>
                     </div>
+                    <div class="row" id="LstRecentCategoryNews">
+
+                    </div>
                 </div>
                 <div id="ListNews">
                     <div id="InnerList" class="col-md-7"></div>

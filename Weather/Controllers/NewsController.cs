@@ -214,12 +214,16 @@ namespace Weather.Controllers
         [HttpGet]
         [Route("api/v1/news/category/recent")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<News> GetRecentNews(int quantity, Guid? NewsId, Guid Category)
+        public List<News> GetRecentNews(int quantity, Guid? NewsId, Guid? Category)
         {
             using (var db = new cms_VKTTVEntities())
             {
                 List<News> lstNews = new List<News>();
-                var models = db.cms_News.Where(x => x.NewsCategory == Category);
+                var models = (IQueryable<cms_News>)db.cms_News;
+                if (Category.HasValue)
+                {
+                    models = db.cms_News.Where(x => x.NewsCategory == Category);
+                }
                 if (NewsId.HasValue)
                 {
                     models = models.Where(x => x.NewsId != NewsId);

@@ -117,6 +117,23 @@ function GetCategoryQuantity() {
 
 function GetRecentNews() {
     $.ajax({
+        url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=",
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+            $("#LstRecentCategoryNews").html("");
+            for (var i = 0; i < data.length; i++) {
+                $("#LstRecentCategoryNews").append("<a href='" + window.location.href + "?tin=" + data[i].NewsId + "'>" + data[i].Name + "</a><br/>");
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+}
+
+function GetRecentCategoryNews() {
+    $.ajax({
         url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=" + NewsCategoryId,
         dataType: "json",
         method: "GET",
