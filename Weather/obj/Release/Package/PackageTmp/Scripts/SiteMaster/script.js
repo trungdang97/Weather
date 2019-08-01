@@ -188,6 +188,25 @@ function FormatDateTime(datetime) {
     return formattedString;
 }
 
+function FormatDate(datetime) {
+    var time = new Date(datetime);
+    var d, M, y, H, m, s;
+    if (time.getDate() < 10) {
+        d = '0' + time.getDate();
+    }
+    else {
+        d = time.getDate();
+    }
+    if (time.getMonth() + 1 < 10) {
+        M = '0' + (time.getMonth() + 1);
+    }
+    else {
+        M = time.getMonth() + 1;
+    }   
+    var formattedString = d + "/" + M + "/" + time.getFullYear();
+    return formattedString;
+}
+
 //Lấy dữ liệu để in ra nav bar: các thể loại tin thời tiết
 var GetNewsCategory = function () {
     $.ajax({

@@ -376,8 +376,12 @@ function initMap() {
         maxBounds: bounds,   // Then add it here..
         maxZoom: 19,
         minZoom: 6,
+        fullscreenControl: true,
+        //timeDimension: true,
+        //timeDimensionControl: true,
         center: new L.LatLng(lat, lon), zoom: zoom,
         layers: [standard]
+     
     });
     map.attributionControl.setPrefix("");
 
@@ -459,7 +463,8 @@ function initMap() {
     })
         .addTo(map);
     //map.addControl(new L.Control.Permalink({layers: layerControl, useAnchor: false, position: 'bottomright'}));
-
+    //test Time Dimension
+   
     // patch layerControl to add some titles
     var patch = L.DomUtil.create('div', 'owm-layercontrol-header');
     patch.innerHTML = getI18n('layers', localLang); // 'TileLayers';
