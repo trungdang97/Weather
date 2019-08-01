@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-    <button id="ToggleMap" title="Click vào tôi để mở/đóng bản đồ thời tiết cỡ lớn"><i class="fa fa-map" style="font-size: 30px" aria-hidden="true"></i></button>
+    <%--<button id="ToggleMap" title="Click vào tôi để mở/đóng bản đồ thời tiết cỡ lớn"><i class="fa fa-map" style="font-size: 30px" aria-hidden="true"></i></button>--%>
     <form id="MainForm" runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
