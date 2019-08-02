@@ -172,4 +172,11 @@
         $("iframe").height($("#citiesWeather").height());
     </script>
     <script src="Default.js"></script>
+    <script>
+        var callback = function (data) {
+            //$("#json").
+            //console.log(data);
+        }
+    </script>
+    <script id="json" type="text/javascript" src="http://localhost:8589/api/v1/MRFDLY/demodaily"></script>
 </asp:Content>
