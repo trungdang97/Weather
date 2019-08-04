@@ -197,3 +197,4 @@ C:\Users\Trung\Desktop\Weather\Weather\Weather\obj\Release\Weather.csproj.CoreCo
 C:\Users\Trung\Desktop\Weather\Weather\Weather\obj\Release\Weather.csproj.CopyComplete
 C:\Users\Trung\Desktop\Weather\Weather\Weather\obj\Release\Weather.dll
 C:\Users\Trung\Desktop\Weather\Weather\Weather\obj\Release\Weather.pdb
+C:\Users\Trung\Desktop\Weather\Weather\obj\Release\Weather.csprojAssemblyReference.cache
