@@ -93,7 +93,6 @@ C:\Users\Trung\Desktop\Weather\Weather\bin\System.Web.Mvc.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Trung\Desktop\Weather\Weather\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Trung\Desktop\Weather\Weather\obj\Release\Weather.csprojAssemblyReference.cache
 C:\Users\Trung\Desktop\Weather\Weather\obj\Release\Weather.csproj.CoreCompileInputs.cache
 C:\Users\Trung\Desktop\Weather\Weather\obj\Release\Weather.csproj.CopyComplete
 C:\Users\Trung\Desktop\Weather\Weather\obj\Release\Weather.dll

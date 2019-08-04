@@ -1,12 +1,27 @@
 ﻿var Forecast_BaseURL = "http://183.91.4.95:8589";
 var Forecast_TestURL = "http://localhost:8589";
 
-$(document).ready(function () {
+var ForecastPageSize = 6;
+var ForecastData = [];
+var ForecastPageNumber = 1;
+var ForecastTotalPage = 1;
+var ForecastHeight = 0;
+var ForecastInnerHeight = 0;
+
+$(document).ready(async function () {
     GetNews("3af42b3e-5e0c-4f30-bdce-9b020ee4b0c3", "TT");
     GetNews("dac7f4bf-b0c0-4003-bde0-d5eeea71ba03", "NB");
     GetNews("328e5dbf-966a-4fbd-8642-e5a6f2be6033", "XH");
 
-    GetForecast();
+    await GetForecast();
+
+    
+});
+$("#PreviousForecast").click(function () {
+    PreviousForecastPage();
+});
+$("#NextForecast").click(function () {
+    NextForecastPage();
 });
 
 var GetNews = function (NewsCategoryId, Code) {
@@ -81,33 +96,145 @@ var GetNews = function (NewsCategoryId, Code) {
     });
 };
 
-//var GetForecast = async function () {
-//    var data = null;
-//     await $.ajax({
-//        url: "http://localhost:8589/api/v1/MRFDLY/demodaily",
-//        dataType: 'jsonp',
-//        //crossDomain: true,
-//        //headers: { 'Access-Control-Allow-Origin': 'http://localhost:8589' },
-//        success: function (response) {
-//            data = response;
-//            console.log(response);
-//        },
-//        error: function (response) {
-//            console.log(response);
-//            alert("Không thể tải dữ liệu dự báo thời tiết! Xin hãy kiểm tra đường truyền.")
-//        }
-//    });
+var GetForecast = async function () {
+    await $.ajax({
+        url: Forecast_BaseURL + "/api/v1/MRFDLY/demodaily",
+        method: "GET",
+        dataType: 'json',
+        success: async function (response) {
+            ForecastData = response.Data;
+            ForecastTotalPage = Math.ceil(response.TotalCount / ForecastPageSize);
+            //console.log(response);
+            await ShowForecast(ForecastPageNumber);
+            ForecastHeight = await $("#citiesWeather").height();
+            ForecastInnerHeight = await $("#ForecastContent tr").height();
+            $("iframe").height(ForecastHeight);
+            $("#citiesWeather").height(ForecastHeight);
+            //$("#ForecastContent").height(ForecastInnerHeight);
+            $("#ForecastPageNumber").html(ForecastPageNumber);
+            $("#ForecastTotalPage").html(ForecastTotalPage);
+        },
+        error: function (response) {
+            console.log(response);
+            alert("Không thể tải dữ liệu dự báo thời tiết! Xin hãy kiểm tra đường truyền.")
+        }
+    });
+};
 
-//    //script = document.createElement("script");
-//    //script.type = "text/javascript";
-//    //script.src = "http://localhost:8589/api/v1/MRFDLY/demodaily?callback=GetForecastData";
+var ShowForecast = async function (pageNumber) {
+    var excludedRows = (pageNumber - 1) * ForecastPageSize;
+    var min = excludedRows;
+    var max = excludedRows + ForecastPageSize;
+    $("#ForecastContent").html("");
+    for (var i = min; i < max; i++) {
+        if (ForecastData[i] != undefined) {
+            var icon = await GetWeatherIcon(ForecastData[i].WX_1DAY);
+            $("#ForecastContent").append("<tr>"
+                + "<td style='padding-right: 5px;width: 70px'>"
+                + " <img src='"+icon+"' alt='Icon here' width='50px' />"
+                + "</td>"
+                + "<td>"
+                + "<span class='text-uppercase' style='font-size: 14px'>" + ForecastData[i].Location + "</span>"
+                + "<span class='pull-right' style='color: #dec402; font-size: 14px; padding-top: 5px'>" + Math.floor(ForecastData[i].AIRTMP_1DAY_MIN) + "-" + Math.floor(ForecastData[i].AIRTMP_1DAY_MAX) + "&#176;C</span>"
+                + "<br />"
+                + "<span style='font-size: 12px; color: grey;'>" + ForecastData[i].WeatherCondition + "</span>"
+                + "</td>"
+                + "</tr>");
+        }
+        else {
+            $("#ForecastContent").append("<tr><td style='height:" + ForecastInnerHeight + "px'></td></tr>");
+        }
+    }
+    UpdatePageNumber();
+    ToggleForecastNavigation();
+}
 
-//    //$.getJSON("http://localhost:8589/api/v1/MRFDLY/demodaily?method=getQuote&format=jsonp&lang=en&jsonp=GetForecastData&?callback=?", function (result) {
-//    //    //response data are now in the result variable
-//    //    console.log(result);
-//    //});
-//};
+var PreviousForecastPage = function () {
+    if (ForecastPageNumber > 1) {
+        ForecastPageNumber--;
+    }
+    else ForecastPageNumber = 1;
 
-//var GetForecastData = function (data) {
-//    console.log(data.Data);
-//};
+    ShowForecast(ForecastPageNumber);
+}
+var NextForecastPage = function () {
+    if (ForecastPageNumber < ForecastTotalPage) {
+        ForecastPageNumber++;
+    }
+    else ForecastPageNumber = ForecastTotalPage;
+
+    ShowForecast(ForecastPageNumber);
+}
+
+var UpdatePageNumber = function () {
+    $("#ForecastPageNumber").html(ForecastPageNumber);
+};
+var ToggleForecastNavigation = function () {
+    if (ForecastPageNumber == 1) {
+        $("#PreviousForecast").hide();
+    }
+    else if (ForecastPageNumber == ForecastTotalPage) {
+        $("#NextForecast").hide();
+    }
+    else {
+        $("#NextForecast").show();
+        $("#PreviousForecast").show();
+    }
+}
+
+var GetWeatherIcon = function (WX_1DAY) {
+    return IconsMapping.find(x => x.WX_1DAY == WX_1DAY).Icon;
+};
+
+var IconsMapping = [
+    {
+        WX_1DAY: 100,
+        Name: "Trời nắng",
+        Icon: "Content/Images/Icon/Icon/100.png"
+    },
+    {
+        WX_1DAY: 101,
+        Name: "Ít mây",
+        Icon: "Content/Images/Icon/Icon/101.png"
+    },
+    {
+        WX_1DAY: 200,
+        Name: "Trời có mây",
+        Icon: "Content/Images/Icon/Icon/200.png"
+    },
+    {
+        WX_1DAY: 201,
+        Name: "Trời nhiều mây",
+        Icon: "Content/Images/Icon/Icon/201.png"
+    },
+    {
+        WX_1DAY: 202,
+        Name: "Trời có mây và có thể có mưa",
+        Icon: "Content/Images/Icon/Icon/202-203.png"
+    },   
+    {
+        WX_1DAY: 203,
+        Name: "Trời có mây và thỉnh thoảng có mưa",
+        Icon: "Content/Images/Icon/Icon/202-203.png"
+    },
+    {
+        WX_1DAY: 300,
+        Name: "Mưa",
+        Icon: "Content/Images/Icon/Icon/300-302.png"
+    },
+    {
+        WX_1DAY: 302,
+        Name: "Mưa thất thường",
+        Icon: "Content/Images/Icon/Icon/300-302.png"
+    },
+    {
+        WX_1DAY: 500,
+        Name: "Thời tiết đẹp",
+        Icon: ""
+    },
+    {
+        WX_1DAY: 0,
+        Name: "Trời nắng",
+        Icon: "Content/Images/Icon/Icon/tornado.png"
+    },
+];

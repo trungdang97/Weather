@@ -6682,6 +6682,19 @@
     <Content Include="Content\Default\demo.css" />
     <Content Include="Content\Default\normalize.css" />
     <Content Include="Content\Icons\kttv_logo.jpg" />
+    <Content Include="Content\Images\Icon\Icon\100.png" />
+    <Content Include="Content\Images\Icon\Icon\101.png" />
+    <Content Include="Content\Images\Icon\Icon\200.png" />
+    <Content Include="Content\Images\Icon\Icon\201.png" />
+    <Content Include="Content\Images\Icon\Icon\202-203.png" />
+    <Content Include="Content\Images\Icon\Icon\300-302.png" />
+    <Content Include="Content\Images\Icon\Icon\Status-weather-clouds-night-icon.png" />
+    <Content Include="Content\Images\Icon\Icon\Status-weather-snow-scattered-day-icon.png" />
+    <Content Include="Content\Images\Icon\Icon\Status-weather-snow-scattered-night-icon.png" />
+    <Content Include="Content\Images\Icon\Icon\Status-weather-storm-day-icon.png" />
+    <Content Include="Content\Images\Icon\Icon\Status-weather-storm-night-icon.png" />
+    <Content Include="Content\Images\Icon\Icon\sun-littlecloud-flash-rain-icon.png" />
+    <Content Include="Content\Images\Icon\Icon\tornado.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Data\cms_VKTTV.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

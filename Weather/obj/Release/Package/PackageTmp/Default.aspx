@@ -27,11 +27,11 @@
     </style>
     <div class="row" style="padding: 20px 15px">
         <%--<div class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%">--%>
-        <iframe class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%" src="index.html">
+        <iframe class="col-md-7" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 66%" src="index.html">
             <p>Your browser does not support iframes.</p>
         </iframe>
         <%--</div>--%>
-        <div id="citiesWeather" class="col-md-3 pull-right" style="border: 1px solid lightgrey; box-shadow: 2px 2px; padding: 0; border-radius: 2px">
+        <div id="citiesWeather" class="col-md-4 pull-right" style="border: 1px solid lightgrey; box-shadow: 2px 2px; padding: 0; border-radius: 2px">
             <div class="row">
                 <div class="text-uppercase" style="font-weight: bold; color: dodgerblue; font-size: 20px; display: block; padding: 5px 20px;">Cảnh báo thiên tai</div>
                 <div style="font-weight: bold; font-size: 20px; display: block; background-color: #ebe9e1; padding: 5px 10px;">
@@ -39,6 +39,7 @@
                         <tr>
                             <td style="padding-right: 5px;">
                                 <img src="http://chittagongit.com/download/52198" width="50px" />
+                                <%--<img src="Content/Images/Icon/Icon/clound.png" width="50px" />--%>
                             </td>
                             <td>
                                 <span class="text-uppercase" style="font-size: 14px">Tin bão trên biển đông</span>
@@ -55,87 +56,36 @@
                 </div>
                 <div style="font-weight: bold; font-size: 20px; display: block; background-color: #ebe9e1; padding: 5px 10px;">
                     <table style="width: 100%">
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/256x256/Sunny.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">Hà Nội</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">30-32&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Nắng mạnh</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/256x256/Sunny.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">Hải Phòng</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">28-30&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Nắng mạnh</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn4.iconfinder.com/data/icons/weather-132/100/blue_cloud-512.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">Nha Trang</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">29-30&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Nhiều mây</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/256x256/Sunny.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">Nghệ An</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">30-32&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Nắng mạnh</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn0.iconfinder.com/data/icons/clouds-and-precipitation-filled/64/Clouds_and_Precipitation_EXP_11_Cloud_with_rain_rainy_shower_weather_forecast-512.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">Gia Lai</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">28-31&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Mưa rào và giông</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/256x256/Sunny.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">Sơn La</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">30-32&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Nắng mạnh</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right: 5px;">
-                                <img src="https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/kweather.png" width="50px" />
-                            </td>
-                            <td>
-                                <span class="text-uppercase" style="font-size: 14px">TP. Hồ Chí Minh</span>
-                                <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">30-32&#176;C</span>
-                                <br />
-                                <span style="font-size: 12px; color: grey">Trưa chiều giảm mây, trời nắng</span>
-                            </td>
-                        </tr>
+                        <tbody id="ForecastContent">
+                            <%--<tr>
+                                <td style="padding-right: 5px;">
+                                    <img src="https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/256x256/Sunny.png" width="50px" />
+                                </td>
+                                <td>
+                                    <span class="text-uppercase" style="font-size: 14px">Hà Nội</span>
+                                    <span class="pull-right" style="color: #dec402; font-size: 14px; padding-top: 5px">30-32&#176;C</span>
+                                    <br />
+                                    <span style="font-size: 12px; color: grey">Nắng mạnh</span>
+                                </td>
+                            </tr>--%>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a id="PreviousForecast" href="#"><i class="fa fa-arrow-left"></i></a>
+                                </td>
+                                <td class="text-center" style="padding-right:30px;">
+                                    <b style="font-size: 14px;" id="ForecastPageNumber"></b>
+                                    <b style="font-size: 14px;">/</b>
+                                    <b style="font-size: 14px;" id="ForecastTotalPage"></b>
+                                </td>
+                                <td class="pull-right">
+                                    <a id="NextForecast" href="#"><i class="fa fa-arrow-right"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                     <%-- Pagination --%>
-                    <div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -169,7 +119,7 @@
         </div>
     </div>
     <script>
-        $("iframe").height($("#citiesWeather").height());
+        
     </script>
     <script src="Default.js"></script>
 </asp:Content>
