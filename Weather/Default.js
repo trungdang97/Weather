@@ -47,8 +47,8 @@ var GetNews = function (NewsCategoryId, Code) {
                 $("#tab_default_1").html("<div class='card-deck' id='tab_default_1_content'></div>");
                 for (var i = 0; i < data.length; i++) {
                     $("#tab_default_1_content").append(
-                        "<div class='card' style='border: 1px solid #1e90ff; margin-bottom: 20px;' >"
-                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%' alt='Card image cap'>"
+                        "<div class='card' style='border: 1px solid #1e90ff;border-radius: 5px; margin-bottom: 20px;' >"
+                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%; border-radius: 5px 5px 0px 0px;' alt='Card image cap'>"
                         + "<div class='card-body' style='padding-left: 15px'>"
                         + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
                         + "<h4 class='card-title'><a href='tin-tuc/noi-bo?tin=" + data[i].NewsId + "'>" + data[i].Name + "</a></h4>"
@@ -62,8 +62,8 @@ var GetNews = function (NewsCategoryId, Code) {
                 $("#tab_default_2").html("<div class='card-deck' id='tab_default_2_content'></div>");
                 for (var i = 0; i < data.length; i++) {
                     $("#tab_default_2_content").append(
-                        "<div class='card' style='border: 1px solid #1e90ff; margin-bottom: 20px;' >"
-                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%' alt='Card image cap'>"
+                        "<div class='card' style='border: 1px solid #1e90ff; border-radius: 5px; margin-bottom: 20px;' >"
+                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%; border-radius: 5px 5px 0px 0px;' alt='Card image cap'>"
                         + "<div class='card-body' style='padding-left: 15px'>"
                         + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
                         + "<h4 class='card-title'><a href='tin-tuc/thoi-tiet?tin=" + data[i].NewsId + "'>" + data[i].Name + "</a></h4>"
@@ -77,8 +77,8 @@ var GetNews = function (NewsCategoryId, Code) {
                 $("#tab_default_3").html("<div class='card-deck' id='tab_default_3_content'></div>");
                 for (var i = 0; i < data.length; i++) {
                     $("#tab_default_3_content").append(
-                        "<div class='card' style='border: 1px solid #1e90ff; margin-bottom: 20px;' >"
-                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%;' alt='Card image cap'>"
+                        "<div class='card' style='border: 1px solid #1e90ff;border-radius: 5px; margin-bottom: 20px;' >"
+                        + "<img class='card-img-top' src='" + data[i].Thumbnail + "' style='width: 100%; border-radius: 5px 5px 0px 0px;' alt='Card image cap'>"
                         + "<div class='card-body' style='padding-left: 15px'>"
                         + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(data[i].CreatedOnDate) + "</h6>"
                         + "<h4 class='card-title'><a href='tin-tuc/xa-hoi?tin=" + data[i].NewsId + "'>" + data[i].Name + "</a></h4>"

@@ -38,7 +38,7 @@
                     <table>
                         <tr>
                             <td style="padding-right: 5px;">
-                                <img src="http://chittagongit.com/download/52198" width="50px" />
+                                <img src="/Content/Images/Icon/Icon/tornado.png" width="50px" />
                                 <%--<img src="Content/Images/Icon/Icon/clound.png" width="50px" />--%>
                             </td>
                             <td>
