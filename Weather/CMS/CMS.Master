@@ -135,8 +135,7 @@
                         %>
                         <li><a style="color:#fff" href='admin.aspx'><i class='fa fa-link'></i><span>Quản trị người dùng</span></a></li>
                         <li><a style="color:#fff" href='apimanager.aspx'><i class='fa fa-link'></i><span>Quản trị API</span></a></li>
-                        <li><a style="color:#fff" href='#'><i class='fa fa-link'></i><span>Quản trị danh mục cấu hình<br />
-                            (ongoing)</span></a></li>
+                        <li><a style="color:#fff" href='config.aspx'><i class='fa fa-link'></i><span>Quản trị danh mục cấu hình</span></a></li>
                         <%   
                             }
                         %>

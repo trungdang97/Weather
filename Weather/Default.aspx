@@ -27,7 +27,7 @@
     </style>
     <div class="row" style="padding: 20px 15px">
         <%--<div class="col-md-8" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 74%">--%>
-        <iframe class="col-md-7" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 66%" src="index.html">
+        <iframe class="col-md-7" style="border: 1px solid lightgrey; padding: 0px; border-radius: 2px; width: 66%; height: 520px" src="index.html">
             <p>Your browser does not support iframes.</p>
         </iframe>
         <%--</div>--%>
@@ -57,6 +57,10 @@
                 <div style="font-weight: bold; font-size: 20px; display: block; background-color: #ebe9e1; padding: 5px 10px;">
                     <table style="width: 100%">
                         <tbody id="ForecastContent">
+                            <tr>
+                                <td style="height: 336px">
+                                </td>
+                            </tr>
                             <%--<tr>
                                 <td style="padding-right: 5px;">
                                     <img src="https://cdn4.iconfinder.com/data/icons/iconsland-weather/PNG/256x256/Sunny.png" width="50px" />

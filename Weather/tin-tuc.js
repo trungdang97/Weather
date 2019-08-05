@@ -55,7 +55,7 @@ var ShowNews = async function () {
     var News = await GetNewsById(NewsId);
     $("#CreatedOnDate").html("Ngày " + FormatDateTime(News.CreatedOnDate));
     $("#Name").html(News.Name);
-    $("#Thumbnail").html("<img src='" + News.Thumbnail + "'/>");
+    $("#Thumbnail").html("<img width='100%' src='" + News.Thumbnail + "'/>");
     $("#Introduction").html(News.Introduction);
     $("#Body").html(News.Body);
     $("#Credit").html("<b>Người thực hiện: " + News.Writer + "</b>");

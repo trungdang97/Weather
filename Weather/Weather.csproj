@@ -6409,6 +6409,8 @@
     <Content Include="CMS\build\js\TodoList.js" />
     <Content Include="CMS\build\js\Tree.js" />
     <Content Include="CMS\CMS.Master.js" />
+    <Content Include="CMS\config.aspx" />
+    <Content Include="CMS\config.js" />
     <Content Include="CMS\dist\css\AdminLTE.css" />
     <Content Include="CMS\dist\css\AdminLTE.min.css" />
     <Content Include="CMS\dist\css\alt\AdminLTE-bootstrap-social.css" />
@@ -7466,6 +7468,13 @@
     </Compile>
     <Compile Include="CMS\CMS.Master.designer.cs">
       <DependentUpon>CMS.Master</DependentUpon>
+    </Compile>
+    <Compile Include="CMS\config.aspx.cs">
+      <DependentUpon>config.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMS\config.aspx.designer.cs">
+      <DependentUpon>config.aspx</DependentUpon>
     </Compile>
     <Compile Include="CMS\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
