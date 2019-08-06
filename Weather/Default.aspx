@@ -110,7 +110,7 @@
                             <a href="#tab_default_3" data-toggle="tab">Tin Xã hội </a>
                         </li>
                     </ul>
-                    <div class="tab-content">
+                    <div class="tab-content" style="">
                         <div class="tab-pane" id="tab_default_1">
                         </div>
                         <div class="tab-pane active" id="tab_default_2">

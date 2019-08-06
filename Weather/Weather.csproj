@@ -6698,6 +6698,7 @@
     <Content Include="Content\Images\Icon\Icon\sun-littlecloud-flash-rain-icon.png" />
     <Content Include="Content\Images\Icon\Icon\tornado.png" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\sky-1467177_1280.jpg" />
     <Content Include="Data\cms_VKTTV.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>cms_VKTTV.edmx</DependentUpon>
