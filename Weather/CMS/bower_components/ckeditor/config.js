@@ -17,5 +17,7 @@
         { name: 'about', groups: ['about'] }
     ];
 
-    config.removeButtons = 'Source,Save,NewPage,Preview,Print,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Flash,Smiley,PageBreak,Iframe,ShowBlocks';
+    config.extraPlugins = 'base64image, imageresizerowandcolumn';
+    
+    config.removeButtons = 'Source,Save,NewPage,Preview,Print,Templates,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Image';
 };
