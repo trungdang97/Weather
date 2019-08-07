@@ -38,5 +38,8 @@ namespace Weather.Data
         public virtual DbSet<cms_APIType> cms_APIType { get; set; }
         public virtual DbSet<cms_UserTransaction> cms_UserTransaction { get; set; }
         public virtual DbSet<cms_UserTransaction_API> cms_UserTransaction_API { get; set; }
+        public virtual DbSet<cms_Comment> cms_Comment { get; set; }
+        public virtual DbSet<cms_Post> cms_Post { get; set; }
+        public virtual DbSet<cms_PostCategory> cms_PostCategory { get; set; }
     }
 }

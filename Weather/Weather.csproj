@@ -7494,7 +7494,9 @@
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\APIRegisterController.cs" />
     <Compile Include="Controllers\APITypeController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\aspnet_Membership.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
@@ -7520,10 +7522,19 @@
     <Compile Include="Data\cms_API_Membership_Relationship.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\cms_Comment.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\cms_News.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\cms_NewsCategory.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_Post.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\cms_PostCategory.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\cms_UserTransaction.cs">

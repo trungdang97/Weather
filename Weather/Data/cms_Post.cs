@@ -12,30 +12,24 @@ namespace Weather.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class cms_News
+    public partial class cms_Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cms_News()
+        public cms_Post()
         {
             this.cms_Comment = new HashSet<cms_Comment>();
         }
     
-        public System.Guid NewsId { get; set; }
-        public System.Guid NewsCategory { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public Nullable<System.DateTime> FinishedDate { get; set; }
-        public string WriterId { get; set; }
-        public string WriterName { get; set; }
-        public string Introduction { get; set; }
+        public System.Guid PostId { get; set; }
+        public System.Guid PostCategoryId { get; set; }
+        public string Title { get; set; }
         public string Body { get; set; }
-        public Nullable<bool> ApprovedStatus { get; set; }
-        public Nullable<System.Guid> CreatedByUserId { get; set; }
-        public Nullable<System.DateTime> CreatedOnDate { get; set; }
-        public string Thumbnail { get; set; }
+        public System.DateTime CreatedOnDate { get; set; }
+        public System.DateTime LastUpdatedOnDate { get; set; }
+        public System.Guid UserId { get; set; }
+        public bool IsApproved { get; set; }
     
-        public virtual aspnet_Membership aspnet_Membership { get; set; }
-        public virtual cms_NewsCategory cms_NewsCategory { get; set; }
+        public virtual cms_PostCategory cms_PostCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cms_Comment> cms_Comment { get; set; }
     }

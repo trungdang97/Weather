@@ -11,7 +11,7 @@
     <Property Name="ShortName" Type="nvarchar" MaxLength="512" />
     <Property Name="NickName" Type="nvarchar" MaxLength="512" />
     <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Phone" Type="varchar" MaxLength="512" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="512" />
     <Property Name="Email" Type="varchar" MaxLength="512" />
   </EntityType>
   <EntityType Name="aspnet_Rights">
@@ -86,6 +86,23 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TypeOrder" Type="int" />
   </EntityType>
+  <EntityType Name="cms_Comment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CommentParentId" Type="uniqueidentifier" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="LastUpdatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="Type" Type="varchar(max)" Nullable="false" />
+    <Property Name="ThreadId" Type="uniqueidentifier" />
+  </EntityType>
   <EntityType Name="cms_News">
     <Key>
       <PropertyRef Name="NewsId" />
@@ -113,6 +130,27 @@
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="Type" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="Order" Type="int" />
+  </EntityType>
+  <EntityType Name="cms_Post">
+    <Key>
+      <PropertyRef Name="PostId" />
+    </Key>
+    <Property Name="PostId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PostCategoryId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="LastUpdatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cms_PostCategory">
+    <Key>
+      <PropertyRef Name="PostCategoryId" />
+    </Key>
+    <Property Name="PostCategoryId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="cms_UserTransaction">
     <Key>
@@ -218,6 +256,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_cms_Comment_cms_Comment">
+    <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="0..1" />
+    <End Role="cms_Comment1" Type="Self.cms_Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_Comment">
+        <PropertyRef Name="CommentId" />
+      </Principal>
+      <Dependent Role="cms_Comment1">
+        <PropertyRef Name="CommentParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_Comment_cms_News">
+    <End Role="cms_News" Type="Self.cms_News" Multiplicity="0..1" />
+    <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_News">
+        <PropertyRef Name="NewsId" />
+      </Principal>
+      <Dependent Role="cms_Comment">
+        <PropertyRef Name="ThreadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_Comment_cms_Post">
+    <End Role="cms_Post" Type="Self.cms_Post" Multiplicity="0..1" />
+    <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_Post">
+        <PropertyRef Name="PostId" />
+      </Principal>
+      <Dependent Role="cms_Comment">
+        <PropertyRef Name="ThreadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_cms_News_aspnet_Membership">
     <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
     <End Role="cms_News" Type="Self.cms_News" Multiplicity="*" />
@@ -239,6 +313,18 @@
       </Principal>
       <Dependent Role="cms_News">
         <PropertyRef Name="NewsCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cms_Post_cms_PostCategory">
+    <End Role="cms_PostCategory" Type="Self.cms_PostCategory" Multiplicity="1" />
+    <End Role="cms_Post" Type="Self.cms_Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cms_PostCategory">
+        <PropertyRef Name="PostCategoryId" />
+      </Principal>
+      <Dependent Role="cms_Post">
+        <PropertyRef Name="PostCategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -287,8 +373,11 @@
     <EntitySet Name="cms_API" EntityType="Self.cms_API" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_API_Membership_Relationship" EntityType="Self.cms_API_Membership_Relationship" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_APIType" EntityType="Self.cms_APIType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_Comment" EntityType="Self.cms_Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_News" EntityType="Self.cms_News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_NewsCategory" EntityType="Self.cms_NewsCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_Post" EntityType="Self.cms_Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_PostCategory" EntityType="Self.cms_PostCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_UserTransaction" EntityType="Self.cms_UserTransaction" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_UserTransaction_API" EntityType="Self.cms_UserTransaction_API" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -316,6 +405,18 @@
       <End Role="cms_API" EntitySet="cms_API" />
       <End Role="cms_API_Membership_Relationship" EntitySet="cms_API_Membership_Relationship" />
     </AssociationSet>
+    <AssociationSet Name="FK_cms_Comment_cms_Comment" Association="Self.FK_cms_Comment_cms_Comment">
+      <End Role="cms_Comment" EntitySet="cms_Comment" />
+      <End Role="cms_Comment1" EntitySet="cms_Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_Comment_cms_News" Association="Self.FK_cms_Comment_cms_News">
+      <End Role="cms_News" EntitySet="cms_News" />
+      <End Role="cms_Comment" EntitySet="cms_Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_Comment_cms_Post" Association="Self.FK_cms_Comment_cms_Post">
+      <End Role="cms_Post" EntitySet="cms_Post" />
+      <End Role="cms_Comment" EntitySet="cms_Comment" />
+    </AssociationSet>
     <AssociationSet Name="FK_cms_News_aspnet_Membership" Association="Self.FK_cms_News_aspnet_Membership">
       <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
       <End Role="cms_News" EntitySet="cms_News" />
@@ -323,6 +424,10 @@
     <AssociationSet Name="FK_cms_News_cms_NewsCategory" Association="Self.FK_cms_News_cms_NewsCategory">
       <End Role="cms_NewsCategory" EntitySet="cms_NewsCategory" />
       <End Role="cms_News" EntitySet="cms_News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cms_Post_cms_PostCategory" Association="Self.FK_cms_Post_cms_PostCategory">
+      <End Role="cms_PostCategory" EntitySet="cms_PostCategory" />
+      <End Role="cms_Post" EntitySet="cms_Post" />
     </AssociationSet>
     <AssociationSet Name="FK_cms_UserTransaction_API_cms_API" Association="Self.FK_cms_UserTransaction_API_cms_API">
       <End Role="cms_API" EntitySet="cms_API" />
