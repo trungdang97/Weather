@@ -184,7 +184,7 @@ function FormatDateTime(datetime) {
     else {
         s = time.getSeconds();
     }
-    var formattedString = d + "/" + M + "/" + time.getFullYear() + " lúc " + H + ":" + m + ":" + s;
+    var formattedString = d + "/" + M + "/" + time.getFullYear() + " " + H + ":" + m + ":" + s;
     return formattedString;
 }
 
@@ -215,9 +215,16 @@ var GetNewsCategory = function () {
         dataType: "json",
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                $("#TopNav").append("<li class='new-nav-link'>"
-                    + "<a href='/tin-tuc/" + data[i].Description + "'>" + data[i].Name + "</a>"
-                    + "</li>");
+                if (data[i].Description != 'hoi-dap-ve-kttv') {
+                    $("#TopNav").append("<li class='new-nav-link'>"
+                        + "<a href='/tin-tuc/" + data[i].Description + "'>" + data[i].Name + "</a>"
+                        + "</li>");
+                }
+                else {
+                    $("#TopNav").append("<li class='new-nav-link'>"
+                        + "<a href='/" + data[i].Description + "'>" + data[i].Name + "</a>"
+                        + "</li>");
+                }
             }
         },
         error: function (response) {
@@ -226,4 +233,6 @@ var GetNewsCategory = function () {
     });
 }
 
-var Format
+var QueryCityWeather = function () {
+
+};

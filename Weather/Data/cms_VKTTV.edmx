@@ -141,12 +141,12 @@
             <PropertyRef Name="PostId" />
           </Key>
           <Property Name="PostId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PostCategoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PostCategoryId" Type="uniqueidentifier" />
           <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastUpdatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="cms_PostCategory">
@@ -297,18 +297,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_cms_Post_cms_PostCategory">
-          <End Role="cms_PostCategory" Type="Self.cms_PostCategory" Multiplicity="1" />
-          <End Role="cms_Post" Type="Self.cms_Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cms_PostCategory">
-              <PropertyRef Name="PostCategoryId" />
-            </Principal>
-            <Dependent Role="cms_Post">
-              <PropertyRef Name="PostCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_cms_UserTransaction_API_cms_API">
           <End Role="cms_API" Type="Self.cms_API" Multiplicity="1" />
           <End Role="cms_UserTransaction_API" Type="Self.cms_UserTransaction_API" Multiplicity="*" />
@@ -397,10 +385,6 @@
           <AssociationSet Name="FK_cms_News_cms_NewsCategory" Association="Self.FK_cms_News_cms_NewsCategory">
             <End Role="cms_NewsCategory" EntitySet="cms_NewsCategory" />
             <End Role="cms_News" EntitySet="cms_News" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cms_Post_cms_PostCategory" Association="Self.FK_cms_Post_cms_PostCategory">
-            <End Role="cms_PostCategory" EntitySet="cms_PostCategory" />
-            <End Role="cms_Post" EntitySet="cms_Post" />
           </AssociationSet>
           <AssociationSet Name="FK_cms_UserTransaction_API_cms_API" Association="Self.FK_cms_UserTransaction_API_cms_API">
             <End Role="cms_API" EntitySet="cms_API" />
@@ -637,10 +621,6 @@
           <EntitySet Name="cms_Comment" EntityType="cms_VKTTVModel.cms_Comment" />
           <EntitySet Name="cms_Post" EntityType="cms_VKTTVModel.cms_Post" />
           <EntitySet Name="cms_PostCategory" EntityType="cms_VKTTVModel.cms_PostCategory" />
-          <AssociationSet Name="FK_cms_Post_cms_PostCategory" Association="cms_VKTTVModel.FK_cms_Post_cms_PostCategory">
-            <End Role="cms_PostCategory" EntitySet="cms_PostCategory" />
-            <End Role="cms_Post" EntitySet="cms_Post" />
-          </AssociationSet>
           <AssociationSet Name="FK_cms_Comment_cms_Comment" Association="cms_VKTTVModel.FK_cms_Comment_cms_Comment">
             <End Role="cms_Comment" EntitySet="cms_Comment" />
             <End Role="cms_Comment1" EntitySet="cms_Comment" />
@@ -813,14 +793,13 @@
             <PropertyRef Name="PostId" />
           </Key>
           <Property Name="PostId" Type="Guid" Nullable="false" />
-          <Property Name="PostCategoryId" Type="Guid" Nullable="false" />
+          <Property Name="PostCategoryId" Type="Guid" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastUpdatedOnDate" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="cms_PostCategory" Relationship="cms_VKTTVModel.FK_cms_Post_cms_PostCategory" FromRole="cms_Post" ToRole="cms_PostCategory" />
         </EntityType>
         <EntityType Name="cms_PostCategory">
           <Key>
@@ -829,20 +808,7 @@
           <Property Name="PostCategoryId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="cms_Post" Relationship="cms_VKTTVModel.FK_cms_Post_cms_PostCategory" FromRole="cms_PostCategory" ToRole="cms_Post" />
         </EntityType>
-        <Association Name="FK_cms_Post_cms_PostCategory">
-          <End Type="cms_VKTTVModel.cms_PostCategory" Role="cms_PostCategory" Multiplicity="1" />
-          <End Type="cms_VKTTVModel.cms_Post" Role="cms_Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cms_PostCategory">
-              <PropertyRef Name="PostCategoryId" />
-            </Principal>
-            <Dependent Role="cms_Post">
-              <PropertyRef Name="PostCategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_cms_Comment_cms_Comment">
           <End Type="cms_VKTTVModel.cms_Comment" Role="cms_Comment" Multiplicity="0..1" />
           <End Type="cms_VKTTVModel.cms_Comment" Role="cms_Comment1" Multiplicity="*" />

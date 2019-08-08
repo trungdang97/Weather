@@ -15,14 +15,12 @@ namespace Weather.Data
     public partial class cms_Post
     {
         public System.Guid PostId { get; set; }
-        public System.Guid PostCategoryId { get; set; }
+        public Nullable<System.Guid> PostCategoryId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public System.DateTime CreatedOnDate { get; set; }
         public System.DateTime LastUpdatedOnDate { get; set; }
-        public System.Guid UserId { get; set; }
+        public Nullable<System.Guid> UserId { get; set; }
         public bool IsApproved { get; set; }
-    
-        public virtual cms_PostCategory cms_PostCategory { get; set; }
     }
 }

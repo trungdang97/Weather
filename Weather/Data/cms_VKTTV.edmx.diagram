@@ -32,7 +32,6 @@
         <EntityTypeShape EntityType="cms_VKTTVModel.cms_Comment" Width="1.5" PointX="10.5" PointY="0.875" />
         <EntityTypeShape EntityType="cms_VKTTVModel.cms_Post" Width="1.5" PointX="8.25" PointY="19" />
         <EntityTypeShape EntityType="cms_VKTTVModel.cms_PostCategory" Width="1.5" PointX="6" PointY="19.625" />
-        <AssociationConnector Association="cms_VKTTVModel.FK_cms_Post_cms_PostCategory" />
         <AssociationConnector Association="cms_VKTTVModel.FK_cms_Comment_cms_Comment" />
       </Diagram>
     </edmx:Diagrams>

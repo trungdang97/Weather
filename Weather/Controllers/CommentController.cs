@@ -40,11 +40,11 @@ namespace Weather.Controllers
         {
             List<Comment> comments = new List<Comment>();
 
-            var data = db.cms_Comment.Where(x => x.ThreadId == PostId && x.Type == "NEWS").Select(CommentConverter.CommentConvert).ToList();
+            var data = db.cms_Comment.Where(x => x.ThreadId == PostId && x.Type == "POST").OrderBy(x => x.CreatedOnDate).Select(CommentConverter.CommentConvert).ToList();
             foreach (var c in data)
             {
                 c.Subcomments = new List<Comment>();
-                c.Subcomments = db.cms_Comment.Where(x => x.ThreadId == PostId && x.Type == "NEWS" && x.CommentParentId == c.CommentId).Select(CommentConverter.CommentConvert).ToList();
+                c.Subcomments = db.cms_Comment.Where(x => x.ThreadId == PostId && x.Type == "POST" && x.CommentParentId == c.CommentId).Select(CommentConverter.CommentConvert).ToList();
             }
 
             comments = data;
@@ -59,6 +59,7 @@ namespace Weather.Controllers
         {
             try
             {
+                var user = db.aspnet_Membership.Where(x => x.UserId == comment.UserId).First();
                 cms_Comment cm = new cms_Comment()
                 {
                     CommentId = Guid.NewGuid(),
@@ -70,7 +71,8 @@ namespace Weather.Controllers
                     CreatedOnDate = DateTime.UtcNow.AddHours(7),
                     LastUpdatedOnDate = DateTime.UtcNow.AddHours(7),
                     UserId = comment.UserId,
-                    UserName = string.IsNullOrEmpty(comment.UserName) ? "" : comment.UserName,
+                    UserName = user.ShortName,
+                    //UserName = string.IsNullOrEmpty(comment.UserName) ? "" : comment.UserName,
                     Email = string.IsNullOrEmpty(comment.Email) ? "" : comment.Email
                 };
                 if(cm.CommentParentId != null)

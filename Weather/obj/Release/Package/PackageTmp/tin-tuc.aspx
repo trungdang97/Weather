@@ -32,52 +32,16 @@
                         <div id="LstRecentCategoryNews">
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 50px; padding: 20px; background: rgb(241, 241, 241)">
+                   <%-- <div class="row" style="margin-top: 50px; padding: 20px; background: rgb(241, 241, 241)">
                         <div style="background: rgb(241, 241, 241)">
                             <h5><b>Ý kiến bạn đọc</b></h5>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px; padding-left: 0px;">
                         <div class="row" id="LstComment">
-                            <div class="row" style="margin-top: 10px">
-                                <div class="col-md-12" style="padding-top: 10px">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                </div>
-                                <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px">
-                                    <img style="border-radius: 50%" width="25px" height="25px" class="" src="https://i.pinimg.com/originals/f9/21/89/f92189bdd3cac245ec2f15168d56e19d.jpg" />
-                                    <span><b>Trung Dang - 19:43 02/08</b></span>
-                                    <div class="pull-right">
-                                        <a href="javascript:"><small>Trả lời</small></a>
-                                    </div>
-                                </div>
-                                <%-- SUB COMMENTS (Loop bằng một Id) --%>
-                                <div class="row" style="padding-left: 50px" id="">
-                                    <div class="col-md-12" style="padding-top: 10px">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                    </div>
-                                    <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px">
-                                        <img style="border-radius: 50%" width="25px" height="25px" class="" src="https://i.pinimg.com/originals/f9/21/89/f92189bdd3cac245ec2f15168d56e19d.jpg" />
-                                        <span><b>Trung Dang - 19:43 02/08</b></span>
-                                        <div class="pull-right">
-                                            <a href="javascript:"><small>Trả lời</small></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top: 10px">
-                                <div class="col-md-12" style="background: rgb(241, 241, 241); padding-top: 10px">
-                                    Đây là bình luận
-                                </div>
-                                <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px; background: rgb(241, 241, 241)">
-                                    <img style="border-radius: 50%" width="25px" height="25px" class="" src="https://i.pinimg.com/originals/f9/21/89/f92189bdd3cac245ec2f15168d56e19d.jpg" />
-                                    <span><b>Trung Dang - 19:43 02/08</b></span>
-                                    <div class="pull-right">
-                                        <a href="javascript:"><small>Trả lời</small></a>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div id="ListNews">
                     <div id="InnerList"></div>

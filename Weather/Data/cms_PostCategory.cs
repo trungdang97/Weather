@@ -14,17 +14,8 @@ namespace Weather.Data
     
     public partial class cms_PostCategory
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cms_PostCategory()
-        {
-            this.cms_Post = new HashSet<cms_Post>();
-        }
-    
         public System.Guid PostCategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cms_Post> cms_Post { get; set; }
     }
 }

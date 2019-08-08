@@ -6782,6 +6782,8 @@
       <LastGenOutput>cms_VKTTV.cs</LastGenOutput>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="hoi-dap-ve-kttv.aspx" />
+    <Content Include="hoi-dap-ve-kttv.js" />
     <Content Include="login\CSS\CookedCrazyCrayfish-poster.jpg" />
     <Content Include="login\CSS\sky-1467177_1280.jpg" />
     <Content Include="Content\Site.css" />
@@ -7509,6 +7511,8 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="Default.js" />
+    <Content Include="thanh-pho.aspx" />
+    <Content Include="thanh-pho.js" />
     <Content Include="tin-tuc.aspx" />
     <Content Include="tin-tuc.js" />
     <Content Include="ViewSwitcher.ascx" />
@@ -7646,6 +7650,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="hoi-dap-ve-kttv.aspx.cs">
+      <DependentUpon>hoi-dap-ve-kttv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="hoi-dap-ve-kttv.aspx.designer.cs">
+      <DependentUpon>hoi-dap-ve-kttv.aspx</DependentUpon>
+    </Compile>
     <Compile Include="login\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
@@ -7674,6 +7685,13 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="thanh-pho.aspx.cs">
+      <DependentUpon>thanh-pho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="thanh-pho.aspx.designer.cs">
+      <DependentUpon>thanh-pho.aspx</DependentUpon>
     </Compile>
     <Compile Include="tin-tuc.aspx.cs">
       <DependentUpon>tin-tuc.aspx</DependentUpon>
