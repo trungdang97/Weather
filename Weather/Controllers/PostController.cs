@@ -18,18 +18,30 @@ namespace Weather.Controllers
         }        
 
         // POST api/<controller>
-        public void Create([FromBody]PostCreateRequestModel model)
+        public string Create([FromBody]PostCreateRequestModel model)
         {
-            cms_Post post = new cms_Post()
+            try
             {
-                PostId = Guid.NewGuid(),
-                Title = model.Title,
-                Body = model.Body,
-                CreatedOnDate = DateTime.UtcNow.AddHours(7),
-                LastUpdatedOnDate = DateTime.UtcNow.AddHours(7),
-                PostCategoryId = model.PostCategoryId,
-                UserId = model.UserId
-            };
+                cms_Post post = new cms_Post()
+                {
+                    PostId = Guid.NewGuid(),
+                    Title = model.Title,
+                    Body = model.Body,
+                    CreatedOnDate = DateTime.UtcNow.AddHours(7),
+                    LastUpdatedOnDate = DateTime.UtcNow.AddHours(7),
+                    PostCategoryId = model.PostCategoryId,
+                    UserId = model.UserId
+                };
+
+                db.cms_Post.Add(post);
+                int status = db.SaveChanges();
+
+                return status.ToString();
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
         // PUT api/<controller>/5

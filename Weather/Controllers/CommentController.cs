@@ -113,7 +113,7 @@ namespace Weather.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("api/v1/comment/delete")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public string Delete(Guid CommentId)

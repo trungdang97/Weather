@@ -16,9 +16,11 @@ namespace Weather.Controllers
         [HttpGet]
         [Route("api/v1/postcategory/all")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public IEnumerable<string> GetAll()
+        public List<PostCategory> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var data = db.cms_PostCategory.Select(PostCategoryConverter.PostCategoryConvert).ToList();
+
+            return data;
         }
 
         [HttpPost]
@@ -34,6 +36,7 @@ namespace Weather.Controllers
                     Name = model.Name,
                     Description = model.Description
                 };
+                db.cms_PostCategory.Add(category);
 
                 int status = db.SaveChanges();
                 return status.ToString();
@@ -104,5 +107,18 @@ namespace Weather.Controllers
         public Guid PostCategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+    }
+
+    public static class PostCategoryConverter
+    {
+        public static PostCategory PostCategoryConvert(cms_PostCategory category)
+        {
+            return new PostCategory()
+            {
+                PostCategoryId = category.PostCategoryId,
+                Name = category.Name,
+                Description = category.Description
+            };
+        }
     }
 }
