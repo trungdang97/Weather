@@ -36,7 +36,5 @@ namespace Weather.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cms_Comment> cms_Comment1 { get; set; }
         public virtual cms_Comment cms_Comment2 { get; set; }
-        public virtual cms_News cms_News { get; set; }
-        public virtual cms_Post cms_Post { get; set; }
     }
 }

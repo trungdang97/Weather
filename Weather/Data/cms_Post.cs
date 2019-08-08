@@ -14,12 +14,6 @@ namespace Weather.Data
     
     public partial class cms_Post
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cms_Post()
-        {
-            this.cms_Comment = new HashSet<cms_Comment>();
-        }
-    
         public System.Guid PostId { get; set; }
         public System.Guid PostCategoryId { get; set; }
         public string Title { get; set; }
@@ -30,7 +24,5 @@ namespace Weather.Data
         public bool IsApproved { get; set; }
     
         public virtual cms_PostCategory cms_PostCategory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cms_Comment> cms_Comment { get; set; }
     }
 }

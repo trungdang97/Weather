@@ -273,30 +273,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_cms_Comment_cms_News">
-          <End Role="cms_News" Type="Self.cms_News" Multiplicity="0..1" />
-          <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cms_News">
-              <PropertyRef Name="NewsId" />
-            </Principal>
-            <Dependent Role="cms_Comment">
-              <PropertyRef Name="ThreadId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_cms_Comment_cms_Post">
-          <End Role="cms_Post" Type="Self.cms_Post" Multiplicity="0..1" />
-          <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cms_Post">
-              <PropertyRef Name="PostId" />
-            </Principal>
-            <Dependent Role="cms_Comment">
-              <PropertyRef Name="ThreadId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_cms_News_aspnet_Membership">
           <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
           <End Role="cms_News" Type="Self.cms_News" Multiplicity="*" />
@@ -414,14 +390,6 @@
             <End Role="cms_Comment" EntitySet="cms_Comment" />
             <End Role="cms_Comment1" EntitySet="cms_Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_cms_Comment_cms_News" Association="Self.FK_cms_Comment_cms_News">
-            <End Role="cms_News" EntitySet="cms_News" />
-            <End Role="cms_Comment" EntitySet="cms_Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cms_Comment_cms_Post" Association="Self.FK_cms_Comment_cms_Post">
-            <End Role="cms_Post" EntitySet="cms_Post" />
-            <End Role="cms_Comment" EntitySet="cms_Comment" />
-          </AssociationSet>
           <AssociationSet Name="FK_cms_News_aspnet_Membership" Association="Self.FK_cms_News_aspnet_Membership">
             <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
             <End Role="cms_News" EntitySet="cms_News" />
@@ -526,7 +494,6 @@
           <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="cms_News" ToRole="aspnet_Membership" />
           <NavigationProperty Name="cms_NewsCategory" Relationship="Self.FK_cms_News_cms_NewsCategory" FromRole="cms_News" ToRole="cms_NewsCategory" />
           <Property Name="Thumbnail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="cms_Comment" Relationship="cms_VKTTVModel.FK_cms_Comment_cms_News" FromRole="cms_News" ToRole="cms_Comment" />
         </EntityType>
         <EntityType Name="cms_NewsCategory">
           <Key>
@@ -677,14 +644,6 @@
           <AssociationSet Name="FK_cms_Comment_cms_Comment" Association="cms_VKTTVModel.FK_cms_Comment_cms_Comment">
             <End Role="cms_Comment" EntitySet="cms_Comment" />
             <End Role="cms_Comment1" EntitySet="cms_Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cms_Comment_cms_News" Association="cms_VKTTVModel.FK_cms_Comment_cms_News">
-            <End Role="cms_News" EntitySet="cms_News" />
-            <End Role="cms_Comment" EntitySet="cms_Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_cms_Comment_cms_Post" Association="cms_VKTTVModel.FK_cms_Comment_cms_Post">
-            <End Role="cms_Post" EntitySet="cms_Post" />
-            <End Role="cms_Comment" EntitySet="cms_Comment" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="cms_API">
@@ -848,8 +807,6 @@
           <Property Name="ThreadId" Type="Guid" />
           <NavigationProperty Name="cms_Comment1" Relationship="cms_VKTTVModel.FK_cms_Comment_cms_Comment" FromRole="cms_Comment" ToRole="cms_Comment1" />
           <NavigationProperty Name="cms_Comment2" Relationship="cms_VKTTVModel.FK_cms_Comment_cms_Comment" FromRole="cms_Comment1" ToRole="cms_Comment" />
-          <NavigationProperty Name="cms_News" Relationship="cms_VKTTVModel.FK_cms_Comment_cms_News" FromRole="cms_Comment" ToRole="cms_News" />
-          <NavigationProperty Name="cms_Post" Relationship="cms_VKTTVModel.FK_cms_Comment_cms_Post" FromRole="cms_Comment" ToRole="cms_Post" />
         </EntityType>
         <EntityType Name="cms_Post">
           <Key>
@@ -864,7 +821,6 @@
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="cms_PostCategory" Relationship="cms_VKTTVModel.FK_cms_Post_cms_PostCategory" FromRole="cms_Post" ToRole="cms_PostCategory" />
-          <NavigationProperty Name="cms_Comment" Relationship="cms_VKTTVModel.FK_cms_Comment_cms_Post" FromRole="cms_Post" ToRole="cms_Comment" />
         </EntityType>
         <EntityType Name="cms_PostCategory">
           <Key>
@@ -896,30 +852,6 @@
             </Principal>
             <Dependent Role="cms_Comment1">
               <PropertyRef Name="CommentParentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_cms_Comment_cms_News">
-          <End Type="cms_VKTTVModel.cms_News" Role="cms_News" Multiplicity="0..1" />
-          <End Type="cms_VKTTVModel.cms_Comment" Role="cms_Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cms_News">
-              <PropertyRef Name="NewsId" />
-            </Principal>
-            <Dependent Role="cms_Comment">
-              <PropertyRef Name="ThreadId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_cms_Comment_cms_Post">
-          <End Type="cms_VKTTVModel.cms_Post" Role="cms_Post" Multiplicity="0..1" />
-          <End Type="cms_VKTTVModel.cms_Comment" Role="cms_Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cms_Post">
-              <PropertyRef Name="PostId" />
-            </Principal>
-            <Dependent Role="cms_Comment">
-              <PropertyRef Name="ThreadId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

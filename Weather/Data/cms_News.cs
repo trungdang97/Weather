@@ -14,12 +14,6 @@ namespace Weather.Data
     
     public partial class cms_News
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cms_News()
-        {
-            this.cms_Comment = new HashSet<cms_Comment>();
-        }
-    
         public System.Guid NewsId { get; set; }
         public System.Guid NewsCategory { get; set; }
         public string Name { get; set; }
@@ -36,7 +30,5 @@ namespace Weather.Data
     
         public virtual aspnet_Membership aspnet_Membership { get; set; }
         public virtual cms_NewsCategory cms_NewsCategory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cms_Comment> cms_Comment { get; set; }
     }
 }

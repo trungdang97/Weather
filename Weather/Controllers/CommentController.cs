@@ -20,15 +20,36 @@ namespace Weather.Controllers
         public List<Comment> GetNewsComment(Guid NewsId)
         {
             List<Comment> comments = new List<Comment>();
+
+            var data = db.cms_Comment.Where(x => x.ThreadId == NewsId && x.Type == "NEWS" && x.CommentParentId == null).OrderBy(x => x.CreatedOnDate).Select(CommentConverter.CommentConvert).ToList();
+            foreach(var c in data)
+            {
+                c.Subcomments = new List<Comment>();
+                c.Subcomments = db.cms_Comment.Where(x => x.ThreadId == NewsId && x.Type == "NEWS" && x.CommentParentId == c.CommentId).Select(CommentConverter.CommentConvert).OrderBy(x=>x.CreatedOnDate).ToList();
+            }
+
+            comments = data;
             return comments;
         }
 
-        public string Get(int id)
-        {
-            return "value";
-        }
         //POST
+        [HttpGet]
+        [Route("api/v1/comment/post")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<Comment> GetPostComment(Guid PostId)
+        {
+            List<Comment> comments = new List<Comment>();
 
+            var data = db.cms_Comment.Where(x => x.ThreadId == PostId && x.Type == "NEWS").Select(CommentConverter.CommentConvert).ToList();
+            foreach (var c in data)
+            {
+                c.Subcomments = new List<Comment>();
+                c.Subcomments = db.cms_Comment.Where(x => x.ThreadId == PostId && x.Type == "NEWS" && x.CommentParentId == c.CommentId).Select(CommentConverter.CommentConvert).ToList();
+            }
+
+            comments = data;
+            return comments;
+        }
 
         // Dùng chung các cái khác
         [HttpPost]
@@ -52,6 +73,15 @@ namespace Weather.Controllers
                     UserName = string.IsNullOrEmpty(comment.UserName) ? "" : comment.UserName,
                     Email = string.IsNullOrEmpty(comment.Email) ? "" : comment.Email
                 };
+                if(cm.CommentParentId != null)
+                {
+                    var checkParent = db.cms_Comment.Where(x => x.CommentId == cm.CommentParentId).First();
+                    if(checkParent.CommentParentId != null)
+                    {
+                        cm.CommentParentId = checkParent.CommentParentId;
+                    }
+                }
+                
                 db.cms_Comment.Add(cm);
                 int status = db.SaveChanges();
 
@@ -63,6 +93,9 @@ namespace Weather.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/v1/comment/update")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public string Put([FromBody]CommentUpdateRequestModel comment)
         {
             try
@@ -80,6 +113,9 @@ namespace Weather.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/v1/comment/delete")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public string Delete(Guid CommentId)
         {
             try
@@ -96,7 +132,7 @@ namespace Weather.Controllers
         }
     }
 
-    //MODELS
+    // COMMENT MODELS
     public class Comment
     {
         public Guid CommentId { get; set; }
@@ -111,6 +147,7 @@ namespace Weather.Controllers
         public bool IsApprove { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public List<Comment> Subcomments { get; set; }
     }
 
     public class CommentCreateRequestModel
@@ -168,4 +205,6 @@ namespace Weather.Controllers
             return cm;
         }
     }
+
+    
 }

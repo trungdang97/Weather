@@ -268,30 +268,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_cms_Comment_cms_News">
-    <End Role="cms_News" Type="Self.cms_News" Multiplicity="0..1" />
-    <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="cms_News">
-        <PropertyRef Name="NewsId" />
-      </Principal>
-      <Dependent Role="cms_Comment">
-        <PropertyRef Name="ThreadId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_cms_Comment_cms_Post">
-    <End Role="cms_Post" Type="Self.cms_Post" Multiplicity="0..1" />
-    <End Role="cms_Comment" Type="Self.cms_Comment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="cms_Post">
-        <PropertyRef Name="PostId" />
-      </Principal>
-      <Dependent Role="cms_Comment">
-        <PropertyRef Name="ThreadId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_cms_News_aspnet_Membership">
     <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
     <End Role="cms_News" Type="Self.cms_News" Multiplicity="*" />
@@ -408,14 +384,6 @@
     <AssociationSet Name="FK_cms_Comment_cms_Comment" Association="Self.FK_cms_Comment_cms_Comment">
       <End Role="cms_Comment" EntitySet="cms_Comment" />
       <End Role="cms_Comment1" EntitySet="cms_Comment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_cms_Comment_cms_News" Association="Self.FK_cms_Comment_cms_News">
-      <End Role="cms_News" EntitySet="cms_News" />
-      <End Role="cms_Comment" EntitySet="cms_Comment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_cms_Comment_cms_Post" Association="Self.FK_cms_Comment_cms_Post">
-      <End Role="cms_Post" EntitySet="cms_Post" />
-      <End Role="cms_Comment" EntitySet="cms_Comment" />
     </AssociationSet>
     <AssociationSet Name="FK_cms_News_aspnet_Membership" Association="Self.FK_cms_News_aspnet_Membership">
       <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />

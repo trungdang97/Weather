@@ -7570,6 +7570,7 @@
     <Compile Include="Controllers\APITypeController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\PostCategoryController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\aspnet_Membership.cs">
