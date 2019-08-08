@@ -9,30 +9,78 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9" style="padding-top: 20px">
-                <div id="News">
+                <div id="News" style="">
                     <span style="display: block"><small id="CreatedOnDate" style="font-weight: bold"></small></span>
                     <div class="row">
                         <h3 id="Name" style="font-weight: bold"></h3>
                     </div>
-                    <div class='text-center' style="padding: 20px 0px" id="Thumbnail">                        
-                    </div>
                     <div class="row" id="Introduction">
+                    </div>
+                    <br />
+                    <div class='text-center' style="padding: 20px 0px" id="Thumbnail">
                     </div>
                     <div class="row" id="Body">
                     </div>
                     <div class="row">
-                        <div class="pull-right" style="padding-right: 50px;" id="Credit">
+                        <div class="pull-right" style="/*padding-right: 50px; */" id="Credit">
                         </div>
                     </div>
-                    <div class="row" style="padding-top: 50px">
-                        <div><h5><b>Các tin liên quan</b></h5></div>
+                    <div class="row" style="margin-top: 50px; padding: 20px; background: rgb(241, 241, 241)">
+                        <div>
+                            <h5><b>Các tin liên quan</b></h5>
+                        </div>
                         <div id="LstRecentCategoryNews">
-
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 50px; padding: 20px; background: rgb(241, 241, 241)">
+                        <div style="background: rgb(241, 241, 241)">
+                            <h5><b>Ý kiến bạn đọc</b></h5>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px; padding-left: 0px;">
+                        <div class="row" id="LstComment">
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-md-12" style="padding-top: 10px">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </div>
+                                <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px">
+                                    <img style="border-radius: 50%" width="25px" height="25px" class="" src="https://i.pinimg.com/originals/f9/21/89/f92189bdd3cac245ec2f15168d56e19d.jpg" />
+                                    <span><b>Trung Dang - 19:43 02/08</b></span>
+                                    <div class="pull-right">
+                                        <a href="javascript:"><small>Trả lời</small></a>
+                                    </div>
+                                </div>
+                                <%-- SUB COMMENTS (Loop bằng một Id) --%>
+                                <div class="row" style="padding-left: 50px" id="">
+                                    <div class="col-md-12" style="padding-top: 10px">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                    </div>
+                                    <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px">
+                                        <img style="border-radius: 50%" width="25px" height="25px" class="" src="https://i.pinimg.com/originals/f9/21/89/f92189bdd3cac245ec2f15168d56e19d.jpg" />
+                                        <span><b>Trung Dang - 19:43 02/08</b></span>
+                                        <div class="pull-right">
+                                            <a href="javascript:"><small>Trả lời</small></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-md-12" style="background: rgb(241, 241, 241); padding-top: 10px">
+                                    Đây là bình luận
+                                </div>
+                                <div class="col-md-12" style="padding-top: 10px; padding-bottom: 10px; background: rgb(241, 241, 241)">
+                                    <img style="border-radius: 50%" width="25px" height="25px" class="" src="https://i.pinimg.com/originals/f9/21/89/f92189bdd3cac245ec2f15168d56e19d.jpg" />
+                                    <span><b>Trung Dang - 19:43 02/08</b></span>
+                                    <div class="pull-right">
+                                        <a href="javascript:"><small>Trả lời</small></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div id="ListNews">
-                    <div id="InnerList" class="col-md-7"></div>
+                    <div id="InnerList"></div>
                     <div class="col-md-1"></div>
                     <div class="col-md-4"></div>
                     <br />
@@ -49,15 +97,15 @@
             <%-- Panel --%>
             <div class="col-md-3">
                 <div class="row">
-                    <div class="col-md-12" style="border: 1px solid black; margin: 30px 0px; padding: 10px 10px;">
+                    <div class="col-md-12" style="border: 1px solid grey; margin: 30px 0px; padding: 10px 10px; background: rgb(241, 241, 241)">
                         <b style="font-size: 17px">Chuyên mục</b><br />
-                        <div id="LstCM" style="padding-top: 5px">
+                        <div id="LstCM" style="padding-top: 5px; background: rgb(241, 241, 241)">
                             <%--<div style="padding: 10px 0px"><a href="#">Tên loại tin (0)</a></div>--%>
                         </div>
                     </div>
-                    <div class="col-md-12" style="border: 1px solid black; margin: 10px 0px; padding: 10px 10px;">
+                    <div class="col-md-12" style="border: 1px solid grey; margin: 10px 0px; padding: 10px 10px; background: rgb(241, 241, 241)">
                         <b style="font-size: 17px">Bài viết gần đây</b><br />
-                        <div id="LstRecentNews">
+                        <div id="LstRecentNews" style="background: rgb(241, 241, 241)">
                             <%--<div style="padding: 10px 0px; ">
                             <div class="col-md-5" style="display: inline-block;height: 50px; padding-left: 0">
                                 <img width="100%" src="data:image/jpeg;base64,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"/>

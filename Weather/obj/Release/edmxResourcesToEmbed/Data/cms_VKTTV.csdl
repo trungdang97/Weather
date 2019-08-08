@@ -13,7 +13,7 @@
     <Property Name="RoleId" Type="Guid" Nullable="false" />
     <NavigationProperty Name="aspnet_Roles" Relationship="Self.FK_aspnet_Membership_aspnet_Roles" FromRole="aspnet_Membership" ToRole="aspnet_Roles" />
     <NavigationProperty Name="cms_News" Relationship="Self.FK_cms_News_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_News" />
-    <Property Name="Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="cms_API_Membership_Relationship" Relationship="cms_VKTTVModel.FK_cms_API_Membership_Relationship_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_API_Membership_Relationship" />
     <NavigationProperty Name="cms_UserTransaction" Relationship="cms_VKTTVModel.FK_cms_UserTransaction_aspnet_Membership" FromRole="aspnet_Membership" ToRole="cms_UserTransaction" />
@@ -390,8 +390,8 @@
     <Property Name="LastUpdatedOnDate" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="UserId" Type="Guid" />
     <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CommentParentId" Type="Guid" />
     <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="ThreadId" Type="Guid" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -43,20 +44,20 @@ namespace Weather.Controllers
                     ThreadId = comment.ThreadId,
                     CommentParentId = comment.CommentParentId,
                     Type = comment.Type,
-                    Title = comment.Title,
+                    Title = string.IsNullOrEmpty(comment.Title) ? "" : comment.Title,
                     Body = comment.Body,
                     CreatedOnDate = DateTime.UtcNow.AddHours(7),
                     LastUpdatedOnDate = DateTime.UtcNow.AddHours(7),
                     UserId = comment.UserId,
-                    UserName = comment.UserName,
-                    Email = comment.Email
+                    UserName = string.IsNullOrEmpty(comment.UserName) ? "" : comment.UserName,
+                    Email = string.IsNullOrEmpty(comment.Email) ? "" : comment.Email
                 };
                 db.cms_Comment.Add(cm);
                 int status = db.SaveChanges();
 
                 return status.ToString();
             }
-            catch(Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 return ex.Message;
             }
@@ -73,7 +74,7 @@ namespace Weather.Controllers
                 int status = db.SaveChanges();
                 return status.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message;
             }
@@ -88,7 +89,7 @@ namespace Weather.Controllers
                 int status = db.SaveChanges();
                 return status.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message;
             }

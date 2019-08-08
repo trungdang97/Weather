@@ -1,4 +1,7 @@
 ﻿//var News = {};
+
+var BackupImage = "/Content/Images/sky-1467177_1280.jpg"
+
 var ListNews = [];
 var Filter = {};
 Filter.PageSize = 10;
@@ -39,10 +42,10 @@ var ShowListNews = async function () {
     //console.log(ListNews);
     $("#InnerList").html("");
     for (var i = 0; i < ListNews.length; i++) {
-        $("#InnerList").append("<div class='row' style='padding: 5px 0;'>"
+        $("#InnerList").append("<div class='row' style='padding: 10px 0;'>"
             + "<div class='col-md-12' style='padding-bottom: 10px'><b><a href='?tin=" + ListNews[i].NewsId + "'>" + ListNews[i].Name + "<a/></b></div>"
             + "<div class='col-md-12'>"
-            + "<div class='col-md-4'><img width='100%' src='" + ListNews[i].Thumbnail + "' /></div>"
+            + "<div class='col-md-4'><img width='100%' src='" + ((ListNews[i].Thumbnail == null || ListNews[i].Thumbnail == "") ? BackupImage : ListNews[i].Thumbnail) + "' /></div>"
             + "<div class='col-md-8'>" + ListNews[i].Introduction + "</div>"
             + "</div>"
             + "</div>"
@@ -55,10 +58,10 @@ var ShowNews = async function () {
     var News = await GetNewsById(NewsId);
     $("#CreatedOnDate").html("Ngày " + FormatDateTime(News.CreatedOnDate));
     $("#Name").html(News.Name);
-    $("#Thumbnail").html("<img src='" + News.Thumbnail + "'/>");
-    $("#Introduction").html(News.Introduction);
+    $("#Thumbnail").html("<img width='60%' src='" + News.Thumbnail + "'/>");
+    $("#Introduction").html("<b>" + News.Introduction + "</b>");
     $("#Body").html(News.Body);
-    $("#Credit").html("<b>Người thực hiện: " + News.Writer + "</b>");
+    $("#Credit").html("<b>Người đăng bài: " + News.Writer + "</b>");
 }
 
 async function GetNewsById(NewsId) {
@@ -108,7 +111,7 @@ function GetCategoryQuantity() {
             //console.log(lstCM);
             $("#LstCM").html("");
             for (var i = 0; i < data.length; i++) {
-                $("#LstCM").append("<div style='padding: 10px 0px;'><a style='color:black;' href='#'>" + data[i].Name + " (" + data[i].Quantity + ")</a></div>");
+                $("#LstCM").append("<div style='padding: 10px 0px;'><a style='color:black;' href='/tin-tuc/" + data[i].Description + "'>" + data[i].Name + " (" + data[i].Quantity + ")</a></div>");
             }
         },
         error: function (response) {
@@ -127,7 +130,7 @@ function GetRecentCategoryNews() {
             for (var i = 0; i < data.length; i++) {
                 $("#LstRecentCategoryNews").append("<div class='row' style='padding-top:5px'>"
                     + "<div class='col-md-9'><i style='font-size: 10px' class='fa fa-circle' aria-hidden='true'></i><a style='color:black' href = '" + window.location.pathname + "?tin=" + data[i].NewsId + "' > " + data[i].Name + "</a></div>"
-                    + "<div class='col-md-3'><i>" + FormatDate(data[i].CreatedOnDate) +"</i><div>"
+                    + "<div class='col-md-3'><i class='pull-right'>" + FormatDate(data[i].CreatedOnDate) + "</i><div>"
                     + "</div>");
             }
         },
@@ -145,13 +148,13 @@ function GetRecentNews() {
         success: function (data) {
             $("#LstRecentNews").html("");
             for (var i = 0; i < data.length; i++) {
-                $("#LstRecentNews").append("<div class='row' style='padding: 10px 0px;'>"
+                $("#LstRecentNews").append("<div class='row' style='padding: 15px 0px;'>"
                     + "<div class='col-md-5' style='display: inline-block; height: 50px; padding-left: 0'>"
-                    + "<img height='100%' src='" + data[i].Thumbnail + "'>"
+                    + "<img class='img-thumbnail' height='100%' src='" + ((data[i].Thumbnail == null || data[i].Thumbnail == "") ? BackupImage : data[i].Thumbnail) + "'>"
                     + "</div>"
                     + "<div class='col-md-7 pull-right' style='display: inline-block'>"
                     + "<div><a href=" + window.location.pathname + "?tin=" + data[i].NewsId + ">" + data[i].Name + "</a></div>"
-                    + "<div style='padding-top:5px; color:grey'>31/07/2019</div>"
+                    + "<div style='padding-top:5px; color:grey'>" + FormatDate(data[i].CreatedOnDate) + "</div>"
                     + "</div>"
                     + "</div>");
             }

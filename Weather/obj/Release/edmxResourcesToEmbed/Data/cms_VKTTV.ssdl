@@ -11,7 +11,7 @@
     <Property Name="ShortName" Type="nvarchar" MaxLength="512" />
     <Property Name="NickName" Type="nvarchar" MaxLength="512" />
     <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Phone" Type="varchar" MaxLength="512" />
+    <Property Name="Phone" Type="varchar" MaxLength="512" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="512" />
   </EntityType>
   <EntityType Name="aspnet_Rights">
@@ -91,15 +91,15 @@
       <PropertyRef Name="CommentId" />
     </Key>
     <Property Name="CommentId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="CommentParentId" Type="uniqueidentifier" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="LastUpdatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="UserId" Type="uniqueidentifier" />
     <Property Name="IsApproved" Type="bit" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar(max)" />
-    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="varchar(max)" Nullable="false" />
+    <Property Name="CommentParentId" Type="uniqueidentifier" />
     <Property Name="Type" Type="varchar(max)" Nullable="false" />
     <Property Name="ThreadId" Type="uniqueidentifier" />
   </EntityType>
