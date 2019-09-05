@@ -94,7 +94,7 @@ namespace Weather.Controllers
                 if (filter.FromDate.HasValue && filter.ToDate.HasValue)
                     query = query.Where(x => x.CreatedOnDate >= filter.FromDate && x.CreatedOnDate <= filter.ToDate);
 
-                
+
 
                 int excludedRow = (filter.PageNumber - 1) * filter.PageSize;
                 return query.Skip(excludedRow).Take(filter.PageSize).Select(ConvertData.ConvertNews).ToList();
@@ -126,7 +126,7 @@ namespace Weather.Controllers
                     WriterName = db.aspnet_Membership.Where(x => x.UserId == data.CreatedByUserId).First().ShortName,
                     Body = data.Body,
                     Introduction = data.Introduction,
-                    CreatedOnDate = DateTime.Now,
+                    CreatedOnDate = data.CreatedOnDate,
                     ApprovedStatus = false,
                     Thumbnail = data.Thumbnail
                 };
@@ -152,7 +152,7 @@ namespace Weather.Controllers
                 //model.WriterName = db.aspnet_Membership.Where(x => x.UserId == UserId).First().ShortName;
                 model.Body = data.Body;
                 model.Introduction = data.Introduction;
-                //model.CreatedOnDate = DateTime.Now;
+                model.CreatedOnDate = data.CreatedOnDate;
                 //model.ApprovedStatus = false;
                 model.Thumbnail = data.Thumbnail;
 
@@ -204,7 +204,7 @@ namespace Weather.Controllers
             {
                 List<NewsCategory> categories = new List<NewsCategory>();
                 var models = db.cms_NewsCategory;
-                foreach(var m in models)
+                foreach (var m in models)
                 {
                     var quantity = db.cms_News.Where(x => x.NewsCategory == m.NewsCategoryId).Count();
                     categories.Add(new NewsCategory()
@@ -255,7 +255,7 @@ namespace Weather.Controllers
         public News ToggleVisible(Guid NewsId)
         {
             using (var db = new cms_VKTTVEntities())
-            {                
+            {
                 var query = db.cms_News.Where(x => x.NewsId == NewsId).First();
                 query.ApprovedStatus = !query.ApprovedStatus;
                 db.SaveChanges();

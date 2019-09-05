@@ -146,7 +146,7 @@ $("#BtnSave").click(function () {
     postData.Introduction = $("#introduction").val();;
     postData.Body = CKEDITOR.instances['body'].getData();
     postData.CreatedByUserId = $("#UserId").val();
-    postData.CreatedOnDate = $("#singledatetimepicker").data("daterangepicker").startDate;
+    postData.CreatedOnDate = new Date($("#singledatetimepicker").data("daterangepicker").startDate);
     $.ajax({
         url: "/api/v1/news/add",
         method: "POST",
@@ -182,7 +182,7 @@ $("#BtnSave2").click(function () {
     postData.Location = $("#location2").val();;
     postData.Introduction = $("#introduction2").val();;
     postData.Body = CKEDITOR.instances['body2'].getData();
-    postData.CreatedOnDate = $("#singledatetimepicker2").data("daterangepicker").startDate;
+    postData.CreatedOnDate = new Date($("#singledatetimepicker2").data("daterangepicker").startDate);
     $.ajax({
         url: "/api/v1/news/update",
         method: "PUT",
