@@ -21,6 +21,7 @@ namespace Weather.CMS
             public Guid? UserId { get; set; }
             public DateTime? FromDate { get; set; }
             public DateTime? ToDate { get; set; }
+            public bool IsCMS { get; set; } = false;
         }
 
         public class News

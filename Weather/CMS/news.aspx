@@ -9,7 +9,6 @@
         td {
             vertical-align: middle !important;
         }
-        
     </style>
     <section class="content-header">
         <h1>Quản lý tin bài cá nhân</h1>
@@ -31,9 +30,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="thumbnail">Sử dụng hình ảnh đại diện tin bài:&ensp;</label><input type="checkbox" id="checkImg"/>
-                            <input type="file" id="imgFile" style="border: 1px solid black"/>
-                            <img id="previewImgFile" style="display: none" width="100px"/>
+                            <label for="category">Thời gian viết:</label>
+                            <input type="text" class="form-control" id="singledatetimepicker" />
+                        </div>
+                        <div class="form-group">
+                            <label for="thumbnail">Sử dụng hình ảnh đại diện tin bài:&ensp;</label><input type="checkbox" id="checkImg" />
+                            <input type="file" id="imgFile" style="border: 1px solid black" />
+                            <img id="previewImgFile" style="display: none" width="100px" />
                         </div>
                         <div class="form-group">
                             <label for="category">Loại tin bài<span class="required">(*)</span>:</label>
@@ -84,9 +87,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="thumbnail">Sử dụng hình ảnh đại diện tin bài:&ensp;</label><input type="checkbox" id="checkImg2"/>
-                            <input type="file" id="imgFile2" style="border: 1px solid black"/>
-                            <img id="previewImgFile2" style="display: none; margin-top: 10px" width="300px"/>
+                            <label for="category">Thời gian viết:</label>
+                            <input type="text" class="form-control" id="singledatetimepicker2" />
+                        </div>
+                        <div class="form-group">
+                            <label for="thumbnail">Sử dụng hình ảnh đại diện tin bài:&ensp;</label><input type="checkbox" id="checkImg2" />
+                            <input type="file" id="imgFile2" style="border: 1px solid black" />
+                            <img id="previewImgFile2" style="display: none; margin-top: 10px" width="300px" />
                         </div>
                         <div class="form-group">
                             <label for="category">Loại tin bài<span class="required">(*)</span>:</label>
@@ -155,7 +162,7 @@
             </table>
             <div class="pull-right">
                 <div id="pagination">
-                    <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width:50px" type="number" min="1" value="1"/><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
+                    <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
                 </div>
             </div>
         </div>
@@ -180,4 +187,84 @@
 
         <script src="news.js"></script>
     </section>
+    <script>
+        $('#singledatetimepicker').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker": true,
+            "locale": {
+                "direction": "ltr",
+                "format": "DD/MM/YYYY HH:mm",
+                "separator": " - ",
+                "applyLabel": "Áp dụng",
+                "cancelLabel": "Hủy",
+                "customRangeLabel": "Custom",
+                "daysOfWeek": [
+                    "CN",
+                    "T2",
+                    "T3",
+                    "T4",
+                    "T5",
+                    "T6",
+                    "T7"
+                ],
+                "monthNames": [
+                    "Tháng 1",
+                    "Tháng 2",
+                    "Tháng 3",
+                    "Tháng 4",
+                    "Tháng 5",
+                    "Tháng 6",
+                    "Tháng 7",
+                    "Tháng 8",
+                    "Tháng 9",
+                    "Tháng 10",
+                    "Tháng 11",
+                    "Tháng 12"
+                ],
+                "firstDay": 1
+            },
+            "startDate": new Date(),
+        }, function (start, end, label) {
+
+        });
+        $('#singledatetimepicker2').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker": true,
+            "locale": {
+                "direction": "ltr",
+                "format": "DD/MM/YYYY HH:mm",
+                "separator": " - ",
+                "applyLabel": "Áp dụng",
+                "cancelLabel": "Hủy",
+                "customRangeLabel": "Custom",
+                "daysOfWeek": [
+                    "CN",
+                    "T2",
+                    "T3",
+                    "T4",
+                    "T5",
+                    "T6",
+                    "T7"
+                ],
+                "monthNames": [
+                    "Tháng 1",
+                    "Tháng 2",
+                    "Tháng 3",
+                    "Tháng 4",
+                    "Tháng 5",
+                    "Tháng 6",
+                    "Tháng 7",
+                    "Tháng 8",
+                    "Tháng 9",
+                    "Tháng 10",
+                    "Tháng 11",
+                    "Tháng 12"
+                ],
+                "firstDay": 1
+            },
+            "startDate": new Date(),
+        }, function (start, end, label) {
+
+        });
+    </script>
 </asp:Content>

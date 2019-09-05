@@ -80,6 +80,12 @@ namespace Weather.Controllers
                 {
                     query = db.cms_News.Where(x => x.CreatedByUserId == filter.UserId);
                 }
+
+                if (!filter.IsCMS)
+                {
+                    query = query.Where(x => x.ApprovedStatus == true);
+                }
+
                 query = query.OrderByDescending(x => x.CreatedOnDate);
                 if (filter.NewsCategoryId.HasValue)
                     query = query.Where(x => x.NewsCategory == filter.NewsCategoryId.Value);
@@ -87,6 +93,8 @@ namespace Weather.Controllers
                     query = query.Where(x => x.Name.Contains(filter.FilterText));
                 if (filter.FromDate.HasValue && filter.ToDate.HasValue)
                     query = query.Where(x => x.CreatedOnDate >= filter.FromDate && x.CreatedOnDate <= filter.ToDate);
+
+                
 
                 int excludedRow = (filter.PageNumber - 1) * filter.PageSize;
                 return query.Skip(excludedRow).Take(filter.PageSize).Select(ConvertData.ConvertNews).ToList();
@@ -238,6 +246,21 @@ namespace Weather.Controllers
                 lstNews.AddRange(models.Select(ConvertData.ConvertNews));
 
                 return lstNews;
+            }
+        }
+
+        [HttpPut]
+        [Route("api/v1/news/visible")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public News ToggleVisible(Guid NewsId)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {                
+                var query = db.cms_News.Where(x => x.NewsId == NewsId).First();
+                query.ApprovedStatus = !query.ApprovedStatus;
+                db.SaveChanges();
+
+                return ConvertData.ConvertNews(query);
             }
         }
     }
