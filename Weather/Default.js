@@ -100,7 +100,7 @@ var GetNews = function (NewsCategoryId, Code) {
 
 var GetForecast = async function () {
     await $.ajax({
-        url: Forecast_BaseURL + "/api/v1/MRFDLY/demodaily",
+        url: Forecast_BaseURL + "/api/v1/MRFDLY/demoexpo",
         method: "GET",
         dataType: 'json',
         success: async function (response) {

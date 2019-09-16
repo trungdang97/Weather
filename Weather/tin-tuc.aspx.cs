@@ -23,15 +23,18 @@ namespace Weather
             {
                 HttpContext.Current.Session["NewsId"] = newsid;
             }
-            
+
             //phân tích url
-            string description = uri.LocalPath.Replace("/tin-tuc/","");
-            HttpContext.Current.Session["NewsCategory"] = "";
-            using (var db = new cms_VKTTVEntities())
+            if (uri.LocalPath != "/tin-tuc")
             {
-                var newsCategory = db.cms_NewsCategory.Where(x => x.Description == description).First();
-                HttpContext.Current.Session["NewsCategory"] = newsCategory.NewsCategoryId;
-            } 
+                string description = uri.LocalPath.Replace("/tin-tuc/", "");
+                HttpContext.Current.Session["NewsCategory"] = "";
+                using (var db = new cms_VKTTVEntities())
+                {
+                    var newsCategory = db.cms_NewsCategory.Where(x => x.Description == description).First();
+                    HttpContext.Current.Session["NewsCategory"] = newsCategory.NewsCategoryId;
+                }
+            }
         }
     }
 }

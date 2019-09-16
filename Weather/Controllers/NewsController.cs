@@ -66,33 +66,33 @@ namespace Weather.Controllers
                 {
                     User = db.aspnet_Membership.Where(x => x.UserId == filter.UserId.Value).First();
                 }
-                IQueryable<cms_News> query = null;
+                List<cms_News> query = new List<cms_News>();
 
                 if (User == null)
                 {
-                    query = db.cms_News;
+                    query = db.cms_News.ToList();
                 }
                 else if (User.aspnet_Roles.Description == "QTHT")
                 {
-                    query = db.cms_News;
+                    query = db.cms_News.ToList();
                 }
                 else
                 {
-                    query = db.cms_News.Where(x => x.CreatedByUserId == filter.UserId);
+                    query = db.cms_News.Where(x => x.CreatedByUserId == filter.UserId).ToList();
                 }
 
                 if (!filter.IsCMS)
                 {
-                    query = query.Where(x => x.ApprovedStatus == true);
+                    query = query.Where(x => x.ApprovedStatus == true).ToList();
                 }
 
-                query = query.OrderByDescending(x => x.CreatedOnDate);
+                query = query.OrderByDescending(x => x.CreatedOnDate).ToList();
                 if (filter.NewsCategoryId.HasValue)
-                    query = query.Where(x => x.NewsCategory == filter.NewsCategoryId.Value);
+                    query = query.Where(x => x.NewsCategory == filter.NewsCategoryId.Value).ToList();
                 if (filter.FilterText != "")
-                    query = query.Where(x => x.Name.Contains(filter.FilterText));
+                    query = query.Where(x => x.Name.Contains(filter.FilterText)).ToList();
                 if (filter.FromDate.HasValue && filter.ToDate.HasValue)
-                    query = query.Where(x => x.CreatedOnDate >= filter.FromDate && x.CreatedOnDate <= filter.ToDate);
+                    query = query.Where(x => x.CreatedOnDate >= filter.FromDate && x.CreatedOnDate <= filter.ToDate).ToList();
 
 
 
@@ -206,7 +206,7 @@ namespace Weather.Controllers
                 var models = db.cms_NewsCategory;
                 foreach (var m in models)
                 {
-                    var quantity = db.cms_News.Where(x => x.NewsCategory == m.NewsCategoryId).Count();
+                    var quantity = db.cms_News.Where(x => x.NewsCategory == m.NewsCategoryId && x.ApprovedStatus == true).Count();
                     categories.Add(new NewsCategory()
                     {
                         Name = m.Name,
@@ -237,6 +237,8 @@ namespace Weather.Controllers
                     models = models.Where(x => x.NewsId != NewsId);
                 }
                 models = models.OrderByDescending(x => x.CreatedOnDate);
+
+                models = models.Where(x => x.ApprovedStatus == true);
 
                 if (models.Count() > quantity)
                 {

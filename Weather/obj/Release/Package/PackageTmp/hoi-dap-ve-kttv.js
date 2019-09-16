@@ -57,6 +57,10 @@ var CreatePost = function (postData) {
         data: postData,
         success: function (response) {
             alert("Tạo câu hỏi thành công");
+            $("#Title").val("");
+            $("#UserId").val("");
+            $("#QuestionModalItem").modal('hide');
+            GetPost();
         },
         error: function (response) {
             alert("Xảy ra lỗi khi tạo câu hỏi!");
@@ -76,6 +80,7 @@ var GetPost = function () {
         dataType: "json",
         success: function (response) {
             //console.log(response);
+            $("#InnerList").html("");
             for (var i = 0; i < response.length; i++) {
                 $("#InnerList").append("<div class='col-md-12' style='border-top: 1px solid lightgrey;border-bottom: 1px solid lightgrey;padding: 10px 0px'>"
                     + "<div class='col-md-12'><a href='/hoi-dap-ve-kttv?cauhoi=" + response[i].PostId + "'>" + response[i].Title + "</a></div>"

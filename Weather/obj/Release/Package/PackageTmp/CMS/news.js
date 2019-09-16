@@ -65,7 +65,7 @@ async function Edit(EditBtn) {
         $('#previewImgFile2').attr("src", News.Thumbnail);
         //$('#previewImgFile2').show();
     }
-    
+    $("#singledatetimepicker2").data("daterangepicker").setStartDate(new Date(News.CreatedOnDate));
     $("#MainContent_ListCategory2").val(News.NewsCategoryId);
     $("#name2").val(News.Name);
     $("#location2").val(News.Location);
@@ -146,7 +146,7 @@ $("#BtnSave").click(function () {
     postData.Introduction = $("#introduction").val();;
     postData.Body = CKEDITOR.instances['body'].getData();
     postData.CreatedByUserId = $("#UserId").val();
-
+    postData.CreatedOnDate = new Date($("#singledatetimepicker").data("daterangepicker").startDate);
     $.ajax({
         url: "/api/v1/news/add",
         method: "POST",
@@ -182,7 +182,7 @@ $("#BtnSave2").click(function () {
     postData.Location = $("#location2").val();;
     postData.Introduction = $("#introduction2").val();;
     postData.Body = CKEDITOR.instances['body2'].getData();
-
+    postData.CreatedOnDate = new Date($("#singledatetimepicker2").data("daterangepicker").startDate);
     $.ajax({
         url: "/api/v1/news/update",
         method: "PUT",
@@ -290,6 +290,7 @@ function GetData() {
     postData.UserId = $("#UserId").val();
     postData.FromDate = FromDate;
     postData.ToDate = ToDate;
+    postData.IsCMS = true;
 
     $.ajax({
         url: "/api/v1/news/filter",
@@ -308,6 +309,10 @@ function GetData() {
             }
 
             for (var i = 0; i < data.length; i++) {
+                var ApproveStatus = "green";
+                if (!data[i].ApproveStatus) {
+                    ApproveStatus = "red";
+                }
                 $("#table-body").append("<tr>"
                     + "<td class='text-center'>"
                     + "<input type='checkbox' onclick value='" + data[i].NewsId + "' class='multiSelect'>"
@@ -328,6 +333,7 @@ function GetData() {
                     + data[i].Writer
                     + "</td>"
                     + "<td class='text-center'>"
+                    + "<button type='button' onclick='ToggleVisible(this)' value='" + data[i].NewsId + "' style='background-color:"+ ApproveStatus +";width:28px;height:28px;padding:4px;margin:5px' class='btn'><i style='font-size:20px;color:white' class='fa fa-eye'></i></button>"
                     + "<button type='button' onclick='Edit(this)' value='" + data[i].NewsId + "' data-toggle='modal' data-target='#exampleModal2' style='background-color:deepskyblue;width:28px;height:28px;padding:4px;margin:5px' class='btn'><i style='font-size:20px;color:white' class='fa fa-edit'></i></button>"
                     + "<button type='button' onclick='PrepareDelete(this)' data-toggle='modal' data-target='#myModal' value='" + data[i].NewsId + "' style='background-color:red;width:28px;height:28px;padding:4px;' class='btn'><i style='font-size:20px;color:white' class='fa fa-trash'></i></button>"
                     + "</td>"
@@ -340,6 +346,21 @@ function GetData() {
         },
         error: function () {
             alert("Kết nối thất bại. Xin hãy kiểm tra lại kết nôi.");
+        }
+    });
+}
+
+var ToggleVisible = async function (btn) {
+    var id = btn.value;
+    await $.ajax({
+        url: '/api/v1/news/visible?NewsId=' + id,
+        method: "PUT",
+        contentType: "json",
+        success: function (response) {
+            alert("Thay đổi trạng thái hiển thị tin bài thành công!");
+            GetData();
+        }, error: function (response) {
+            alert("Có lỗi xảy ra khi kết nối");
         }
     });
 }

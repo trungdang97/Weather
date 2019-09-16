@@ -122,7 +122,7 @@ function GetCategoryQuantity() {
 
 function GetRecentCategoryNews() {
     $.ajax({
-        url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=",
+        url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=" + NewsCategoryId,
         dataType: "json",
         method: "GET",
         success: function (data) {
@@ -142,7 +142,7 @@ function GetRecentCategoryNews() {
 
 function GetRecentNews() {
     $.ajax({
-        url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=" + NewsCategoryId,
+        url: "/api/v1/news/category/recent?quantity=6" + "&NewsId=" + NewsId + "&Category=",
         dataType: "json",
         method: "GET",
         success: function (data) {

@@ -81,7 +81,7 @@
                                 <h4><a href="/Default.aspx" class="active font-weight bold">Trang chủ</a></h4>
                             </div>
                             <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
-                                <h4><a href="#">Giới thiệu</a></h4>
+                                <h4><a href="/tin-tuc/gioi-thieu">Giới thiệu</a></h4>
                             </div>
                             <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
                                 <h4><a href="#">Tin tức sự kiện</a></h4>
