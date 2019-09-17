@@ -29,10 +29,16 @@ $(document).ready(function () {
         $("#ListNews").hide();
         ShowNews();
     }
-    else {
+    else if (NewsCategoryId != null && NewsCategoryId != undefined && NewsCategoryId != "") {
         $("#News").hide();
         $("#ListNews").show();
         Filter.NewsCategoryId = NewsCategoryId;
+        ShowListNews();
+    }
+    else {
+        $("#News").hide();
+        $("#ListNews").show();
+        Filter.NewsCategoryId = null;
         ShowListNews();
     }
 });
