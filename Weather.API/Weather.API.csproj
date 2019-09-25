@@ -15,4 +15,8 @@
     <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Weather.Business\Weather.Business.csproj" />
+  </ItemGroup>
+
 </Project>
