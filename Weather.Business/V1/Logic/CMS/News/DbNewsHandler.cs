@@ -144,11 +144,15 @@ namespace Weather.Business.V1
                     }
 
                     int excludedRows = (filter.PageNumber - 1) * filter.PageSize;
+                    int totalCount = data.Count();
                     data = data.Skip(excludedRows).Take(filter.PageSize);
 
                     result = await data.ToListAsync();
 
-                    return new OldResponse<List<CMS_News>>(1, "SUCCESS", result);
+                    return new OldResponse<List<CMS_News>>(1, "SUCCESS", result) {
+                        DataCount = result.Count,
+                        TotalCount = totalCount
+                    };
                 }
             }
             catch (Exception ex)
