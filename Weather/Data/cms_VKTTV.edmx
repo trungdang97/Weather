@@ -179,6 +179,15 @@
           <Property Name="ToDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="cms_Video">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FullPath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -349,6 +358,7 @@
           <EntitySet Name="cms_PostCategory" EntityType="Self.cms_PostCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cms_UserTransaction" EntityType="Self.cms_UserTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cms_UserTransaction_API" EntityType="Self.cms_UserTransaction_API" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cms_Video" EntityType="Self.cms_Video" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_aspnet_Membership_aspnet_Roles" Association="Self.FK_aspnet_Membership_aspnet_Roles">
             <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
@@ -625,6 +635,7 @@
             <End Role="cms_Comment" EntitySet="cms_Comment" />
             <End Role="cms_Comment1" EntitySet="cms_Comment" />
           </AssociationSet>
+          <EntitySet Name="cms_Video" EntityType="cms_VKTTVModel.cms_Video" />
         </EntityContainer>
         <EntityType Name="cms_API">
           <Key>
@@ -821,6 +832,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="cms_Video">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullPath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1024,6 +1044,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PostCategoryId" ColumnName="PostCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_Video">
+            <EntityTypeMapping TypeName="cms_VKTTVModel.cms_Video">
+              <MappingFragment StoreEntitySet="cms_Video">
+                <ScalarProperty Name="CreatedOnDate" ColumnName="CreatedOnDate" />
+                <ScalarProperty Name="FullPath" ColumnName="FullPath" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -58,8 +58,7 @@
                     <table style="width: 100%">
                         <tbody id="ForecastContent">
                             <tr>
-                                <td style="height: 336px">
-                                </td>
+                                <td style="height: 336px"></td>
                             </tr>
                             <%--<tr>
                                 <td style="padding-right: 5px;">
@@ -78,7 +77,7 @@
                                 <td>
                                     <a id="PreviousForecast" href="#"><i class="fa fa-arrow-left"></i></a>
                                 </td>
-                                <td class="text-center" style="padding-right:30px;">
+                                <td class="text-center" style="padding-right: 30px;">
                                     <b style="font-size: 14px;" id="ForecastPageNumber"></b>
                                     <b style="font-size: 14px;">/</b>
                                     <b style="font-size: 14px;" id="ForecastTotalPage"></b>
@@ -109,6 +108,9 @@
                         <li>
                             <a href="#tab_default_3" data-toggle="tab">Tin Xã hội </a>
                         </li>
+                        <li>
+                            <a href="#tab_default_4" data-toggle="tab">Video </a>
+                        </li>
                     </ul>
                     <div class="tab-content" style="">
                         <div class="tab-pane" id="tab_default_1">
@@ -117,13 +119,18 @@
                         </div>
                         <div class="tab-pane" id="tab_default_3">
                         </div>
+                        <div class="tab-pane" id="tab_default_4">
+                            <%--<video id="my-video" class="video-js" controls preload="auto" width="358" height="250" data-setup="{}">
+                                <source src="api/v1/media/video/play?f=avan.mp4" type='video/mp4'>
+                            </video>--%>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        
-    </script>
+
+</script>
     <script src="Default.js"></script>
 </asp:Content>

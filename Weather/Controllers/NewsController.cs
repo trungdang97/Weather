@@ -101,10 +101,20 @@ namespace Weather.Controllers
             }
         }
 
-        // GET api/<controller>/5
-        public string Get()
+        [HttpGet]
+        [Route("api/v1/news/quantity/total")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public int GetTotalQuantity(Guid? newsCategoryId)
         {
-            return "value";
+            using(var db = new cms_VKTTVEntities())
+            {
+                if(newsCategoryId == null)
+                {
+                    return db.cms_News.Where(x=> x.ApprovedStatus == true).Count();
+                }
+                return db.cms_News.Where(x => x.NewsCategory == newsCategoryId && x.ApprovedStatus == true).Count();
+            }
+            
         }
 
 

@@ -222,6 +222,7 @@
       <End Role="cms_Comment" EntitySet="cms_Comment" />
       <End Role="cms_Comment1" EntitySet="cms_Comment" />
     </AssociationSet>
+    <EntitySet Name="cms_Video" EntityType="cms_VKTTVModel.cms_Video" />
   </EntityContainer>
   <EntityType Name="cms_API">
     <Key>
@@ -418,4 +419,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="cms_Video">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FullPath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOnDate" Type="DateTime" Nullable="false" Precision="7" />
+  </EntityType>
 </Schema>

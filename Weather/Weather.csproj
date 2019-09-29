@@ -6784,6 +6784,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="hoi-dap-ve-kttv.aspx" />
     <Content Include="hoi-dap-ve-kttv.js" />
+    <Content Include="lien-ket.aspx" />
     <Content Include="login\CSS\CookedCrazyCrayfish-poster.jpg" />
     <Content Include="login\CSS\sky-1467177_1280.jpg" />
     <Content Include="Content\Site.css" />
@@ -7573,10 +7574,12 @@
     <Compile Include="Controllers\APIRegisterController.cs" />
     <Compile Include="Controllers\APITypeController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PostCategoryController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Data\aspnet_Membership.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
@@ -7622,6 +7625,9 @@
     <Compile Include="Data\cms_UserTransaction_API.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\cms_Video.cs">
+      <DependentUpon>cms_VKTTV.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\cms_VKTTV.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -7656,6 +7662,13 @@
     </Compile>
     <Compile Include="hoi-dap-ve-kttv.aspx.designer.cs">
       <DependentUpon>hoi-dap-ve-kttv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="lien-ket.aspx.cs">
+      <DependentUpon>lien-ket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="lien-ket.aspx.designer.cs">
+      <DependentUpon>lien-ket.aspx</DependentUpon>
     </Compile>
     <Compile Include="login\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

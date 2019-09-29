@@ -15,6 +15,7 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" type="text/css">
+    <link href="http://vjs.zencdn.net/5.10.2/video-js.css" rel="stylesheet">
     <style>
         #ToggleMap {
             z-index: 1000;
@@ -25,6 +26,18 @@
             width: 50px;
         }
     </style>
+
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script type="text/javascript">
+
+            function onLoad() {
+                var sec = parseInt(document.location.search.substr(1));
+
+                if (!isNaN(sec))
+                    mainPlayer.currentTime = sec;
+            }
+
+    </script>
 </head>
 <body>
     <%--<button id="ToggleMap" title="Click vào tôi để mở/đóng bản đồ thời tiết cỡ lớn"><i class="fa fa-map" style="font-size: 30px" aria-hidden="true"></i></button>--%>
@@ -70,7 +83,7 @@
                                 <a href="#">Văn bản pháp quy</a>
                             </div>
                             <div class="col-md-4 new-nav-link-underline" style="width: auto !important">
-                                <a href="#">Liên kết website</a>
+                                <a href="/lien-ket.aspx">Liên kết website</a>
                             </div>
                         </div>
                     </div>
@@ -270,6 +283,6 @@ powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow
     </form>
 
     <script src="/Scripts/SiteMaster/script.js"></script>
-
+    <script src="http://vjs.zencdn.net/5.10.2/video.js"></script>
 </body>
 </html>

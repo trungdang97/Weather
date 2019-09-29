@@ -15,9 +15,10 @@ $(document).ready(async function () {
     GetNews("dac7f4bf-b0c0-4003-bde0-d5eeea71ba03", "NB");
     GetNews("328e5dbf-966a-4fbd-8642-e5a6f2be6033", "XH");
 
+    GetVideos();
     await GetForecast();
 
-    
+
 });
 $("#PreviousForecast").click(function () {
     PreviousForecastPage();
@@ -100,7 +101,7 @@ var GetNews = function (NewsCategoryId, Code) {
 
 var GetForecast = async function () {
     await $.ajax({
-        url: Forecast_BaseURL + "/api/v1/MRFDLY/demoexpo",
+        url: Forecast_BaseURL + "/api/v1/MRFDLY/demo",
         method: "GET",
         dataType: 'json',
         success: async function (response) {
@@ -133,7 +134,7 @@ var ShowForecast = async function (pageNumber) {
             var icon = await GetWeatherIcon(ForecastData[i].WX_1DAY);
             $("#ForecastContent").append("<tr>"
                 + "<td style='padding-right: 5px;width: 70px'>"
-                + " <img src='"+icon+"' alt='Icon here' width='50px' />"
+                + " <img src='" + icon + "' alt='Icon here' width='50px' />"
                 + "</td>"
                 + "<td>"
                 + "<span class='text-uppercase' style='font-size: 14px'>" + ForecastData[i].Location + "</span>"
@@ -213,7 +214,7 @@ var IconsMapping = [
         WX_1DAY: 202,
         Name: "Trời có mây và có thể có mưa",
         Icon: "Content/Images/Icon/Icon/202-203.png"
-    },   
+    },
     {
         WX_1DAY: 203,
         Name: "Trời có mây và thỉnh thoảng có mưa",
@@ -240,3 +241,34 @@ var IconsMapping = [
         Icon: "Content/Images/Icon/Icon/tornado.png"
     },
 ];
+
+var videoQuantity = 6;
+var videos = [];
+var GetVideos = function () {
+    $.ajax({
+        url: "/api/v1/videos/newest?quantity=" + videoQuantity,
+        method: "GET",
+        dataType: "json",
+        success: function (response) {
+            videos = response;
+            $("#tab_default_4").html("<div class='card-deck' id='tab_default_4_content'></div>");
+            for (var i = 0; i < videos.length; i++) {
+                $("#tab_default_4_content").append(
+                    "<div class='card' style='margin-bottom: 20px;background:rgb(241, 241, 241)' >"
+                    + "<video class='card-img-top video-js' height='250' controls preload='auto' data-setup='{}'>"
+                    + "<source src='api/v1/media/video/play?f=" + (videos[i].FullPath) + "' type='video/mp4'>"
+                    + "</video>"
+                    + "<div class='card-body' style='padding-left: 15px'>"
+                    + "<h6 style='color: #808080'>Ngày đăng " + FormatDateTime(videos[i].CreatedOnDate) + "</h6>"
+                    + "<h4 class='card-title'><a href='#'>" + videos[i].Name + "</a></h4>"
+                    + "<p class='card-text'></p>"
+                    + "</div>"
+                    + "</div>");
+            }
+        },
+        error: function (response) {
+            console.log(response);
+            alert("Không thể lấy dữ liệu video!");
+        }
+    });
+};

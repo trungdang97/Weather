@@ -41,5 +41,6 @@ namespace Weather.Data
         public virtual DbSet<cms_Comment> cms_Comment { get; set; }
         public virtual DbSet<cms_Post> cms_Post { get; set; }
         public virtual DbSet<cms_PostCategory> cms_PostCategory { get; set; }
+        public virtual DbSet<cms_Video> cms_Video { get; set; }
     }
 }
