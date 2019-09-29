@@ -8,18 +8,45 @@ Filter.PageSize = 10;
 Filter.PageNumber = 1;
 Filter.NewsCategoryId = NewsCategoryId;
 
+var previousPage = 1;
 var NewsId = $("#newsid").val();
 var NewsCategoryId = $("#newsCategory").val();
+var TotalQuantity = 0;
+
+var GetTotalQuantity = function () {
+    $.ajax({
+        url: '/api/v1/news/quantity/total?newsCategoryId=' + Filter.NewsCategoryId,
+        method: "GET",
+        contentType: "json",
+        success: function (data) {
+            TotalQuantity = data;
+            $("#TotalPage").html(Math.floor(TotalQuantity / Filter.PageSize + 1))
+        }, error: function () {
+            alert("Có lỗi xảy ra khi kết nối");
+        }
+    });
+};
 
 
-$("#PageNumber").change(function () {
-    ShowListNews();
-});
+//$("#PageNumber").change(function () {
+//    ShowListNews();
+//});
 
 $(document).ready(function () {
+    ///prevent submitting form
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+    ////
+
     NewsId = $("#newsid").val();
     NewsCategoryId = $("#newsCategory").val();
+    $("#PageNumber").val(Filter.PageNumber);
 
+    GetTotalQuantity();
     GetCategoryQuantity();
     GetRecentCategoryNews();
     GetRecentNews();
@@ -46,16 +73,27 @@ $(document).ready(function () {
 var ShowListNews = async function () {
     var ListNews = await GetNewsByFilter();
     //console.log(ListNews);
-    $("#InnerList").html("");
-    for (var i = 0; i < ListNews.length; i++) {
-        $("#InnerList").append("<div class='row' style='padding: 10px 0;'>"
-            + "<div class='col-md-12' style='padding-bottom: 10px'><b><a href='?tin=" + ListNews[i].NewsId + "'>" + ListNews[i].Name + "<a/></b></div>"
-            + "<div class='col-md-12'>"
-            + "<div class='col-md-4'><img width='100%' src='" + ((ListNews[i].Thumbnail == null || ListNews[i].Thumbnail == "") ? BackupImage : ListNews[i].Thumbnail) + "' /></div>"
-            + "<div class='col-md-8'>" + ListNews[i].Introduction + "</div>"
-            + "</div>"
-            + "</div>"
-            + "<hr/>");
+
+    if (ListNews.length == 0) {
+        alert("Không còn trang tin cũ hơn, trang cuối là trang số " + Math.floor(TotalQuantity / Filter.PageSize + 1));
+        Filter.PageNumber = previousPage;
+        $("#PageNumber").val(Filter.PageNumber);
+        return;
+    }
+    else {
+        $("#InnerList").html("");
+        for (var i = 0; i < ListNews.length; i++) {
+            $("#InnerList").append("<div class='row' style='padding: 10px 0;'>"
+                + "<div class='col-md-12' style='padding-bottom: 10px'><b><a href='?tin=" + ListNews[i].NewsId + "'>" + ListNews[i].Name + "<a/></b></div>"
+                + "<div class='col-md-12'>"
+                + "<div class='col-md-4'><img width='100%' src='" + ((ListNews[i].Thumbnail == null || ListNews[i].Thumbnail == "") ? BackupImage : ListNews[i].Thumbnail) + "' /></div>"
+                + "<div class='col-md-8'>" + ListNews[i].Introduction + "</div>"
+                + "</div>"
+                + "</div>"
+                + "<hr/>");
+        }
+        window.scrollTo(0, 0);
+        Pagination();
     }
 }
 
@@ -87,7 +125,7 @@ async function GetNewsById(NewsId) {
 
 async function GetNewsByFilter() {
     var listNews = [];
-    Filter.PageNumber = $("#PageNumber").val();
+    //Filter.PageNumber = $("#PageNumber").val();
     await $.ajax({
         url: '/api/v1/news/filter',
         method: "POST",
@@ -107,17 +145,34 @@ async function GetNewsByFilter() {
 }
 
 function GetCategoryQuantity() {
-    //var lstCM = [];
+    var lstTTSK = [];
+    var lstRest = [];
     $.ajax({
         url: "/api/v1/news/category/quantity",
         dataType: "json",
         method: "GET",
         success: function (data) {
-            //lstCM = data;
-            //console.log(lstCM);
             $("#LstCM").html("");
-            for (var i = 0; i < data.length; i++) {
-                $("#LstCM").append("<div style='padding: 10px 0px;'><a style='color:black;' href='/tin-tuc/" + data[i].Description + "'>" + data[i].Name + " (" + data[i].Quantity + ")</a></div>");
+            lstTTSK = data.filter(function (item) {
+                return item.Description == 'noi-bo' || item.Description == 'thoi-tiet' || item.Description == 'hai-van' || item.Description == 'thuy-van';// || item.Description == 'gioi-thieu';
+            });
+            lstRest = data.filter(function (item) {
+                return item.Description != 'noi-bo' && item.Description != 'thoi-tiet' && item.Description != 'hai-van' && item.Description != 'thuy-van';// || item.Description == 'gioi-thieu';
+            });
+            $("#LstCM").append(
+                "<a style='color:black;' href='#' class='tree-toggle'>Tin tức sự kiện</a>"
+                + "<ul class='nav tree' id='TTSK'>"
+                + "</ul>"
+            );
+            for (var i = 0; i < lstTTSK.length; i++) {
+                $("#TTSK").append(
+                    "<li>"
+                    + "<a style='color:black;' href='/tin-tuc/" + lstTTSK[i].Description + "'> &gt;" + lstTTSK[i].Name + " (" + lstTTSK[i].Quantity + ")</a>"
+                    +"</li>"
+                );
+            }
+            for (var i = 0; i < lstRest.length; i++) {
+                $("#LstCM").append("<div style='padding: 10px 0px;'><a style='color:black;' href='/tin-tuc/" + lstRest[i].Description + "'>" + lstRest[i].Name + " (" + lstRest[i].Quantity + ")</a></div>");
             }
         },
         error: function (response) {
@@ -171,3 +226,69 @@ function GetRecentNews() {
     });
 }
 
+//PAGINATION
+var NextPage = function () {
+    previousPage = Filter.PageNumber;
+    Filter.PageNumber++;
+
+    ShowListNews();
+
+};
+
+var PreviousPage = function () {
+    if (Filter.PageNumber > 1) {
+        previousPage = Filter.PageNumber;
+        Filter.PageNumber--;
+        ShowListNews();
+        //window.scrollTo(0, 0); 
+    }
+};
+
+$("#NextPage").click(function () {
+    NextPage();
+});
+
+$("#PreviousPage").click(function () {
+    PreviousPage();
+});
+
+var Pagination = function () {
+    $("#Pages").html("");
+    var show = 5;
+    //var totalPages = Math.floor(TotalQuantity / Filter.PageSize < 5);
+    //if (TotalQuantity / Filter.PageSize < 5) {
+    //    show = Math.floor(TotalQuantity / 10 + 1);
+    //}
+    if (Filter.PageNumber < 3) {
+        for (var i = 1; i <= show; i++) {
+            if (i == Filter.PageNumber) {
+                $("#Pages").append("<button class='btn-primary' onclick='GoToPage(" + i + ")' type='button'>" + i + "</button>");
+            }
+            else {
+                $("#Pages").append("<button onclick='GoToPage(" + i + ")' type='button'>" + i + "</button>");
+            }
+        }
+    }
+    else {
+        for (var i = -2; i < show - 2; i++) {
+            if (i == 0) {
+                $("#Pages").append("<button class='btn-primary' onclick='GoToPage(" + (parseInt(Filter.PageNumber) + i) + ")' type='button'>" + (Filter.PageNumber + i) + "</button>");
+            }
+            else {
+                $("#Pages").append("<button onclick='GoToPage(" + (parseInt(Filter.PageNumber) + i) + ")' type='button'>" + (Filter.PageNumber + i) + "</button>");
+            }
+        }
+    }
+};
+
+var GoToPage = function (pageNumber) {
+    previousPage = Filter.PageNumber;
+    Filter.PageNumber = pageNumber;
+    ShowListNews();
+};
+
+$("#PageNumber").keyup(function (e) {
+    if (e.keyCode == 13) {
+        GoToPage(parseInt($("#PageNumber").val()));
+    }
+});

@@ -51,8 +51,15 @@
                     <div class="col-md-7">
                         <div class="pull-right">
                             <div id="pagination">
-                                <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
+                                <%--<span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /></span>--%>
+                                <button type="button" id="PreviousPage" style="display:inline-block">&lt;</button>
+                                <div id="Pages" style="display:inline-block">
+
+                                </div>
+                                <button type="button" id="NextPage" style="display:inline-block">&gt;</button>
                             </div>
+                            <br />
+                            Đến trang <input id="PageNumber" style="width: 50px; text-align: center;" type="number" min="1"/> trên tổng số <span id="TotalPage"></span>
                         </div>
                     </div>
                 </div>

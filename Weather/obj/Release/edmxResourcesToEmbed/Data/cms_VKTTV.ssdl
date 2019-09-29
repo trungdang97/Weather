@@ -174,6 +174,15 @@
     <Property Name="ToDate" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="Price" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="cms_Video">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FullPath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedOnDate" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -344,6 +353,7 @@
     <EntitySet Name="cms_PostCategory" EntityType="Self.cms_PostCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_UserTransaction" EntityType="Self.cms_UserTransaction" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cms_UserTransaction_API" EntityType="Self.cms_UserTransaction_API" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cms_Video" EntityType="Self.cms_Video" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_aspnet_Membership_aspnet_Roles" Association="Self.FK_aspnet_Membership_aspnet_Roles">
       <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
