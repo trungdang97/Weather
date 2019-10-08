@@ -133,6 +133,7 @@
                         <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                             {
                         %>
+                        <li><a style="color:#fff" href='video.aspx'><i class='fa fa-link'></i><span>Quản trị video</span></a></li>
                         <li><a style="color:#fff" href='admin.aspx'><i class='fa fa-link'></i><span>Quản trị người dùng</span></a></li>
                         <li><a style="color:#fff" href='apimanager.aspx'><i class='fa fa-link'></i><span>Quản trị API</span></a></li>
                         <li><a style="color:#fff" href='config.aspx'><i class='fa fa-link'></i><span>Quản trị danh mục cấu hình</span></a></li>

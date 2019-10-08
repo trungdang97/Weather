@@ -35,6 +35,10 @@ namespace Weather
                     HttpContext.Current.Session["NewsCategory"] = newsCategory.NewsCategoryId;
                 }
             }
+            else
+            {
+                HttpContext.Current.Session["NewsCategory"] = null;
+            }
         }
     }
 }

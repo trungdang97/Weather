@@ -2,16 +2,16 @@
 
 var BackupImage = "/Content/Images/sky-1467177_1280.jpg"
 
+var previousPage = 1;
+var NewsId = $("#newsid").val();
+var NewsCategoryId = $("#newsCategory").val();
+var TotalQuantity = 0;
+
 var ListNews = [];
 var Filter = {};
 Filter.PageSize = 10;
 Filter.PageNumber = 1;
 Filter.NewsCategoryId = NewsCategoryId;
-
-var previousPage = 1;
-var NewsId = $("#newsid").val();
-var NewsCategoryId = $("#newsCategory").val();
-var TotalQuantity = 0;
 
 var GetTotalQuantity = function () {
     $.ajax({
@@ -160,7 +160,7 @@ function GetCategoryQuantity() {
                 return item.Description != 'noi-bo' && item.Description != 'thoi-tiet' && item.Description != 'hai-van' && item.Description != 'thuy-van';// || item.Description == 'gioi-thieu';
             });
             $("#LstCM").append(
-                "<a style='color:black;' href='#' class='tree-toggle'>Tin tức sự kiện</a>"
+                "<a style='color:black;' href='/tin-tuc' class='tree-toggle'>Tin tức sự kiện</a>"
                 + "<ul class='nav tree' id='TTSK'>"
                 + "</ul>"
             );
@@ -259,6 +259,9 @@ var Pagination = function () {
     //if (TotalQuantity / Filter.PageSize < 5) {
     //    show = Math.floor(TotalQuantity / 10 + 1);
     //}
+    if ((Math.floor(TotalQuantity / Filter.PageSize + 1)) < show) {
+        show = Math.floor(TotalQuantity / Filter.PageSize + 1);
+    }
     if (Filter.PageNumber < 3) {
         for (var i = 1; i <= show; i++) {
             if (i == Filter.PageNumber) {

@@ -50,7 +50,7 @@
                     <br />
                     <div class="col-md-7">
                         <div class="pull-right">
-                            <div id="pagination">
+                            <div id="pagination" class="text-center">
                                 <%--<span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /></span>--%>
                                 <button type="button" id="PreviousPage" style="display:inline-block">&lt;</button>
                                 <div id="Pages" style="display:inline-block">

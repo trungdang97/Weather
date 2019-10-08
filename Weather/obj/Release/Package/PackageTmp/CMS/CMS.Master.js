@@ -126,3 +126,59 @@ var SaveUserInfo = function () {
         }
     });
 }
+
+function FormatDateTime(datetime) {
+    var time = new Date(datetime);
+    var d, M, y, H, m, s;
+    if (time.getDate() < 10) {
+        d = '0' + time.getDate();
+    }
+    else {
+        d = time.getDate();
+    }
+    if (time.getMonth() + 1 < 10) {
+        M = '0' + (time.getMonth() + 1);
+    }
+    else {
+        M = time.getMonth() + 1;
+    }
+    if (time.getHours() < 10) {
+        H = '0' + time.getHours();
+    }
+    else {
+        H = time.getHours();
+    }
+    if (time.getMinutes() < 10) {
+        m = '0' + time.getMinutes();
+    }
+    else {
+        m = time.getMinutes();
+    }
+    if (time.getSeconds() < 10) {
+        s = '0' + time.getSeconds();
+    }
+    else {
+        s = time.getSeconds();
+    }
+    var formattedString = d + "/" + M + "/" + time.getFullYear() + " " + H + ":" + m + ":" + s;
+    return formattedString;
+}
+
+function FormatDate(datetime) {
+    var time = new Date(datetime);
+    var d, M, y, H, m, s;
+    if (time.getDate() < 10) {
+        d = '0' + time.getDate();
+    }
+    else {
+        d = time.getDate();
+    }
+    if (time.getMonth() + 1 < 10) {
+        M = '0' + (time.getMonth() + 1);
+    }
+    else {
+        M = time.getMonth() + 1;
+    }
+    var formattedString = d + "/" + M + "/" + time.getFullYear();
+    return formattedString;
+}

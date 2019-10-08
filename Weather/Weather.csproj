@@ -6748,6 +6748,8 @@
     <Content Include="CMS\service-manager.js" />
     <Content Include="CMS\starter.html" />
     <Content Include="CMS\news.aspx" />
+    <Content Include="CMS\video.aspx" />
+    <Content Include="CMS\video.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -7516,6 +7518,8 @@
     <Content Include="thanh-pho.js" />
     <Content Include="tin-tuc.aspx" />
     <Content Include="tin-tuc.js" />
+    <Content Include="videos\avan.mp4" />
+    <Content Include="videos\Owl City - Fireflies.mp4" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -7569,6 +7573,13 @@
     </Compile>
     <Compile Include="CMS\service-manager.aspx.designer.cs">
       <DependentUpon>service-manager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMS\video.aspx.cs">
+      <DependentUpon>video.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CMS\video.aspx.designer.cs">
+      <DependentUpon>video.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\APIRegisterController.cs" />
