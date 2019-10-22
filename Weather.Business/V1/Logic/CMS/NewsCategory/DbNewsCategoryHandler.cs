@@ -57,6 +57,8 @@ namespace Weather.Business.V1
                     {
                         return new OldResponse<NewsDeleteResponseModel>(-1, "Fail to delete", new NewsDeleteResponseModel()
                         {
+                            Id = id,
+                            Name = data.Name,
                             Message = "Record have dependencies",
                             Result = -1
                         });
