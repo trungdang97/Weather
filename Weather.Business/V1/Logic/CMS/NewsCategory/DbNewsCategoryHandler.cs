@@ -47,7 +47,7 @@ namespace Weather.Business.V1
                     if (await unitOfWork.SaveAsync() >= 1)
                     {
                         return new OldResponse<NewsDeleteResponseModel>(1, "SUCCESS", new NewsDeleteResponseModel() {
-                            Id = data.Id,
+                            Id = id,
                             Message = "SUCCESS",
                             Name = data.Name,
                             Result = 1
@@ -55,7 +55,7 @@ namespace Weather.Business.V1
                     }
                     else
                     {
-                        return new OldResponse<NewsDeleteResponseModel>(-1, "Fail to delete", new NewsDeleteResponseModel()
+                        return new OldResponse<NewsDeleteResponseModel>(1, "SUCCESS", new NewsDeleteResponseModel()
                         {
                             Id = id,
                             Name = data.Name,

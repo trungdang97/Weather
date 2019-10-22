@@ -56,7 +56,7 @@ namespace Weather.Business.V1
                     }
                     else
                     {
-                        return new OldResponse<PostCategoryDeleteResponseModel>(1, "Failed to delete", new PostCategoryDeleteResponseModel()
+                        return new OldResponse<PostCategoryDeleteResponseModel>(1, "SUCCESS", new PostCategoryDeleteResponseModel()
                         {
                             Id = id,
                             Message = "Record have dependencies",

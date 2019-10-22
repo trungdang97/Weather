@@ -129,7 +129,7 @@ namespace Weather.Business.V1
                     if (!string.IsNullOrEmpty(filter.FilterText))
                     {
                         datas = datas.Where(x => x.Body.Contains(filter.FilterText)
-                                            && x.Comments.Any(y => y.Body.Contains(filter.FilterText)
+                                            && x.Comments.Any(y => y.Body.Contains(filter.FilterText))
                                             && x.Title.Contains(filter.FilterText));
                     }
 

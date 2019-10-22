@@ -55,9 +55,9 @@ namespace Weather.Business.V1
                         {
                             Data = new NewsDeleteResponseModel()
                             {
-                                Id = model.Id,
+                                Id = id,
                                 Name = model.Name,
-                                Message = "DELETE SUCCESS",
+                                Message = "Deleted",
                                 Result = 1
                             },
                             Message = "SUCCESS",
@@ -68,9 +68,15 @@ namespace Weather.Business.V1
                     {
                         return new OldResponse<NewsDeleteResponseModel>()
                         {
-                            Data = null,
-                            Message = "Record have dependencies",
-                            Status = -1
+                            Data = new NewsDeleteResponseModel()
+                            {
+                                Id = id,
+                                Name = model.Name,
+                                Message = "Record have dependencies",
+                                Result = -1
+                            },
+                            Message = "SUCCESS",
+                            Status = 1
                         };
                     }
                 }
