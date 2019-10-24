@@ -160,10 +160,11 @@ function GetCategoryQuantity() {
                 return item.Description != 'noi-bo' && item.Description != 'thoi-tiet' && item.Description != 'hai-van' && item.Description != 'thuy-van';// || item.Description == 'gioi-thieu';
             });
             $("#LstCM").append(
-                "<a style='color:black;' href='/tin-tuc' class='tree-toggle'>Tin tức sự kiện</a>"
+                "<div style='padding: 10px 0px;'><a style='color:black;' href='javascript:ToggleTTSK();' on-click='' class='tree-toggle'>Tin tức sự kiện</a>"
                 + "<ul class='nav tree' id='TTSK'>"
-                + "</ul>"
+                + "</ul></div>"
             );
+            $("#TTSK").hide();
             for (var i = 0; i < lstTTSK.length; i++) {
                 $("#TTSK").append(
                     "<li>"
@@ -179,6 +180,9 @@ function GetCategoryQuantity() {
             console.log(response);
         }
     });
+}
+function ToggleTTSK() {
+    $("#TTSK").toggle();
 }
 
 function GetRecentCategoryNews() {

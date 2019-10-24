@@ -127,5 +127,21 @@ namespace Weather.Controllers
                 return new CMS_Video(data);
             }
         }
+
+        [HttpPut]
+        [Route("api/v1/videos/update")]
+        public async Task<CMS_Video> UpdateVideo(Guid id, string name)
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var data = db.cms_Video.Where(x => x.Id == id).FirstOrDefault();
+                data.Name = name;
+                if (await db.SaveChangesAsync() >= 1)
+                {
+                    return new CMS_Video(data);
+                }
+                return null;
+            }
+        }
     }
 }

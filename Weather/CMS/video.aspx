@@ -52,7 +52,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel" style="display: inline-block">Thêm mới tin bài</h2>
+                    <h2 class="modal-title" id="exampleModalLabel" style="display: inline-block">Thêm mới video</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: crimson; font-size: 50px">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -75,6 +75,31 @@
                     <button type="button" id="BtnReset" class="btn btn-danger">Hủy</button>
                     <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Tạm đóng</button>--%>
                     <button type="button" onclick="" id="BtnSave" class="btn btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel1" style="display: inline-block">Sửa tiêu đề video</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: crimson; font-size: 50px">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="introduction">Tiêu đề video<span class="required">(*)</span>:</label>
+                        <input type="text" class="form-control" id="Name1" name="Name" placeholder="Nhập tiêu đề video..." />
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="BtnReset1" class="btn btn-danger">Hủy</button>
+                    <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Tạm đóng</button>--%>
+                    <button type="button" onclick="Update()" id="BtnSave1" class="btn btn-primary">Lưu</button>
                 </div>
             </div>
         </div>
