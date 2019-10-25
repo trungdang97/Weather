@@ -10,6 +10,9 @@ $(document).ready(function () {
     $("#BtnReset").click(function () {
         modalReset();
     });
+    $("#BtnReset1").click(function () {
+        modalReset1();
+    });
 
     $("#File").change(function () {
         $("#FileName").val(($("#File").get(0).files[0].name));
@@ -39,9 +42,17 @@ var ShowListVideo = function () {
             + "<td>" + listVideos[i].Name + "</td>"
             + "<td class='text-center'>" + FormatDateTime(listVideos[i].CreatedOnDate) + "</td>"
             + "<td>" + listVideos[i].FullPath + "</td>"
-            + "<td class='text-center'><button type='button' value='" + listVideos[i].Id + "' class='btn btn-danger' onclick='DeleteVideo(this)' data-toggle='modal' data-target='#myModal'><i class='fa fa-trash'></i></button></td>"
+            + "<td class='text-center'><button type='button' class='btn btn-primary' onclick='prepareTitle(this)' value='" + listVideos[i].Id + "' data-toggle='modal' data-target='#exampleModal1'><i class='fa fa-pencil'></i></button >&ensp;<button type='button' value='" + listVideos[i].Id + "' class='btn btn-danger' onclick='DeleteVideo(this)' data-toggle='modal' data-target='#myModal'><i class='fa fa-trash'></i></button></td>"
             + "</tr>")
     }
+};
+
+var prepareTitle = function (btn) {
+    var newList = listVideos.filter(function (element) {
+        return element.Id == btn.value;
+    });
+    $("#Name1").val(newList[0].Name);
+    videoId = btn.value;
 };
 
 var modalReset = function () {
@@ -49,6 +60,9 @@ var modalReset = function () {
     $("#FileName").val("");
     $("#File").val("");
     $('#exampleModal').modal('hide');
+}
+var modalReset = function () {
+    $("#Name1").val("");
 }
 
 var CreateVideo = function () {
@@ -117,3 +131,19 @@ var Delete = function () {
         }
     });
 };
+
+var Update = function () {
+    $.ajax({
+        url: "/api/v1/videos/update?id=" + videoId + "&name=" + $("#Name1").val(),
+        method: "PUT",
+        success: function (response) {
+            alert("Cập nhật tiêu đề thành công!");
+            $('#exampleModal1').modal('hide');
+            GetVideos();
+        },
+        error: function (response) {
+            console.log(response);
+            alert("Có lỗi xảy ra khi sửa tiêu đề video!");
+        }
+    });
+}
