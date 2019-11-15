@@ -25,6 +25,9 @@
             height: 50px;
             width: 50px;
         }
+        /*body{
+            font: normal  15px / 27px "Lato", Helvetica, Arial, Verdana, sans-serif;
+        }*/
     </style>
 
     <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>

@@ -6,13 +6,13 @@ namespace Weather.Business.V1
 {
     public class CommentFilterModel :BaseQueryFilterModel
     {
-        public Guid Id { get; set; }       
-        public DateTime CreatedOnDate { get; set; }
-        public DateTime LastUpdatedOnDate { get; set; }
-        public Guid CreatedByUserId { get; set; }
-        public bool IsApprove { get; set; }
-        public Guid ParentCommentId { get; set; }
-        public Guid ThreadId { get; set; }
+        public Guid? Id { get; set; }       
+        public DateTime? CreatedOnDate { get; set; }
+        public DateTime? LastUpdatedOnDate { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public bool? IsApprove { get; set; }
+        public Guid? ParentCommentId { get; set; }
+        public Guid? ThreadId { get; set; }
     }
 
     public class CommentCreateModel
@@ -23,13 +23,13 @@ namespace Weather.Business.V1
         //public DateTime CreatedOnDate { get; set; }
         //public DateTime LastUpdatedOnDate { get; set; }
         public Guid CreatedByUserId { get; set; }
-        public bool IsApprove { get; set; }
+        public bool IsApprove { get; set; } = false;
 
         public string Email { get; set; }
-        public Guid ParentCommentId { get; set; }
+        public Guid? ParentCommentId { get; set; }
 
         public string Type { get; set; }
-        public Guid ThreadId { get; set; }
+        public Guid? ThreadId { get; set; }
     }
 
     public class CommentUpdateModel
@@ -39,7 +39,8 @@ namespace Weather.Business.V1
         public string Body { get; set; }
         //public DateTime CreatedOnDate { get; set; }
         //public DateTime LastUpdatedOnDate { get; set; }
-        public Guid CreatedByUserId { get; set; }
+        //public Guid CreatedByUserId { get; set; }
+        public Guid LastEditedByUserId { get; set; }
         public bool IsApprove { get; set; }
 
         public string Email { get; set; }

@@ -10,7 +10,7 @@ namespace Weather.Business.V1
         public Guid? Id { get; set; }
         public Guid? PostCategoryId { get; set; }        
         public DateTime? CreatedOnDate { get; set; }
-        public DateTime? LastUpdatedOnDate { get; set; }
+        public DateTime? LastEditedOnDate { get; set; }
         public Guid? CreatedByUserId { get; set; }
         public bool? IsApprove { get; set; }
     }
@@ -22,7 +22,7 @@ namespace Weather.Business.V1
         public string Title { get; set; }
         public string Body { get; set; }
         public DateTime CreatedOnDate { get; set; }
-        public DateTime LastUpdatedOnDate { get; set; }
+        public DateTime LastEditedOnDate { get; set; }
         public Guid CreatedByUserId { get; set; }
         public bool IsApprove { get; set; }
     }
@@ -34,7 +34,7 @@ namespace Weather.Business.V1
         public string Title { get; set; }
         public string Body { get; set; }
         //public DateTime CreatedOnDate { get; set; }
-        public DateTime LastUpdatedOnDate { get; set; }
+        public DateTime LastEditedOnDate { get; set; }
         public Guid CreatedByUserId { get; set; }
         public bool IsApprove { get; set; }
 

@@ -24,8 +24,10 @@ namespace Weather.Business.V1
         public string Location { get; set; }
         public DateTime FinishedDate { get; set; }
         public string Body { get; set; }
+
         public Guid CreatedByUserId { get; set; }
         public string CreatedByUserName { get; set; }
+
         public string Thumbnail { get; set; }
         public bool IsHidden { get; set; } = false;
     }
@@ -38,8 +40,10 @@ namespace Weather.Business.V1
         public string Location { get; set; }
         public DateTime FinishedDate { get; set; }
         public string Body { get; set; }
-        public Guid CreatedByUserId { get; set; }
-        public string CreatedByUserName { get; set; }
+
+        public Guid LastEditedByUserId { get; set; }
+        //public string CreatedByUserName { get; set; }
+
         public string Thumbnail { get; set; }
         public bool? IsHidden { get; set; }
     }

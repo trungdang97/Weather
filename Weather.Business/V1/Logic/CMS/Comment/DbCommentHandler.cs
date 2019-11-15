@@ -19,7 +19,8 @@ namespace Weather.Business.V1
                     var createModel = AutoMapperUtils.AutoMap<CommentCreateModel, CMS_Comment>(model);
                     createModel.Id = Guid.NewGuid();
                     createModel.CreatedOnDate = DateTime.Now;
-                    createModel.LastUpdatedOnDate = DateTime.Now;
+                    createModel.LastEditedOnDate = null;
+                    createModel.LastEditedByUserId = null;
 
                     unitOfWork.GetRepository<CMS_Comment>().Add(createModel);
 
@@ -126,10 +127,12 @@ namespace Weather.Business.V1
                 try
                 {
                     var updateModel = unitOfWork.GetRepository<CMS_Comment>().Get(x => x.Id == model.Id).FirstOrDefault();
+                    updateModel.Title = model.Title;
                     updateModel.Body = model.Body;
                     //updateModel.Email = model.Email;
                     updateModel.IsApprove = model.IsApprove;
-                    updateModel.LastUpdatedOnDate = DateTime.Now;
+                    updateModel.LastEditedOnDate = DateTime.Now;
+                    updateModel.LastEditedByUserId = model.LastEditedByUserId;
                     //updateModel.
                     unitOfWork.GetRepository<CMS_Comment>().Update(updateModel);
 

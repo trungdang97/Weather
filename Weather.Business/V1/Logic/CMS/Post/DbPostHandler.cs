@@ -116,9 +116,9 @@ namespace Weather.Business.V1
                         datas = datas.Where(x => x.IsApprove == filter.IsApprove);
                     }
 
-                    if (filter.LastUpdatedOnDate.HasValue)
+                    if (filter.LastEditedOnDate.HasValue)
                     {
-                        datas = datas.Where(x => x.LastUpdatedOnDate == filter.LastUpdatedOnDate);
+                        datas = datas.Where(x => x.LastEditedOnDate == filter.LastEditedOnDate);
                     }
 
                     if(filter.FromDate.HasValue && filter.ToDate.HasValue)
@@ -157,7 +157,7 @@ namespace Weather.Business.V1
                 try
                 {
                     var updateModel = unitOfWork.GetRepository<CMS_Post>().Get(x=>x.Id == model.Id).FirstOrDefault();
-                    updateModel.LastUpdatedOnDate = DateTime.Now;
+                    updateModel.LastEditedOnDate = DateTime.Now;
                     unitOfWork.GetRepository<CMS_Post>().Update(updateModel);
 
                     if (await unitOfWork.SaveAsync() >= 1)

@@ -13,13 +13,20 @@ namespace Weather.Data.V1
         public Guid PostCategoryId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+
         public DateTime CreatedOnDate { get; set; }
-        public DateTime LastUpdatedOnDate { get; set; }
+        public DateTime LastEditedOnDate { get; set; }
+
         public Guid CreatedByUserId { get; set; }
+        public Guid LastEditedByUserId { get; set; }
+
         public bool IsApprove { get; set; }
 
         [ForeignKey("CreatedByUserId")]
         public AspnetMembership CreatedByUser { get; set; }
+        [ForeignKey("LastEditedByUserId")]
+        public AspnetMembership LastEditedByUser { get; set; }
+
         public CMS_PostCategory PostCategory { get; set; }
         public List<CMS_Comment> Comments { get; set; }
     }

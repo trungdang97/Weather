@@ -12,18 +12,24 @@ namespace Weather.Data.V1
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+
+        public Guid CreatedByUserId { get; set; }
+        public Guid? LastEditedByUserId { get; set;}
+
         public DateTime CreatedOnDate { get; set; }
-        public DateTime LastUpdatedOnDate { get; set; }
-        public Guid CreatedByUserId { get; set;}
-        public bool IsApprove { get; set; }
+        public DateTime? LastEditedOnDate { get; set; }
+
+        public bool IsApprove { get; set; } = false;
         
         public string Email { get; set; }
-        public Guid ParentCommentId { get; set; }
+        public Guid? ParentCommentId { get; set; }
 
         public string Type { get; set; }
         public Guid ThreadId { get; set; }
 
         [ForeignKey("CreatedByUserId")]
         public AspnetMembership CreatedByUser { get; set; }
+        [ForeignKey("LastEditedByUserId")]
+        public AspnetMembership LastEditedByUser { get; set; }
     }
 }
