@@ -29,6 +29,14 @@ body {
     text-decoration: none;
 }
 
+.new-nav-link-underline a:after {
+    color: black;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    width:50%;
+}
+
 .new-nav-link-underline:hover {
     color: black;
     font-weight: bold;

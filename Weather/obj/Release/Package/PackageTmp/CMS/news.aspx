@@ -136,10 +136,10 @@
             <div class="row" style="margin: 0">
                 <input id="daterangepicker" type="text" class="text-center" name="datefilter" value="" style="padding: 0px 10px" placeholder="Chọn khoảng ngày" />
 
-                <asp:DropDownList ID="OuterListCategory" runat="server" Height="25px" Width="200px">
+                <asp:DropDownList ID="OuterListCategory" runat="server" Height="31px" Width="200px">
                     <asp:ListItem Text="-- Chọn loại tin --" Value=""></asp:ListItem>
                 </asp:DropDownList>
-                <input type="text" id="FilterText" class="input" placeholder="Tìm kiếm" style="padding-left: 10px" />
+                <input type="text" id="FilterText" class="input" placeholder="Tìm kiếm" style="padding-left: 10px; height: 31px" />
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
                     <i class="fa fa-plus"></i>&ensp;Thêm mới tin bài
                 </button>
@@ -160,9 +160,21 @@
                 <tbody id="table-body">
                 </tbody>
             </table>
-            <div class="pull-right">
-                <div id="pagination">
-                    <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <div id="pagination" class="text-center">
+                            <%--<span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /></span>--%>
+                            <button type="button" id="PreviousPage" style="display: inline-block">&lt;</button>
+                            <div id="Pages" style="display: inline-block">
+                            </div>
+                            <button type="button" id="NextPage" style="display: inline-block">&gt;</button>
+                        </div>
+                        <br />
+                        Đến trang
+                <input id="PageNumber" style="width: 50px; text-align: center;" value="1" type="number" min="1" />
+                        trên tổng số <span id="TotalPage"></span>
+                    </div>
                 </div>
             </div>
         </div>

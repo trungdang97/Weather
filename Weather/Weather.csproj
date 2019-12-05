@@ -7584,12 +7584,15 @@
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\APIRegisterController.cs" />
     <Compile Include="Controllers\APITypeController.cs" />
+    <Compile Include="Controllers\BaseQueryFilter.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
+    <Compile Include="Controllers\NewsCategoryController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PostCategoryController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Data\aspnet_Membership.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>

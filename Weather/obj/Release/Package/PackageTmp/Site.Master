@@ -25,6 +25,9 @@
             height: 50px;
             width: 50px;
         }
+        body{
+            font: 13px Verdana, sans-serif !important;
+        }
     </style>
 
     <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
@@ -138,7 +141,7 @@
                         <% if (HttpContext.Current.Session["User_Id"] == null)
                             {
                         %>
-                        <a id="LoginModal" href="#" onclick="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="/login/register.aspx">Đăng ký</a>
+                        <a id="LoginModal" href="#" onclick="" data-toggle="modal" data-target="#AccountModal"><i class="fa fa-key"></i>&ensp;Đăng nhập</a>&nbsp;|&nbsp;<a class="new-nav-control" href="/login/register.aspx">Đăng ký</a>
                         <%
                             }
                         %>
@@ -160,8 +163,10 @@
                             <%--<li><a href="#">Quản lý tài khoản</a></li>--%>
                             <% if (HttpContext.Current.Session["User_RoleCode"].ToString() == "QTHT")
                                 { %>
-                            <li><a href="/CMS/admin.aspx">Quản lý tài khoản</a></li>
+                            <li><a href="/CMS/video.aspx">Quản lý video</a></li>
+                            <li><a href="/CMS/admin.aspx">Quản lý người dùng</a></li>
                             <li><a href="/CMS/apimanager.aspx">Quản lý API</a></li>
+                            <li><a href="/CMS/config.aspx">Quản lý cấu hình</a></li>
                             <%  
                                 }%>
                             <li><i class="fa fa-sign-out"></i><a runat="server" id="LogoutBtn" onserverclick="Logout_Click" href="#">Đăng xuất</a></li>
@@ -253,8 +258,8 @@ powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow
             </div>
         </footer>
 
-        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
+        <div id="AccountModal" class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" style="width:400px !important">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title" style="display: inline-block"><i class="fa fa-key"></i>&ensp;Đăng nhập hệ thống</h3>

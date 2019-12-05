@@ -104,7 +104,7 @@
         <div style="margin-top: 30px;">
             <div class="row" style="margin: 0">
                 <input type="text" id="FilterText" class="input" placeholder="Tìm kiếm" style="padding-left: 10px; width: 320px" />
-                <asp:DropDownList ID="ListRolesOutter" runat="server" Height="25px" Width="200px" name="role">
+                <asp:DropDownList ID="ListRolesOutter" runat="server" Height="33px" Width="200px" name="role">
                     <asp:ListItem Text="-- Chọn phân quyền --" Value=""></asp:ListItem>
                 </asp:DropDownList>
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">
@@ -128,9 +128,21 @@
                 <tbody id="table-body">
                 </tbody>
             </table>
-            <div class="pull-right">
-                <div id="pagination">
-                    <span>Trang &ensp;<input id="PageNumber" class="text-center" style="width:50px" type="number" min="1" value="1"/><%--&ensp;trên tổng số <span id="TotalPage"></span>--%></span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <div id="pagination" class="text-center">
+                            <%--<span>Trang &ensp;<input id="PageNumber" class="text-center" style="width: 50px" type="number" min="1" value="1" /></span>--%>
+                            <button type="button" id="PreviousPage" style="display: inline-block">&lt;</button>
+                            <div id="Pages" style="display: inline-block">
+                            </div>
+                            <button type="button" id="NextPage" style="display: inline-block">&gt;</button>
+                        </div>
+                        <br />
+                        Đến trang
+                <input id="PageNumber" style="width: 50px; text-align: center;" value="1" type="number" min="1" />
+                        trên tổng số <span id="TotalPage"></span>
+                    </div>
                 </div>
             </div>
         </div>

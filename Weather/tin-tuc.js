@@ -22,7 +22,7 @@ var GetTotalQuantity = function () {
             TotalQuantity = data;
             $("#TotalPage").html(Math.floor(TotalQuantity / Filter.PageSize + 1))
         }, error: function () {
-            alert("Có lỗi xảy ra khi kết nối");
+            alert("Kết nối đến server xảy ra vấn đề");
         }
     });
 };
@@ -164,7 +164,7 @@ function GetCategoryQuantity() {
                 + "<ul class='nav tree' id='TTSK'>"
                 + "</ul></div>"
             );
-            $("#TTSK").hide();
+            $("#TTSK").show();
             for (var i = 0; i < lstTTSK.length; i++) {
                 $("#TTSK").append(
                     "<li>"

@@ -10,10 +10,22 @@ var ForecastTotalPage = 1;
 var ForecastHeight = 0;
 var ForecastInnerHeight = 0;
 
+var isAlive = true;
 $(document).ready(async function () {
-    GetNews("3af42b3e-5e0c-4f30-bdce-9b020ee4b0c3", "TT");
-    GetNews("dac7f4bf-b0c0-4003-bde0-d5eeea71ba03", "NB");
-    GetNews("328e5dbf-966a-4fbd-8642-e5a6f2be6033", "XH");
+    $.ajax({
+        url: "/api/values",
+        method: "GET",
+        success: function () {
+            GetNews("3af42b3e-5e0c-4f30-bdce-9b020ee4b0c3", "TT");
+            GetNews("dac7f4bf-b0c0-4003-bde0-d5eeea71ba03", "NB");
+            GetNews("328e5dbf-966a-4fbd-8642-e5a6f2be6033", "XH");
+        },
+        error: function () {
+            isAlive = false;
+            alert("Xảy ra lỗi khi lấy tin bài. Xin hãy kiểm tra lại kết nối.");
+        }
+    });
+    
 
     GetVideos();
     await GetForecast();
@@ -94,7 +106,7 @@ var GetNews = function (NewsCategoryId, Code) {
             //$("#tab_default_2").append("</div>");
         },
         error: function () {
-            alert("Kết nối thất bại. Xin hãy kiểm tra lại kết nôi.");
+            alert("Xảy ra lỗi khi lấy tin bài. Xin hãy kiểm tra lại kết nối.");
         }
     });
 };
@@ -119,7 +131,7 @@ var GetForecast = async function () {
         },
         error: function (response) {
             console.log(response);
-            alert("Không thể tải dữ liệu dự báo thời tiết! Xin hãy kiểm tra đường truyền.")
+            alert("Không thế kết nối tới máy chủ thời tiết")
         }
     });
 };

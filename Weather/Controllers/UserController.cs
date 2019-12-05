@@ -16,6 +16,18 @@ namespace Weather.Controllers
     public class UserController : ApiController
     {
         [HttpGet]
+        [Route("api/v1/user/quantity")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public int GetQuantity()
+        {
+            using (var db = new cms_VKTTVEntities())
+            {
+                var quantity = db.aspnet_Membership.Count();
+                return quantity;
+            }
+        }
+
+        [HttpGet]
         [Route("api/v1/user")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public List<User> GetAllUsers()

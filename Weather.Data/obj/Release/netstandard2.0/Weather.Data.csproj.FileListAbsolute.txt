@@ -6,3 +6,4 @@ C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Release\netstandard2.0\Weather.D
 C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Release\netstandard2.0\Weather.Data.AssemblyInfo.cs
 C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Release\netstandard2.0\Weather.Data.dll
 C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Release\netstandard2.0\Weather.Data.pdb
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Release\netstandard2.0\Weather.Data.csprojAssemblyReference.cache

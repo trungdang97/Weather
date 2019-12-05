@@ -1,4 +1,6 @@
-﻿CKEDITOR.replace('Body', {
+﻿var PageNumber = 1, PageSize = 10, TotalPage = null, TotalQuantity = null;
+
+CKEDITOR.replace('Body', {
     customConfig: 'code_config.js'
 });
 CKEDITOR.replace('Documentation');
@@ -36,6 +38,8 @@ $("#BtnSave").click(function () {
     postData.Body = CKEDITOR.instances['Body'].getData();
     postData.Documentation = CKEDITOR.instances['Documentation'].getData();
     postData.DocumentationLink = $("#DocumentationLink").val();
+    postData.PageSize = PageSize;
+    postData.PageNumber = PageNumber;
 
     $.ajax({
         url: "/api/v1/API/create",
@@ -50,7 +54,7 @@ $("#BtnSave").click(function () {
             alert("Thêm mới API thành công!");
             GetFilter();
             $("#BtnReset").click();
-            //GetData();
+            //GetFilter();
         },
         error: function () {
             alert("Thêm mới tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
@@ -66,8 +70,8 @@ function GetFilter() {
     var filter = {};
     filter.FilterText = $("#FilterText").val();
     filter.APITypeId = $("#MainContent_ListAPITypeOutter").val();
-    filter.PageNumber = $("#PageNumber").val();
-    filter.PageSize = 10;
+    filter.PageNumber = PageNumber;
+    filter.PageSize = PageSize;
 
     $.ajax({
         url: "/api/v1/API/filter?filterString=" + JSON.stringify(filter),
@@ -121,6 +125,7 @@ function GetFilter() {
                 );
 
             }
+            GetAPIQuantity();
             //console.log(data);
             //alert("Thêm mới tin bài thành công!");
             //$("#BtnReset").click();
@@ -159,3 +164,103 @@ function ToggleLock() {
         }
     });
 }
+
+var GetAPIQuantity = function () {
+    $.ajax({
+        url: "/api/v1/API/quantity",
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+            TotalQuantity = data;
+            if (data % PageSize == 0) {
+                TotalPage = data / PageSize;
+            }
+            else {
+                TotalPage = Math.floor(data / PageSize + 1);
+            }
+            $("#TotalPage").html(TotalPage);
+            $("#PageNumber").val(PageNumber);
+            Pagination();
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+};
+//PAGINATION
+var NextPage = function () {
+    previousPage = PageNumber;
+    PageNumber++;
+    GoToPage(PageNumber);
+    //GetFilter();
+
+};
+
+var PreviousPage = function () {
+    if (PageNumber > 1) {
+        previousPage = PageNumber;
+        PageNumber--;
+        GoToPage(PageNumber);
+        //GetFilter();
+        //window.scrollTo(0, 0); 
+    }
+};
+
+$("#NextPage").click(function () {
+    NextPage();
+});
+
+$("#PreviousPage").click(function () {
+    PreviousPage();
+});
+var Pagination = function () {
+    $("#Pages").html("");
+    var show = 5;
+    //var totalPages = Math.floor(TotalQuantity / Filter.PageSize < 5);
+    //if (TotalQuantity / Filter.PageSize < 5) {
+    //    show = Math.floor(TotalQuantity / 10 + 1);
+    //}
+    if ((Math.floor(TotalQuantity / PageSize + 1)) < show) {
+        show = Math.floor(TotalQuantity / PageSize + 1);
+    }
+    if (PageNumber < 3) {
+        for (var i = 1; i <= show; i++) {
+            if (i == PageNumber) {
+                $("#Pages").append("<button class='btn-primary' onclick='GoToPage(" + i + ")' type='button'>" + i + "</button>");
+            }
+            else {
+                $("#Pages").append("<button onclick='GoToPage(" + i + ")' type='button'>" + i + "</button>");
+            }
+        }
+    }
+    else {
+        for (var i = -2; i < show - 2; i++) {
+            if (i == 0) {
+                $("#Pages").append("<button class='btn-primary' onclick='GoToPage(" + (parseInt(PageNumber) + i) + ")' type='button'>" + (PageNumber + i) + "</button>");
+            }
+            else {
+                $("#Pages").append("<button onclick='GoToPage(" + (parseInt(PageNumber) + i) + ")' type='button'>" + (PageNumber + i) + "</button>");
+            }
+        }
+    }
+};
+
+var GoToPage = function (pageNumber) {
+    if (pageNumber <= TotalPage) {
+        previousPage = PageNumber;
+        PageNumber = pageNumber;
+        GetFilter();
+    }
+    else {
+        alert("Không còn tin cũ hơn. Trang cuối là trang " + TotalPage);
+        PageNumber = TotalPage;
+        $("#PageNumber").val(PageNumber);
+    }
+};
+
+$("#PageNumber").keyup(function (e) {
+    PageNumber = parseInt($("#PageNumber").val());
+    if (e.keyCode == 13) {
+        GoToPage(PageNumber);
+    }
+});

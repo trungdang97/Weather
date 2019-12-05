@@ -219,11 +219,9 @@ namespace Weather.Data.Migrations
 
                     b.Property<bool>("IsApprove");
 
-                    b.Property<Guid?>("LastEditedByUserId");
+                    b.Property<DateTime>("LastUpdatedOnDate");
 
-                    b.Property<DateTime?>("LastEditedOnDate");
-
-                    b.Property<Guid?>("ParentCommentId");
+                    b.Property<Guid>("ParentCommentId");
 
                     b.Property<Guid>("ThreadId");
 
@@ -239,8 +237,6 @@ namespace Weather.Data.Migrations
 
                     b.HasIndex("CreatedByUserId");
 
-                    b.HasIndex("LastEditedByUserId");
-
                     b.ToTable("CMS_Comments");
                 });
 
@@ -255,15 +251,9 @@ namespace Weather.Data.Migrations
 
                     b.Property<string>("CreatedByUserName");
 
-                    b.Property<DateTime>("CreatedOnDate");
-
                     b.Property<DateTime>("FinishedDate");
 
                     b.Property<bool>("IsHidden");
-
-                    b.Property<Guid>("LastEditedByUserId");
-
-                    b.Property<DateTime>("LastEditedOnDate");
 
                     b.Property<string>("Location");
 
@@ -277,8 +267,6 @@ namespace Weather.Data.Migrations
 
                     b.HasIndex("CreatedByUserId");
 
-                    b.HasIndex("LastEditedByUserId");
-
                     b.HasIndex("NewsCategoryId");
 
                     b.ToTable("CMS_News");
@@ -289,11 +277,7 @@ namespace Weather.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedByUserId");
-
                     b.Property<string>("Description");
-
-                    b.Property<Guid>("LastEditedByUserId");
 
                     b.Property<string>("Name");
 
@@ -302,10 +286,6 @@ namespace Weather.Data.Migrations
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("LastEditedByUserId");
 
                     b.ToTable("CMS_NewsCategories");
                 });
@@ -323,9 +303,7 @@ namespace Weather.Data.Migrations
 
                     b.Property<bool>("IsApprove");
 
-                    b.Property<Guid>("LastEditedByUserId");
-
-                    b.Property<DateTime>("LastEditedOnDate");
+                    b.Property<DateTime>("LastUpdatedOnDate");
 
                     b.Property<Guid>("PostCategoryId");
 
@@ -334,8 +312,6 @@ namespace Weather.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("LastEditedByUserId");
 
                     b.HasIndex("PostCategoryId");
 
@@ -347,23 +323,11 @@ namespace Weather.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedByUserId");
-
-                    b.Property<DateTime>("CreatedOnDate");
-
                     b.Property<string>("Description");
-
-                    b.Property<Guid>("LastEditedByUserId");
-
-                    b.Property<DateTime>("LastEditedOnDate");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("LastEditedByUserId");
 
                     b.ToTable("CMS_PostCategories");
                 });
@@ -627,10 +591,6 @@ namespace Weather.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "LastEditedByUser")
-                        .WithMany()
-                        .HasForeignKey("LastEditedByUserId");
                 });
 
             modelBuilder.Entity("Weather.Data.V1.CMS_News", b =>
@@ -640,27 +600,9 @@ namespace Weather.Data.Migrations
                         .HasForeignKey("CreatedByUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "LastEditedByUser")
-                        .WithMany()
-                        .HasForeignKey("LastEditedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Weather.Data.V1.CMS_NewsCategory", "NewsCategory")
                         .WithMany()
                         .HasForeignKey("NewsCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Weather.Data.V1.CMS_NewsCategory", b =>
-                {
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "LastEditedByUser")
-                        .WithMany()
-                        .HasForeignKey("LastEditedByUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -671,27 +613,9 @@ namespace Weather.Data.Migrations
                         .HasForeignKey("CreatedByUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "LastEditedByUser")
-                        .WithMany()
-                        .HasForeignKey("LastEditedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Weather.Data.V1.CMS_PostCategory", "PostCategory")
                         .WithMany()
                         .HasForeignKey("PostCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Weather.Data.V1.CMS_PostCategory", b =>
-                {
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Weather.Data.V1.AspnetMembership", "LastEditedByUser")
-                        .WithMany()
-                        .HasForeignKey("LastEditedByUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

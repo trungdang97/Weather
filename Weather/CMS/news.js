@@ -1,8 +1,8 @@
 ﻿CKEDITOR.replace('body');
 CKEDITOR.replace('body2');
 
-var NewsId = null, FilterText = "", NewsCategoryId = null, PageNumber = null, PageSize = null, FromDate = null, ToDate = null;
-
+var NewsId = null, FilterText = "", NewsCategoryId = null, TotalPage = null, PageNumber = 1, PageSize = 10, FromDate = null, ToDate = null;
+var TotalQuantity = 0;
 var SeletedNewsId = [];
 
 $('#imgFile').hide();
@@ -133,6 +133,45 @@ $("#MainContent_OuterListCategory").change(function () {
     GetData();
 });
 
+var isValidate = function () {
+    if ($("#name").val().replace(' ','') == "") {
+        alert("Tên tin bài không được để trống");
+        return false;
+    }
+    if ($("#MainContent_ListCategory").val() == "") {
+        alert("Cần chọn loại tin");
+        return false;
+    }
+    if ($("#introduction").val().replace(' ', '') == "") {
+        alert("Trích tin không được để trống");
+        return false;
+    }
+    if (CKEDITOR.instances['body'].getData() == "") {
+        alert("Nội dung không được để trống");
+        return false;
+    }
+    return true;
+};
+var isValidate2 = function () {
+    if ($("#name2").val().replace(' ', '') == "") {
+        alert("Tên tin bài không được để trống");
+        return false;
+    }
+    if ($("#MainContent_ListCategory2").val() == "") {
+        alert("Cần chọn loại tin");
+        return false;
+    }
+    if ($("#introduction2").val().replace(' ', '') == "") {
+        alert("Trích tin không được để trống");
+        return false;
+    }
+    if (CKEDITOR.instances['body2'].getData() == "") {
+        alert("Nội dung không được để trống");
+        return false;
+    }
+    return true;
+};
+
 $("#BtnSave").click(function () {
     var postData = {};
     postData.Thumbnail = "";
@@ -147,24 +186,26 @@ $("#BtnSave").click(function () {
     postData.Body = CKEDITOR.instances['body'].getData();
     postData.CreatedByUserId = $("#UserId").val();
     postData.CreatedOnDate = new Date($("#singledatetimepicker").data("daterangepicker").startDate);
-    $.ajax({
-        url: "/api/v1/news/add",
-        method: "POST",
-        contentType: "json",
-        data: JSON.stringify(postData),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        success: function () {
-            alert("Thêm mới tin bài thành công!");
-            $("#BtnReset").click();
-            GetData();
-        },
-        error: function () {
-            alert("Thêm mới tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
-        }
-    });
+    if (isValidate()) {
+        $.ajax({
+            url: "/api/v1/news/add",
+            method: "POST",
+            contentType: "json",
+            data: JSON.stringify(postData),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            success: function () {
+                alert("Thêm mới tin bài thành công!");
+                $("#BtnReset").click();
+                GetData();
+            },
+            error: function () {
+                alert("Thêm mới tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+            }
+        });
+    }
 });
 
 $("#BtnSave2").click(function () {
@@ -183,24 +224,26 @@ $("#BtnSave2").click(function () {
     postData.Introduction = $("#introduction2").val();;
     postData.Body = CKEDITOR.instances['body2'].getData();
     postData.CreatedOnDate = new Date($("#singledatetimepicker2").data("daterangepicker").startDate);
-    $.ajax({
-        url: "/api/v1/news/update",
-        method: "PUT",
-        contentType: "json",
-        data: JSON.stringify(postData),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        success: function () {
-            alert("Cập nhật tin bài thành công!");
-            $("#BtnReset2").click();
-            GetData();
-        },
-        error: function () {
-            alert("Cập nhật tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
-        }
-    });
+    if (isValidate2()) {
+        $.ajax({
+            url: "/api/v1/news/update",
+            method: "PUT",
+            contentType: "json",
+            data: JSON.stringify(postData),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            success: function () {
+                alert("Cập nhật tin bài thành công!");
+                $("#BtnReset2").click();
+                GetData();
+            },
+            error: function () {
+                alert("Cập nhật tin bài thất bại. Xin hãy kiểm tra lại kết nôi.");
+            }
+        });
+    }
 });
 
 $(document).ready(function () {
@@ -251,6 +294,7 @@ $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker)
     $(this).val('');
     FromDate = null;
     ToDate = null;
+    GetData();
 });
 
 function PrepareDelete(buttonClicked) {
@@ -285,7 +329,7 @@ function GetData() {
     var postData = {};
     postData.FilterText = FilterText;
     postData.NewsCategoryId = NewsCategoryId;
-    postData.PageNumber = $("#PageNumber").val();
+    postData.PageNumber = PageNumber;
     postData.PageSize = 10;
     postData.UserId = $("#UserId").val();
     postData.FromDate = FromDate;
@@ -343,6 +387,7 @@ function GetData() {
             //console.log(data);
             //alert("Thêm mới tin bài thành công!");
             //$("#BtnReset").click();
+            GetNewsQuantity();
         },
         error: function () {
             alert("Kết nối thất bại. Xin hãy kiểm tra lại kết nôi.");
@@ -416,3 +461,103 @@ function FormatDateTime(datetime) {
     var formattedString = d + "/" + M + "/" + time.getFullYear() + "<br/>" + H + ":" + m + ":" + s;
     return formattedString;
 }
+
+var GetNewsQuantity = function () {
+    $.ajax({
+        url: "/api/v1/news/quantity/total?NewsCategoryId=" + NewsCategoryId,
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+            TotalQuantity = data;
+            if (data % PageSize == 0) {
+                TotalPage = data / PageSize;
+            }
+            else {
+                TotalPage = Math.floor(data / PageSize + 1);
+            }
+            $("#TotalPage").html(TotalPage);
+            $("#PageNumber").val(PageNumber);
+            Pagination();
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+};
+//PAGINATION
+var NextPage = function () {
+    previousPage = PageNumber;
+    PageNumber++;
+    GoToPage(PageNumber);
+    //GetData();
+
+};
+
+var PreviousPage = function () {
+    if (PageNumber > 1) {
+        previousPage = PageNumber;
+        PageNumber--;
+        GoToPage(PageNumber);
+        //GetData();
+        //window.scrollTo(0, 0); 
+    }
+};
+
+$("#NextPage").click(function () {
+    NextPage();
+});
+
+$("#PreviousPage").click(function () {
+    PreviousPage();
+});
+var Pagination = function () {
+    $("#Pages").html("");
+    var show = 5;
+    //var totalPages = Math.floor(TotalQuantity / Filter.PageSize < 5);
+    //if (TotalQuantity / Filter.PageSize < 5) {
+    //    show = Math.floor(TotalQuantity / 10 + 1);
+    //}
+    if ((Math.floor(TotalQuantity / PageSize + 1)) < show) {
+        show = Math.floor(TotalQuantity / PageSize + 1);
+    }
+    if (PageNumber < 3) {
+        for (var i = 1; i <= show; i++) {
+            if (i == PageNumber) {
+                $("#Pages").append("<button class='btn-primary' onclick='GoToPage(" + i + ")' type='button'>" + i + "</button>");
+            }
+            else {
+                $("#Pages").append("<button onclick='GoToPage(" + i + ")' type='button'>" + i + "</button>");
+            }
+        }
+    }
+    else {
+        for (var i = -2; i < show - 2; i++) {
+            if (i == 0) {
+                $("#Pages").append("<button class='btn-primary' onclick='GoToPage(" + (parseInt(PageNumber) + i) + ")' type='button'>" + (PageNumber + i) + "</button>");
+            }
+            else {
+                $("#Pages").append("<button onclick='GoToPage(" + (parseInt(PageNumber) + i) + ")' type='button'>" + (PageNumber + i) + "</button>");
+            }
+        }
+    }
+};
+
+var GoToPage = function (pageNumber) {
+    if (pageNumber <= TotalPage) {
+        previousPage = PageNumber;
+        PageNumber = pageNumber;
+        GetData();
+    }
+    else {
+        alert("Không còn tin cũ hơn. Trang cuối là trang " + TotalPage);
+        PageNumber = TotalPage;
+        $("#PageNumber").val(PageNumber);
+    }
+};
+
+$("#PageNumber").keyup(function (e) {
+    PageNumber = parseInt($("#PageNumber").val());
+    if (e.keyCode == 13) {
+        GoToPage(PageNumber);
+    }
+});

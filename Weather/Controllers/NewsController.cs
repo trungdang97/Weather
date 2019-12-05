@@ -10,13 +10,7 @@ using static Weather.CMS.NewsForm;
 
 namespace Weather.Controllers
 {
-    public class NewsCategory
-    {
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-        public int Quantity { get; set; } = 0;
-    }
+    
 
     public static class ConvertData
     {
@@ -137,7 +131,7 @@ namespace Weather.Controllers
                     Body = data.Body,
                     Introduction = data.Introduction,
                     CreatedOnDate = data.CreatedOnDate,
-                    ApprovedStatus = false,
+                    ApprovedStatus = true,
                     Thumbnail = data.Thumbnail
                 };
 
@@ -194,11 +188,11 @@ namespace Weather.Controllers
                 var models = db.cms_NewsCategory.Where(x => x.Type == Type).OrderBy(x => x.Order);
                 foreach (var m in models)
                 {
-                    categories.Add(new NewsCategory()
+                    categories.Add(new NewsCategory(m)
                     {
-                        Name = m.Name,
-                        Description = m.Description,
-                        Type = m.Type
+                        //Name = m.Name,
+                        //Description = m.Description,
+                        //Type = m.Type
                     });
                 }
                 return categories;
@@ -217,13 +211,14 @@ namespace Weather.Controllers
                 foreach (var m in models)
                 {
                     var quantity = db.cms_News.Where(x => x.NewsCategory == m.NewsCategoryId && x.ApprovedStatus == true).Count();
-                    categories.Add(new NewsCategory()
+                    categories.Add(new NewsCategory(m)
                     {
-                        Name = m.Name,
-                        Description = m.Description,
-                        Type = m.Type,
+                        //Name = m.Name,
+                        //Description = m.Description,
+                        //Type = m.Type,
                         Quantity = quantity
                     });
+                    categories = categories.OrderBy(x => x.Order).ToList();
                 }
                 return categories;
             }

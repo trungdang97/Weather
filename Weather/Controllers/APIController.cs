@@ -92,6 +92,15 @@ namespace Weather.Controllers
     {
         private cms_VKTTVEntities db = new cms_VKTTVEntities();
 
+        [HttpGet]
+        [Route("api/v1/API/quantity")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public int GetQuantity()
+        {
+            var quantity = db.cms_API.Count();
+            return quantity;
+        }
+
         // GET: api/API
         [HttpGet]
         [Route("api/v1/API/filter")]
@@ -191,24 +200,31 @@ namespace Weather.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public APIResponseModel Create([FromBody]APICreateRequestModel model)
         {
-            cms_API api = new cms_API()
+            try
             {
-                APIId = Guid.NewGuid(),
-                APICode = model.APICode,
-                IsActive = true,
-                APITypeId = model.APITypeId,
-                Body = model.Body,
-                Documentation = model.Documentation,
-                DocumentationLink = model.DocumentationLink,
-                Duration = model.Duration,
-                DurationText = model.Duration + " tháng",
-                Name = model.Name,
-                Price = model.Price
-            };
-            db.cms_API.Add(api);
-            db.SaveChanges();
+                cms_API api = new cms_API()
+                {
+                    APIId = Guid.NewGuid(),
+                    APICode = model.APICode,
+                    IsActive = true,
+                    APITypeId = model.APITypeId,
+                    Body = model.Body,
+                    Documentation = model.Documentation,
+                    DocumentationLink = model.DocumentationLink,
+                    Duration = model.Duration,
+                    DurationText = model.Duration + " tháng",
+                    Name = model.Name,
+                    Price = model.Price
+                };
+                db.cms_API.Add(api);
+                db.SaveChanges();
 
-            return Convert(api);
+                return Convert(api);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         // DELETE: api/API/5

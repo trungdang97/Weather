@@ -39,6 +39,15 @@ namespace Weather.Controllers
     {
         private cms_VKTTVEntities db = new cms_VKTTVEntities();
 
+        [HttpGet]
+        [Route("api/v1/APIType/quantity")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public int GetQuantity()
+        {
+            var quantity = db.cms_APIType.Count();
+            return quantity;
+        }
+
         // GET: api/APIType
         [HttpGet]
         [Route("api/v1/APIType/{id}")]
