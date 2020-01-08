@@ -85,7 +85,7 @@ namespace Weather.Login
                             context.SaveChangesAsync();
 
                             
-                            Response.Redirect("~/Default.aspx");
+                            Response.Redirect("~/trangchu.aspx");
                         }
                         else
                         {

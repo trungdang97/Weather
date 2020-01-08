@@ -62,7 +62,7 @@
             <header class="main-header">
 
                 <!-- Logo -->
-                <a href="#" class="logo text-center" style="height:57px;">
+                <a href="../trangchu.aspx" class="logo text-center" style="height:57px;">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini">
                         <img src="../Content/Icons/kttv_logo.jpg" width="50px" height="50px" /></span>

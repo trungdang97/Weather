@@ -6757,6 +6757,7 @@
     <Content Include="Content\Default\component.css" />
     <Content Include="Content\Default\demo.css" />
     <Content Include="Content\Default\normalize.css" />
+    <Content Include="Content\Icons\kttv_logo.ico" />
     <Content Include="Content\Icons\kttv_logo.jpg" />
     <Content Include="Content\Images\Icon\Icon\100.png" />
     <Content Include="Content\Images\Icon\Icon\101.png" />
@@ -6792,7 +6793,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="dateprogressbar.css" />
     <Content Include="dateprogressbar.js" />
-    <Content Include="Default.aspx" />
+    <Content Include="trangchu.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Default\default.css" />
@@ -7513,7 +7514,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
-    <Content Include="Default.js" />
+    <Content Include="trangchu.js" />
     <Content Include="thanh-pho.aspx" />
     <Content Include="thanh-pho.js" />
     <Content Include="tin-tuc.aspx" />
@@ -7660,12 +7661,12 @@
     <Compile Include="Data\sysdiagrams.cs">
       <DependentUpon>cms_VKTTV.tt</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="trangchu.aspx.cs">
+      <DependentUpon>trangchu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="trangchu.aspx.designer.cs">
+      <DependentUpon>trangchu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

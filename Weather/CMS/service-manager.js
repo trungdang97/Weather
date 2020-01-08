@@ -156,7 +156,7 @@ var SelectService = async function (checkbox) {
         $("#SelectedServiceList").html("");
         for (var i = 0; i < SelectedServices.length; i++) {
             $("#SelectedServiceList").append("<tr>");
-            $("#SelectedServiceList").append("<td class='text-center'><input type='checkbox' checked='checked' onclick='SelectService(this)' class='multiSelect' value='" + SelectedServices[i].APIId + "'></td>");
+            //$("#SelectedServiceList").append("<td class='text-center'><input type='checkbox' checked='checked' onclick='SelectService(this)' class='multiSelect' value='" + SelectedServices[i].APIId + "'></td>");
             $("#SelectedServiceList").append("<td class='text-center'>" + SelectedServices[i].APITypeName + "</td>");
             $("#SelectedServiceList").append("<td>" + SelectedServices[i].Name + "</td>");
             $("#SelectedServiceList").append("<td class='text-center'>" + SelectedServices[i].DurationText + "</td>");

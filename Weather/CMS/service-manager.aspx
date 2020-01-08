@@ -85,7 +85,8 @@
                                 <thead style="background-color: deepskyblue">
                                     <tr>
                                         <th class="text-center">
-                                            <input type="checkbox" class="multiSelect" /></th>
+                                            <%--<input type="checkbox" class="multiSelect" />--%>
+                                        </th>
                                         <th class="text-center">Loại dịch vụ</th>
                                         <th class="text-center">Tên dịch vụ</th>
                                         <th class="text-center">Thời hạn (tháng)</th>

@@ -22,6 +22,7 @@ namespace Weather.Controllers
     {
         public Guid APITypeId { get; set; }
         public string Name { get; set; }
+        public int? Order { get; set; }
     }
     public static class ConvertResponse
     {
@@ -30,7 +31,8 @@ namespace Weather.Controllers
             return new APITypeResponseModel()
             {
                 APITypeId = type.APITypeId,
-                Name = type.Name
+                Name = type.Name,
+                Order = type.TypeOrder
             };
         }
     }
@@ -50,7 +52,7 @@ namespace Weather.Controllers
 
         // GET: api/APIType
         [HttpGet]
-        [Route("api/v1/APIType/{id}")]
+        [Route("api/v1/APIType")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public APITypeResponseModel GetById(Guid APITypeId)
         {
@@ -76,10 +78,11 @@ namespace Weather.Controllers
         [HttpPut]
         [Route("api/v1/APIType/update")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public APITypeResponseModel Update([FromBody]cms_APIType APIType)
+        public APITypeResponseModel Update([FromBody]APITypeResponseModel APIType)
         {
             var model = db.cms_APIType.Where(x => x.APITypeId == APIType.APITypeId).First();
             model.Name = APIType.Name;
+            model.TypeOrder = APIType.Order;
             db.SaveChanges();
             model = db.cms_APIType.Where(x => x.APITypeId == APIType.APITypeId).First();
 
@@ -90,12 +93,13 @@ namespace Weather.Controllers
         [HttpPost]
         [Route("api/v1/APIType/create")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public APITypeResponseModel Create(string name)
+        public APITypeResponseModel Create([FromBody]APITypeResponseModel APImodel)
         {
             cms_APIType model = new cms_APIType()
             {
                 APITypeId = Guid.NewGuid(),
-                Name = name
+                Name = APImodel.Name,
+                TypeOrder = APImodel.Order
             };
             db.cms_APIType.Add(model);
             db.SaveChanges();
@@ -104,7 +108,7 @@ namespace Weather.Controllers
         }
 
         [HttpDelete]
-        [Route("api/v1/APIType/delete/{id}")]
+        [Route("api/v1/APIType/delete")]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public APITypeResponseModel Delete(Guid id)
         {

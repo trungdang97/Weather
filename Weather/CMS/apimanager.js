@@ -100,7 +100,7 @@ function GetFilter() {
 
                 $("#table-body").append("<tr>"
                     + "<td class='text-center'>"
-                    + "<input type='checkbox' onclick value='" + data[i].APIId + "' class='multiSelect'>"
+                    //+ "<input type='checkbox' onclick value='" + data[i].APIId + "' class='multiSelect'>"
                     + "</td>"
                     + "<td class='text-center'>"
                     + data[i].APITypeName

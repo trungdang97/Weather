@@ -148,7 +148,7 @@
                 <thead style="background-color: deepskyblue">
                     <tr>
                         <th scope="col" class="text-center">
-                            <input type="checkbox" class="multiSelect" /></th>
+                            <%--<input type="checkbox" class="multiSelect" />--%></th>
                         <th scope="col" class="text-center" width="20%">Tên tin bài</th>
                         <th scope="col" class="text-center">Loại tin</th>
                         <th scope="col" class="text-center">Nơi viết</th>

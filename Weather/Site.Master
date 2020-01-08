@@ -13,7 +13,7 @@
     </asp:PlaceHolder>
 
     <webopt:BundleReference runat="server" Path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Content/Icons/kttv_logo.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" type="text/css">
     <link href="http://vjs.zencdn.net/5.10.2/video-js.css" rel="stylesheet">
     <style>
@@ -25,20 +25,25 @@
             height: 50px;
             width: 50px;
         }
-        body{
+
+        body {
             font: 13px Verdana, sans-serif !important;
+        }
+
+        #LoginModal:hover {
+            text-decoration: underline;
         }
     </style>
 
     <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script type="text/javascript">
 
-            function onLoad() {
-                var sec = parseInt(document.location.search.substr(1));
+        function onLoad() {
+            var sec = parseInt(document.location.search.substr(1));
 
-                if (!isNaN(sec))
-                    mainPlayer.currentTime = sec;
-            }
+            if (!isNaN(sec))
+                mainPlayer.currentTime = sec;
+        }
 
     </script>
 </head>
@@ -72,7 +77,7 @@
         <div class="row">
             <div class="container" style="padding-left: 0; padding-right: 0">
                 <div class="col-md-6" style="padding-top: 15px">
-                    <a href="/Default.aspx">
+                    <a href="/trangchu.aspx">
                         <img src="/Content/Icons/kttv_logo.jpg" width="70px" />
                         <img src="/Content/Images/logo.png" /></a>
                 </div>
@@ -90,25 +95,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="pull-right" style="padding: 10px">
-                            <div class="col-md-3 new-nav-link-underline-active" style="width: auto !important">
-                                <h4><a href="/Default.aspx" class="active font-weight bold">Trang chủ</a></h4>
-                            </div>
-                            <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
-                                <h4><a href="/tin-tuc/gioi-thieu">Giới thiệu</a></h4>
-                            </div>
-                            <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
-                                <h4><a href="/tin-tuc">Tin tức sự kiện</a></h4>
-                            </div>
-                            <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
-                                <h4><a href="/CMS/service-manager">Dịch vụ</a></h4>
-                            </div>
+                <div class="row">
+                    <div class="pull-right" style="padding: 10px">
+                        <div class="col-md-3 new-nav-link-underline-active" style="width: auto !important">
+                            <h4><a href="/trangchu.aspx" class="active font-weight bold">Trang chủ</a></h4>
+                        </div>
+                        <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
+                            <h4><a href="/tin-tuc/gioi-thieu">Giới thiệu</a></h4>
+                        </div>
+                        <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
+                            <h4><a href="/tin-tuc">Tin tức sự kiện</a></h4>
+                        </div>
+                        <div class="col-md-3 new-nav-link-underline" style="width: auto !important">
+                            <h4><a href="/CMS/service-manager">Dịch vụ</a></h4>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="row nav-search">
             <div class="container">
@@ -259,7 +265,7 @@ powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow
         </footer>
 
         <div id="AccountModal" class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" style="width:400px !important">
+            <div class="modal-dialog modal-sm" style="width: 400px !important">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title" style="display: inline-block"><i class="fa fa-key"></i>&ensp;Đăng nhập hệ thống</h3>

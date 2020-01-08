@@ -115,7 +115,8 @@
                 <thead style="background-color: deepskyblue">
                     <tr>
                         <th scope="col" class="text-center">
-                            <input type="checkbox" class="multiSelect" /></th>
+                            <%--<input type="checkbox" class="multiSelect" />--%>
+                        </th>
                         <th scope="col" class="text-center" width="20%">Tên người dùng</th>
                         <th scope="col" class="text-center">Tên đầy đủ</th>
                         <th scope="col" class="text-center">Email</th>

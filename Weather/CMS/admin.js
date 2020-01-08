@@ -195,7 +195,7 @@ function GetFilter() {
                 if (data[i].Username == "admin") {
                     $("#table-body").append("<tr>"
                         + "<td class='text-center'>"
-                        + "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
+                        //+ "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
                         + "</td>"
                         + "<td class='text-center'>"
                         + data[i].Username
@@ -224,7 +224,7 @@ function GetFilter() {
                 else {
                     $("#table-body").append("<tr>"
                         + "<td class='text-center'>"
-                        + "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
+                        //+ "<input type='checkbox' onclick value='" + data[i].UserId + "' class='multiSelect'>"
                         + "</td>"
                         + "<td class='text-center'>"
                         + data[i].Username

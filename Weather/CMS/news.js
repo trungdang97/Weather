@@ -359,7 +359,7 @@ function GetData() {
                 }
                 $("#table-body").append("<tr>"
                     + "<td class='text-center'>"
-                    + "<input type='checkbox' onclick value='" + data[i].NewsId + "' class='multiSelect'>"
+                    //+ "<input type='checkbox' onclick value='" + data[i].NewsId + "' class='multiSelect'>"
                     + "</td>"
                     + "<td>"
                     + data[i].Name

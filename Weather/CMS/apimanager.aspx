@@ -79,7 +79,8 @@
                 <thead style="background-color: deepskyblue">
                     <tr>
                         <th scope="col" class="text-center">
-                            <input type="checkbox" class="multiSelect" /></th>
+                            <%--<input type="checkbox" class="multiSelect" />--%>
+                        </th>
                         <th scope="col" class="text-center">Loại API</th>
                         <th scope="col" class="text-center" width="20%">Mã API</th>
                         <th scope="col" class="text-center">Tên API</th>
