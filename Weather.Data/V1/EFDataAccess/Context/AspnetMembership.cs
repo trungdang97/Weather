@@ -31,7 +31,7 @@ namespace Weather.Data.V1
         public bool IsApproved { get; set; }
         public bool IsLockedOut { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedOnDate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime LastLoginDate { get; set; }
         [Column(TypeName = "datetime")]

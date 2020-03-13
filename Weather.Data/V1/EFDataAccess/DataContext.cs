@@ -69,7 +69,7 @@ namespace Weather.Data.V1
 
             modelBuilder.Entity<CMS_NewsCategory>(entity =>
             {
-                entity.HasKey(e => e.Id);
+                entity.HasKey(e => e.NewsCategoryId);
             });
         }
 

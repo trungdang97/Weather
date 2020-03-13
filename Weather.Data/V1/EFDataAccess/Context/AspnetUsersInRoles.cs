@@ -13,9 +13,9 @@ namespace Weather.Data.V1
         public Guid UserId { get; set; }
         public Guid RoleId { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? CreateDate { get; set; }
+        public DateTime? CreateOnDate { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? DeleteDate { get; set; }
+        public DateTime? DeleteOnDate { get; set; }
 
         [ForeignKey("RoleId")]
         [InverseProperty("AspnetUsersInRoles")]

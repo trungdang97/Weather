@@ -23,6 +23,9 @@ namespace Weather.Data.V1
         [StringLength(256)]
         public string GroupCode { get; set; }
 
+        public DateTime CreatedOnDate { get; set; }
+        public DateTime ModifiedOnDate { get; set; }
+
         [ForeignKey("GroupCode")]
         [InverseProperty("InverseGroupCodeNavigation")]
         public Idm_Right GroupCodeNavigation { get; set; }

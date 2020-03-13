@@ -1,0 +1,9 @@
+C:\Users\Trung\Desktop\Weather\Weather.Data\bin\Debug\netstandard2.0\Weather.Data.deps.json
+C:\Users\Trung\Desktop\Weather\Weather.Data\bin\Debug\netstandard2.0\Weather.Data.dll
+C:\Users\Trung\Desktop\Weather\Weather.Data\bin\Debug\netstandard2.0\Weather.Data.pdb
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Debug\netstandard2.0\Weather.Data.csprojAssemblyReference.cache
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Debug\netstandard2.0\Weather.Data.csproj.CoreCompileInputs.cache
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Debug\netstandard2.0\Weather.Data.AssemblyInfoInputs.cache
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Debug\netstandard2.0\Weather.Data.AssemblyInfo.cs
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Debug\netstandard2.0\Weather.Data.dll
+C:\Users\Trung\Desktop\Weather\Weather.Data\obj\Debug\netstandard2.0\Weather.Data.pdb

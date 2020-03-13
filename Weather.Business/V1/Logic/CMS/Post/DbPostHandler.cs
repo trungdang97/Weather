@@ -17,7 +17,7 @@ namespace Weather.Business.V1
                 try
                 {
                     var createModel = AutoMapperUtils.AutoMap<PostCreateRequestModel, CMS_Post>(model);
-                    createModel.Id = Guid.NewGuid();
+                    createModel.PostId = Guid.NewGuid();
                     unitOfWork.GetRepository<CMS_Post>().Add(createModel);
 
                     if (await unitOfWork.SaveAsync() >= 1)
@@ -42,7 +42,7 @@ namespace Weather.Business.V1
             {
                 try
                 {
-                    var deleteModel = unitOfWork.GetRepository<CMS_PostCategory>().Get(x => x.Id == id).FirstOrDefault();
+                    var deleteModel = unitOfWork.GetRepository<CMS_PostCategory>().Get(x => x.PostCategoryId == id).FirstOrDefault();
                     unitOfWork.GetRepository<CMS_PostCategory>().Delete(deleteModel);
                     if (await unitOfWork.SaveAsync() >= 1)
                     {
@@ -102,7 +102,7 @@ namespace Weather.Business.V1
 
                     if (filter.Id.HasValue)
                     {
-                        result = await datas.Where(x => x.Id == filter.Id).ToListAsync();
+                        result = await datas.Where(x => x.PostId == filter.Id).ToListAsync();
                         return new OldResponse<List<CMS_Post>>(1, "SUCCESS", result);
                     }
 
@@ -156,7 +156,7 @@ namespace Weather.Business.V1
             {
                 try
                 {
-                    var updateModel = unitOfWork.GetRepository<CMS_Post>().Get(x=>x.Id == model.Id).FirstOrDefault();
+                    var updateModel = unitOfWork.GetRepository<CMS_Post>().Get(x=>x.PostId == model.Id).FirstOrDefault();
                     updateModel.LastEditedOnDate = DateTime.Now;
                     unitOfWork.GetRepository<CMS_Post>().Update(updateModel);
 

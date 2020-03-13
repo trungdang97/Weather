@@ -14,9 +14,9 @@ namespace Weather.Data.V1
         [StringLength(256)]
         public string RightCode { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedOnDate { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedOnDate { get; set; }
 
         [ForeignKey("RightCode")]
         [InverseProperty("IdmRightsInRole")]

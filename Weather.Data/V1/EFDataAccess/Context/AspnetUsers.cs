@@ -18,12 +18,12 @@ namespace Weather.Data.V1
         public string LoweredUserName { get; set; }
         [StringLength(16)]
         public string MobileAlias { get; set; }
-        public bool IsAnonymous { get; set; }
+        public bool IsAnonymous { get; set; } = false;
         [Column(TypeName = "datetime")]
-        public DateTime LastActivityDate { get; set; }
+        public DateTime? LastActivityDate { get; set; }
         [StringLength(256)]
         public string FinanceCode { get; set; }
-        public int Type { get; set; }
+        public int Type { get; set; } = 0;
 
         [InverseProperty("User")]
         public AspnetMembership AspnetMembership { get; set; }

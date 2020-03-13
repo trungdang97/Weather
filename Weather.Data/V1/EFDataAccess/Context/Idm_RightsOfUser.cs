@@ -16,9 +16,9 @@ namespace Weather.Data.V1
         public string RightCode { get; set; }
         public string InheritedFromRoles { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedOnDate { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedOnDate { get; set; }
         public bool Inherited { get; set; }
         public bool Enable { get; set; }
 

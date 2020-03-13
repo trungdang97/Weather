@@ -9,7 +9,7 @@ namespace Weather.Data.V1
     public class CMS_Comment
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid CommentId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
 

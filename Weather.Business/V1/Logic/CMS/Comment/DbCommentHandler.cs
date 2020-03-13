@@ -17,7 +17,7 @@ namespace Weather.Business.V1
                 try
                 {
                     var createModel = AutoMapperUtils.AutoMap<CommentCreateModel, CMS_Comment>(model);
-                    createModel.Id = Guid.NewGuid();
+                    createModel.CommentId = Guid.NewGuid();
                     createModel.CreatedOnDate = DateTime.Now;
                     createModel.LastEditedOnDate = null;
                     createModel.LastEditedByUserId = null;
@@ -46,7 +46,7 @@ namespace Weather.Business.V1
             {
                 try
                 {
-                    var deleteModel = unitOfWork.GetRepository<CMS_Comment>().Get(x => x.Id == id).FirstOrDefault();
+                    var deleteModel = unitOfWork.GetRepository<CMS_Comment>().Get(x => x.CommentId == id).FirstOrDefault();
                     unitOfWork.GetRepository<CMS_Comment>().Delete(deleteModel);
                     if (await unitOfWork.SaveAsync() >= 1)
                     {
@@ -126,7 +126,7 @@ namespace Weather.Business.V1
             {
                 try
                 {
-                    var updateModel = unitOfWork.GetRepository<CMS_Comment>().Get(x => x.Id == model.Id).FirstOrDefault();
+                    var updateModel = unitOfWork.GetRepository<CMS_Comment>().Get(x => x.CommentId == model.Id).FirstOrDefault();
                     updateModel.Title = model.Title;
                     updateModel.Body = model.Body;
                     //updateModel.Email = model.Email;

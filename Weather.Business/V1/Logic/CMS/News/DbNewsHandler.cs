@@ -17,7 +17,7 @@ namespace Weather.Business.V1
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var newModel = AutoMapperUtils.AutoMap<NewsCreateRequestModel, CMS_News>(model);
-                    newModel.Id = Guid.NewGuid();
+                    newModel.NewsId = Guid.NewGuid();
 
                     unitOfWork.GetRepository<CMS_News>().Add(newModel);
                     if (await unitOfWork.SaveAsync() >= 1)
@@ -46,7 +46,7 @@ namespace Weather.Business.V1
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var model = unitOfWork.GetRepository<CMS_News>().Get(x => x.Id == id).FirstOrDefault();
+                    var model = unitOfWork.GetRepository<CMS_News>().Get(x => x.NewsId == id).FirstOrDefault();
                     unitOfWork.GetRepository<CMS_News>().Delete(model);
 
                     if (await unitOfWork.SaveAsync() >= 1)
@@ -116,7 +116,7 @@ namespace Weather.Business.V1
 
                     if (filter.Id.HasValue)
                     {
-                        result = data.Where(x => x.Id == filter.Id).ToList();
+                        result = data.Where(x => x.NewsId == filter.Id).ToList();
                         return new OldResponse<List<CMS_News>>(1, "SUCCESS", result);
                     }
 
@@ -173,7 +173,7 @@ namespace Weather.Business.V1
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var data = unitOfWork.GetRepository<CMS_News>().Get(x => x.Id == model.Id).FirstOrDefault();
+                    var data = unitOfWork.GetRepository<CMS_News>().Get(x => x.NewsId == model.Id).FirstOrDefault();
                     data.IsHidden = data.IsHidden;
                     data.Location = data.Location;
                     data.Name = data.Name;

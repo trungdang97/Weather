@@ -9,7 +9,7 @@ namespace Weather.Data.V1.EFDataAccess.Context
     public class CMS_Video
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid VideoId { get; set; }
 
         //Metadata
         public string Host { get; set; }

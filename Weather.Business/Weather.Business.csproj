@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Weather.Data\Weather.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="V1\Logic\Aspnet\" />
+  </ItemGroup>
+
 </Project>

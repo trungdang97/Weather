@@ -25,6 +25,9 @@ namespace Weather.Data.V1
         [StringLength(512)]
         public string IconClass { get; set; }
 
+        public DateTime CreatedOnDate { get; set; }
+        public DateTime ModifiedOnDate { get; set; }
+
         [ForeignKey("ParentRightId")]
         [InverseProperty("InverseParentRight")]
         public Right ParentRight { get; set; }

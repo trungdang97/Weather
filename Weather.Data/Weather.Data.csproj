@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20191115082046_updateCMStables.cs" />
+    <Compile Remove="Migrations\20200109225738_addDate_models.cs" />
+    <Compile Remove="Migrations\20200109232311_fixCascade.cs" />
+    <Compile Remove="Migrations\20200109232654_fixCascade.cs" />
   </ItemGroup>
 
   <ItemGroup>

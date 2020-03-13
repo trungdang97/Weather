@@ -17,7 +17,12 @@ namespace Weather.Business.V1
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var data = AutoMapperUtils.AutoMap<NewsCategoryCreateRequestModel, CMS_NewsCategory>(model);
-                    data.Id = Guid.NewGuid();
+                    data.NewsCategoryId = Guid.NewGuid();
+                    data.CreatedOnDate = DateTime.Now;
+                    data.LastEditedOnDate = DateTime.Now;
+                    data.LastEditedByUserId = data.CreatedByUserId;
+
+                    unitOfWork.GetRepository<CMS_NewsCategory>().Add(data);
 
                     if (await unitOfWork.SaveAsync() >= 1)
                     {
@@ -35,18 +40,19 @@ namespace Weather.Business.V1
             }
         }
 
-        public async Task<OldResponse<NewsDeleteResponseModel>> Delete(Guid id)
+        public async Task<OldResponse<NewsCategoryDeleteResponseModel>> Delete(Guid id)
         {
             try
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var data = unitOfWork.GetRepository<CMS_NewsCategory>().Get(x => x.Id == id).FirstOrDefault();
+                    var data = unitOfWork.GetRepository<CMS_NewsCategory>().Get(x => x.NewsCategoryId == id).FirstOrDefault();
                     unitOfWork.GetRepository<CMS_NewsCategory>().Delete(data);
 
                     if (await unitOfWork.SaveAsync() >= 1)
                     {
-                        return new OldResponse<NewsDeleteResponseModel>(1, "SUCCESS", new NewsDeleteResponseModel() {
+                        return new OldResponse<NewsCategoryDeleteResponseModel>(1, "SUCCESS", new NewsCategoryDeleteResponseModel()
+                        {
                             Id = id,
                             Message = "SUCCESS",
                             Name = data.Name,
@@ -55,7 +61,7 @@ namespace Weather.Business.V1
                     }
                     else
                     {
-                        return new OldResponse<NewsDeleteResponseModel>(1, "SUCCESS", new NewsDeleteResponseModel()
+                        return new OldResponse<NewsCategoryDeleteResponseModel>(1, "SUCCESS", new NewsCategoryDeleteResponseModel()
                         {
                             Id = id,
                             Name = data.Name,
@@ -67,29 +73,29 @@ namespace Weather.Business.V1
             }
             catch (Exception ex)
             {
-                return new OldResponse<NewsDeleteResponseModel>(1, "SUCCESS", new NewsDeleteResponseModel()
-                {                    
+                return new OldResponse<NewsCategoryDeleteResponseModel>(1, "SUCCESS", new NewsCategoryDeleteResponseModel()
+                {
                     Message = ex.Message,
                     Result = -1
                 });
             }
         }
 
-        public async Task<OldResponse<List<NewsDeleteResponseModel>>> DeleteMany(List<Guid> listId)
+        public async Task<OldResponse<List<NewsCategoryDeleteResponseModel>>> DeleteMany(List<Guid> listId)
         {
             try
             {
-                List<NewsDeleteResponseModel> deleted = new List<NewsDeleteResponseModel>();
-                foreach(var id in listId)
+                List<NewsCategoryDeleteResponseModel> deleted = new List<NewsCategoryDeleteResponseModel>();
+                foreach (var id in listId)
                 {
                     var result = await Delete(id);
                     deleted.Add(result.Data);
                 }
-                return new OldResponse<List<NewsDeleteResponseModel>>(1, "SUCCESS", deleted);
+                return new OldResponse<List<NewsCategoryDeleteResponseModel>>(1, "SUCCESS", deleted);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new OldResponse<List<NewsDeleteResponseModel>>(-1, ex.Message, null);
+                return new OldResponse<List<NewsCategoryDeleteResponseModel>>(-1, ex.Message, null);
             }
         }
 
@@ -97,14 +103,14 @@ namespace Weather.Business.V1
         {
             try
             {
-                using(var unitOfWork = new UnitOfWork())
+                using (var unitOfWork = new UnitOfWork())
                 {
                     var results = new List<CMS_NewsCategory>();
                     var data = unitOfWork.GetRepository<CMS_NewsCategory>().GetAll();
 
                     if (filter.Id.HasValue)
                     {
-                        var result = data.Where(x => x.Id == filter.Id).FirstOrDefault();
+                        var result = data.Where(x => x.NewsCategoryId == filter.Id).FirstOrDefault();
                         results.Add(result);
                         return new OldResponse<List<CMS_NewsCategory>>(1, "SUCCESS", results);
                     }
@@ -119,18 +125,21 @@ namespace Weather.Business.V1
                         data = data.Where(x => x.Name.Contains(filter.FilterText) || x.Name.Contains(filter.FilterText));
                     }
 
+                    data = data.OrderBy(x => x.Type).ThenBy(x => x.Order);
+
                     int excludedRows = (filter.PageNumber - 1) * filter.PageSize;
                     int totalCount = data.Count();
                     data = data.Skip(excludedRows).Take(filter.PageSize);
 
                     var datas = await data.ToListAsync();
-                    return new OldResponse<List<CMS_NewsCategory>>(1, "SUCCESS", datas) {
+                    return new OldResponse<List<CMS_NewsCategory>>(1, "SUCCESS", datas)
+                    {
                         DataCount = datas.Count,
                         TotalCount = totalCount
                     };
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new OldResponse<List<CMS_NewsCategory>>(-1, ex.Message, null);
             }
@@ -142,11 +151,12 @@ namespace Weather.Business.V1
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var data = unitOfWork.GetRepository<CMS_NewsCategory>().Get(x => x.Id == model.Id).FirstOrDefault();
-                    data.Description = data.Description;
-                    data.Name = data.Name;
-                    data.Order = data.Order;
-                    data.Type = data.Type;
+                    var data = unitOfWork.GetRepository<CMS_NewsCategory>().Get(x => x.NewsCategoryId == model.Id).FirstOrDefault();
+                    data.Description = model.Description;
+                    data.Name = model.Name;
+                    data.Order = model.Order;
+                    data.Type = model.Type;
+                    data.LastEditedByUserId = model.LastEditedByUserId;
 
                     if (await unitOfWork.SaveAsync() >= 1)
                     {

@@ -17,6 +17,8 @@ namespace Weather.Business.V1
         public string Description { get; set; }
         public string Type { get; set; }
         public int Order { get; set; }
+
+        public Guid CreatedByUserId { get; set; }
     }
 
     public class NewsCategoryUpdateRequestModel
@@ -26,6 +28,8 @@ namespace Weather.Business.V1
         public string Description { get; set; }
         public string Type { get; set; }
         public int Order { get; set; }
+
+        public Guid LastEditedByUserId { get; set; }
     }
 
     public class NewsCategoryDeleteResponseModel : BaseDeleteResponseModel

@@ -9,14 +9,17 @@ namespace Weather.Data.V1
     public class CMS_NewsCategory
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid NewsCategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }
         public int Order { get; set; }
 
+        public DateTime CreatedOnDate { get; set; }
+        public DateTime LastEditedOnDate { get; set; }
+
         public Guid CreatedByUserId { get; set; }
-        public Guid LastEditedByUserId { get; set; }
+        public Guid? LastEditedByUserId { get; set; }
 
         [ForeignKey("CreatedByUserId")]
         public AspnetMembership CreatedByUser { get; set; }

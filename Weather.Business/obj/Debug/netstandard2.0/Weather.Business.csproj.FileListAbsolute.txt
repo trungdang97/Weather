@@ -1,0 +1,12 @@
+C:\Users\Trung\Desktop\Weather\Weather.Business\bin\Debug\netstandard2.0\Weather.Business.deps.json
+C:\Users\Trung\Desktop\Weather\Weather.Business\bin\Debug\netstandard2.0\Weather.Business.dll
+C:\Users\Trung\Desktop\Weather\Weather.Business\bin\Debug\netstandard2.0\Weather.Business.pdb
+C:\Users\Trung\Desktop\Weather\Weather.Business\bin\Debug\netstandard2.0\Weather.Data.dll
+C:\Users\Trung\Desktop\Weather\Weather.Business\bin\Debug\netstandard2.0\Weather.Data.pdb
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.csprojAssemblyReference.cache
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.csproj.CoreCompileInputs.cache
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.AssemblyInfoInputs.cache
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.AssemblyInfo.cs
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.csproj.CopyComplete
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.dll
+C:\Users\Trung\Desktop\Weather\Weather.Business\obj\Debug\netstandard2.0\Weather.Business.pdb

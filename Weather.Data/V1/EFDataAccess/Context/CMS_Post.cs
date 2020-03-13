@@ -9,7 +9,7 @@ namespace Weather.Data.V1
     public class CMS_Post
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid PostId { get; set; }
         public Guid PostCategoryId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
