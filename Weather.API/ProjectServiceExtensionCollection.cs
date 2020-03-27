@@ -11,6 +11,9 @@ namespace Weather.API
     {
         public static IServiceCollection AddProjectServices(this IServiceCollection services) =>
             services
-            .AddSingleton<INewsCategoryHandler, DbNewsCategoryHandler>();
+            .AddSingleton<INavigationHandler, DbNavigationHandler>()
+            .AddSingleton<INewsCategoryHandler, DbNewsCategoryHandler>()
+            .AddSingleton<IUserRightHandler, DbUserRightHandler>()
+            ;
     }
 }

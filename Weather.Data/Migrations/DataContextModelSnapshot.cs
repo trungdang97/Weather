@@ -378,6 +378,8 @@ namespace Weather.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(256);
 
+                    b.Property<Guid>("CreatedByUserId");
+
                     b.Property<DateTime>("CreatedOnDate");
 
                     b.Property<string>("Description")
@@ -387,6 +389,8 @@ namespace Weather.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("IsGroup");
+
+                    b.Property<Guid>("LastModifiedByUserId");
 
                     b.Property<int>("Level");
 

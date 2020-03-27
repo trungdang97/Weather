@@ -19,8 +19,8 @@ namespace Weather.Business.V1
                     var data = AutoMapperUtils.AutoMap<NewsCategoryCreateRequestModel, CMS_NewsCategory>(model);
                     data.NewsCategoryId = Guid.NewGuid();
                     data.CreatedOnDate = DateTime.Now;
-                    data.LastEditedOnDate = DateTime.Now;
-                    data.LastEditedByUserId = data.CreatedByUserId;
+                    //data.LastEditedOnDate = DateTime.Now;
+                    //data.LastEditedByUserId = data.CreatedByUserId;
 
                     unitOfWork.GetRepository<CMS_NewsCategory>().Add(data);
 
@@ -85,6 +85,10 @@ namespace Weather.Business.V1
         {
             try
             {
+                if(listId.Count == 0)
+                {
+                    return new OldResponse<List<NewsCategoryDeleteResponseModel>>(-1, "List doesn't contain any Ids", null);
+                }
                 List<NewsCategoryDeleteResponseModel> deleted = new List<NewsCategoryDeleteResponseModel>();
                 foreach (var id in listId)
                 {
@@ -108,9 +112,9 @@ namespace Weather.Business.V1
                     var results = new List<CMS_NewsCategory>();
                     var data = unitOfWork.GetRepository<CMS_NewsCategory>().GetAll();
 
-                    if (filter.Id.HasValue)
+                    if (filter.NewsCategoryId.HasValue && filter.NewsCategoryId != Guid.Empty)
                     {
-                        var result = data.Where(x => x.NewsCategoryId == filter.Id).FirstOrDefault();
+                        var result = data.Where(x => x.NewsCategoryId == filter.NewsCategoryId).FirstOrDefault();
                         results.Add(result);
                         return new OldResponse<List<CMS_NewsCategory>>(1, "SUCCESS", results);
                     }
@@ -151,12 +155,13 @@ namespace Weather.Business.V1
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var data = unitOfWork.GetRepository<CMS_NewsCategory>().Get(x => x.NewsCategoryId == model.Id).FirstOrDefault();
+                    var data = unitOfWork.GetRepository<CMS_NewsCategory>().Get(x => x.NewsCategoryId == model.NewsCategoryId).FirstOrDefault();
                     data.Description = model.Description;
                     data.Name = model.Name;
                     data.Order = model.Order;
                     data.Type = model.Type;
                     data.LastEditedByUserId = model.LastEditedByUserId;
+                    data.LastEditedOnDate = DateTime.Now;
 
                     if (await unitOfWork.SaveAsync() >= 1)
                     {

@@ -6,7 +6,7 @@ namespace Weather.Business.V1
 {
     public class NewsCategoryFilterModel : BaseQueryFilterModel
     {
-        public Guid? Id { get; set; }
+        public Guid? NewsCategoryId { get; set; }
         public string Type { get; set; }
     }
 
@@ -23,7 +23,7 @@ namespace Weather.Business.V1
 
     public class NewsCategoryUpdateRequestModel
     {
-        public Guid Id { get; set; }
+        public Guid NewsCategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }

@@ -26,6 +26,9 @@ namespace Weather.Data.V1
         public DateTime CreatedOnDate { get; set; }
         public DateTime ModifiedOnDate { get; set; }
 
+        public Guid CreatedByUserId { get; set; }
+        public Guid LastModifiedByUserId { get; set; }
+
         [ForeignKey("GroupCode")]
         [InverseProperty("InverseGroupCodeNavigation")]
         public Idm_Right GroupCodeNavigation { get; set; }

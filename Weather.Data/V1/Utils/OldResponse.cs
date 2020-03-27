@@ -10,7 +10,6 @@ namespace Weather.Data.V1
         public int TotalCount { get; set; }
         public int DataCount { get; set; }
         public int Status { get; set; }
-        public decimal SalaryCount { get; set; }
         public string Message { get; set; }
     }
     public class OldResponseObj<T>
@@ -18,7 +17,6 @@ namespace Weather.Data.V1
         public T Data { get; set; }
         public int TotalCount { get; set; }
         public int DataCount { get; set; }
-        public decimal SalaryCount { get; set; }
         public int Status { get; set; }
         public string Message { get; set; }
     }
@@ -29,7 +27,6 @@ namespace Weather.Data.V1
         public int TotalCount { get; set; }
 
         public int DataCount { get; set; }
-        public decimal SalaryCount { get; set; }
 
         public OldResponse() { }
 

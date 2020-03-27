@@ -18,7 +18,7 @@ namespace Weather.Data.V1
         public string LoweredRoleName { get; set; }
         [StringLength(256)]
         public string Description { get; set; }
-        public bool EnableDelete { get; set; }
+        public bool EnableDelete { get; set; } // Lock role
         public Guid CreatedByUserId { get; set; }
         public DateTime CreatedOnDate { get; set; }
         public Guid LastModifiedByUserId { get; set; }
