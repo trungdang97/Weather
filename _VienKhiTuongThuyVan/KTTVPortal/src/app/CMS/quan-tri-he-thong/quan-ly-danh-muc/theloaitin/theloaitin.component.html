@@ -1,0 +1,72 @@
+<h5>{{title}}</h5>
+<div class="render-wrapper">
+  <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+    <div class="row" style="margin-bottom: 10px !important;">
+      <div class="col-md-6 px-0">
+        <div class="row">
+          <div class="col-md-6 form-component-left">
+            <label>Từ khóa tìm kiếm</label>
+            <input type="text" class="form-control " placeholder="Tìm kiếm..." [(ngModel)]="filter.FilterText"
+              (keyup.enter)="getData(undefined)">
+          </div>
+          <div class="col-md-6 form-component-left">
+            <label>Loại tin</label>
+            <select type="number" [(ngModel)]="filter.Type" class="form-control" (ngModelChange)="getData()">
+              <option *ngFor="let type of types" [ngValue]="type.Value">{{type.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 px-0 d-flex align-items-end justify-content-end">
+        <button type="button" class="btn btn-danger" (click)="button.DeleteMany.click()" *ngIf="IsDeleteMany">
+          <i class="fas fa-trash-alt"></i>&ensp;Xóa đã chọn
+        </button>
+        <button type="button" class="btn btn-default" (click)="button.Refresh.click()">
+          <i class="fas fa-redo"></i>&ensp;Tải lại
+        </button>
+        <button type="button" class="btn btn-primary" (click)="button.Add.click()">
+          <i class="fas fa-plus"></i>&ensp;Thêm mới
+        </button>
+      </div>
+    </div>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center" style="width: 50px;"><input type="checkbox" [(ngModel)]="IsCheckAll"
+              (ngModelChange)="doCheckAll()"></th>
+          <th [className]="header.Class" [width]="header.Width" *ngFor="let header of headers">{{header.Name}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories.Data">
+          <td class="text-center"><input type="checkbox" [(ngModel)]="category.IsCheck" (ngModelChange)="doCheck()">
+          </td>
+          <td>{{category.Name}}</td>
+          <td class=" table-cell-overflow" [title]="category.Description">{{category.Description}}</td>
+          <td class="text-center">{{category.TypeText}}</td>
+          <td class="text-center">{{category.Order}}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-primary btn-action" (click)="button.Edit.click(category.NewsCategoryId)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="btn btn-sm btn-danger btn-action" (click)="button.Delete.click(category.NewsCategoryId)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="categories.DataCount==0">
+          <td colspan="200" class="text-center">
+            Không có dữ liệu !
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="float-right">
+      <mat-paginator [length]="categories.TotalCount" [pageSize]="filter.PageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="getData($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+<!-- <app-theloaitin-modal-item *ngIf="showModal" (blur)="showModal=false;"></app-theloaitin-modal-item> -->

@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>
+  <span *ngIf="isError"><i class="fas fas-times-circle"></i></span>{{title}}
+</h1>
+
+<div mat-dialog-content>
+  <p>{{message}}</p>
+</div>
+
+<div mat-dialog-actions class="float-right" *ngIf="hasDeny">
+  <button type="button" mat-button class="btn btn-danger" (click)="onDismiss()">Hủy</button>
+  <button type="button" mat-raised-button class="btn btn-primary" (click)="onConfirm()">Xác nhận</button>
+</div>
+
+<div mat-dialog-actions class="float-right" *ngIf="!hasDeny">
+  <button type="button" mat-button class="btn btn-primary" (click)="onDismiss()">Đóng</button>
+</div>

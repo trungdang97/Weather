@@ -1,0 +1,59 @@
+<div class="content-padding">
+    <div class="row">
+        <div class="col-md-8">
+            <iframe src="assets/map/index.html" width="100%" [height]="height"></iframe>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <table id="prediction" [style.height]="height">
+                    <!-- Natural disaster -->
+                    <tbody>
+                        <tr>
+                            <td class="weather-title">Cảnh báo thiên tai</td>
+                        </tr>
+                        <tr *ngFor="let disaster of disasters">
+                            <td class="weather-content">
+                                OK
+                            </td>
+                        </tr>
+                        <tr *ngIf="disasters.length == 0">
+                            <td class="weather-content">
+                                Không có cảnh báo
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- Weather -->
+                    <tbody>
+                        <tr>
+                            <td class="weather-title">Thời tiết hiện tại</td>
+                        </tr>
+                        <tr *ngFor="let city of weather">
+                            <td class="weather-content">
+
+                            </td>
+                        </tr>
+                        <tr *ngIf="weather.length == 0">
+                            <td class="weather-content">
+                                Không lấy được dữ liệu thời tiết
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="news-section" class="content-padding">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item" *ngFor="let frontNewsCategory of frontNewsCategories; let i = index">
+                    <a class="nav-link frontNewsCategory" href="#" [ngClass]="{'active': i == activeIndex}" [id]="frontNewsCategory" data-toggle="tab" role="tab">{{frontNewsCategory}}</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                
+            </div>
+        </div>
+    </div>
+</div>

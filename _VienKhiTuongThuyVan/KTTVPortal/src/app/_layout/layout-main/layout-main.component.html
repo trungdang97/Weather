@@ -1,0 +1,159 @@
+<!-- TOP -->
+<div class="row content-padding">
+    <!-- logo -->
+    <div class="col-md-6">
+        <img id="logo-img" src="assets/images/main_logo.jpg" />
+    </div>
+    <!-- links -->
+    <div class="col-md-6 text-right" style="padding-right: 0;">
+        <!-- external -->
+        <div class="col-md-12 top-links">
+            <a href="#" class="link external-link">Thư nội bộ</a>
+            <span class="external-link">&ensp;|&ensp;</span>
+            <a href="#" class="link external-link">Văn bản pháp quy</a>
+            <span class="external-link">&ensp;|&ensp;</span>
+            <a href="#" class="link external-link">Liên kết website</a>
+        </div>
+        <div class="col-md-12 internal-link-style top-links">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="/trang-chu" class="link internal-link">Trang chủ</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="link internal-link">Giới thiệu</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/tin-tuc" class="link internal-link">Tin tức sự kiện</a>
+                </div>
+                <div class="col-md-2" style="padding-right: 0;">
+                    <a href="#" class="link internal-link">Dịch vụ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- NAVBAR -->
+<div class="row search-bar content-padding">
+    <div class="col-md-5">
+        <input type="text" class="input form-control form-control-sm"
+            placeholder="Gõ để tra cứu thời tiết các tỉnh, thành phố..." />
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="white-link">
+            <i class="fa fa-location-arrow"></i>
+            Vị trí của tôi
+        </a>
+    </div>
+    <div class="col-md-5 text-right">        
+        <span class="white-non-link">{{AddClock()}}</span>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light nav-bar content-padding"
+    style="padding-top:0 !important; padding-bottom:0 !important">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item nav-link-hover" *ngFor="let item of categories;"
+                style="border-right: 2px solid #c2c8d1; padding: 0px 10px;">
+                <a class="nav-link"
+                    style="color:black; font-weight: bold; height: 48px;display: table-cell; vertical-align: middle;"
+                    href="#">{{item}}</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li> -->
+        </ul>
+    </div>
+    <div class="text-right authen-text">
+        <a href="#"><i class="fa fa-sign-in"></i>&ensp;Đăng nhập</a>
+        &ensp;|&ensp;
+        <a href="#">Đăng ký</a>
+    </div>
+</nav>
+<router-outlet></router-outlet>
+
+<!-- FOOTER -->
+<footer class="content-padding" style="background-color: #3a3e45; margin-top: 50px;">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <img style="border-radius: 10px; border: 2px solid silver; position: relative; top: -40px" width="100px"
+                src="assets/images/kttv_logo.jpg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <blockquote class="" style="color: white; border-left: 5px solid lawngreen; padding: 0 5px;">
+                <p>
+                    Trung tâm Dự báo khí tượng thủy văn quốc gia (Trung tâm DB KTTV QG - National Centre for
+                    Hydrometeorological
+                    Forecasting - NCHMF)
+                    là đơn vị trực thuộc Tổng cục Khí tượng Thủy văn, Bộ Tài nguyên và Môi trường.
+                </p>
+                <p>
+                    Trung tâm Dự báo khí tượng thủy văn quốc gia được thành lập theo quyết định 696/QĐ-BTNMT ngày 08
+                    tháng 03 năm
+                    2018 của Bộ Tài nguyên
+                    và môi trường quy định nhiệm vụ, quyền hạn và cơ cấu tổ chức của Trung tâm Dự báo khí tượng thủy văn
+                    quốc gia.
+                </p>
+            </blockquote>
+        </div>
+        <div class="col-md-6">
+            <blockquote class="" style="color: white; border-left: 5px solid lawngreen; padding: 0 5px;">
+                Địa chỉ: Tầng 12, tòa nhà Trung tâm Điều hành tác nghiệp khí tượng thủy văn, số 8, phố Pháo Đài Láng,
+                phường
+                Láng Thượng,
+                quận Đống Đa, thành phố Hà Nội
+            </blockquote>
+            <blockquote class=""
+                style="color: white; border-left: 5px solid lawngreen; padding: 0 5px; margin-bottom: 5px">
+                Điện thoại: 84-4-32673199 - số máy lẻ: 701
+            </blockquote>
+            <blockquote class=""
+                style="color: white; border-left: 5px solid lawngreen; padding: 0 5px; margin-bottom: 15px">
+                Email: vanphong@nchmf.gov.vn
+            </blockquote>
+            <div class="col-md-12">
+                <a href="http://facebook.com" style="padding-right: 10px;"><i
+                        class="fab fa-facebook-square sharing-media" style="font-size: 25px; color: white;"></i></a>
+                <a href="http://twitter.com" style="padding-right: 10px;"><i class="fab fa-twitter-square sharing-media"
+                        style="font-size: 25px; color: white;"></i></a>
+                <a href="http://instagram.com" style="padding-right: 10px;"><i class="fab fa-instagram sharing-media"
+                        style="font-size: 25px; color: white;"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="row text-center" style="background-color: black; color: white; font-weight: bold; padding-top: 7px;">
+    <div class="col-md-12">
+        <p>&copy; 2008 - Copyright by Trung tâm Dự báo khí tượng thủy văn quốc gia</p>
+    </div>
+</div>
+<!-- TAWK.TO -->
+  <!--Start of Tawk.to Script-->
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/5d46e1dde5ae967ef80e5ecb/default';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->

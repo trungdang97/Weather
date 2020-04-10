@@ -1,0 +1,78 @@
+
+#logo-img
+{
+    height: 80px;
+}
+
+.top-links
+{
+    height: 30px;
+}
+.link
+{
+    color: black;
+}
+.white-link
+{
+    color: white;
+    /* font-weight: bold; */
+    position: relative;
+    top: 25%;
+}
+.white-non-link
+{
+    color: white;
+    /* font-weight: bold; */
+    position: relative;
+    top: 25%;
+}
+.external-link
+{
+    position: relative;
+    top: 25%;
+    font-size: 12px;
+}
+.internal-link
+{
+    position: relative;
+    top: 100%;
+    text-align: center;
+    font-size: 15px;
+}
+
+.internal-link-style
+{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.search-bar
+{
+    background-color: #156ed4;
+}
+.nav-bar
+{
+    background-color: #eff0f1;
+}
+
+.nav-link-hover:hover
+{
+    background-color: #c2c8d1;
+}
+
+.authen-text
+{
+    padding-right: 15px;
+    
+    font-weight: bold;
+    /* font-size: 15px; */
+}
+.authen-text a
+{
+    color: black;
+}
+
+footer div blockquote
+{
+    background-color:  #3a3e45;
+}

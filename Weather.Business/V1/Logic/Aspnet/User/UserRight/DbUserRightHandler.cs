@@ -10,6 +10,7 @@ namespace Weather.Business.V1
 {
     public class DbUserRightHandler : IUserRightHandler
     {
+        
         public async Task<OldResponse<Idm_Right>> Create(UserRightCreateRequestModel model)
         {
             try
@@ -17,6 +18,14 @@ namespace Weather.Business.V1
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var data = AutoMapperUtils.AutoMap<UserRightCreateRequestModel, Idm_Right>(model);
+                    if (data.IsGroup)
+                    {
+                        data.Level = 0;
+                    }
+                    else
+                    {
+                        data.Level = 1;
+                    }
                     data.CreatedOnDate = DateTime.Now;
                     unitOfWork.GetRepository<Idm_Right>().Add(data);
 
@@ -144,6 +153,37 @@ namespace Weather.Business.V1
             }
         }
 
+        public async Task<OldResponse<List<Idm_Right>>> GetAll()
+        {
+            try
+            {
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    var data = unitOfWork.GetRepository<Idm_Right>().GetAllIncluding(x=>x.InverseGroupCodeNavigation);
+
+                    return new OldResponse<List<Idm_Right>>()
+                    {
+                        Data = await data.ToListAsync(),
+                        DataCount = data.Count(),
+                        Message = Status.SUCCESS.ToString(),
+                        Status = (int)Status.SUCCESS,
+                        TotalCount = data.Count()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new OldResponse<List<Idm_Right>>()
+                {
+                    Data = null,
+                    DataCount = 0,
+                    Message = ex.Message,
+                    Status = (int)Status.FAILED,
+                    TotalCount = 0
+                };
+            }
+        }
+
         public async Task<OldResponse<List<Idm_Right>>> GetFilter(UserRightFilterModel filter)
         {
             try
@@ -151,6 +191,20 @@ namespace Weather.Business.V1
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var data = unitOfWork.GetRepository<Idm_Right>().GetAllIncluding();
+                    if (!string.IsNullOrEmpty(filter.RightCode))
+                    {
+                        return new OldResponse<List<Idm_Right>>()
+                        {
+                            Data = await data.Where(x=>x.RightCode == filter.RightCode).ToListAsync(),
+                            DataCount = 1,
+                            Message = Status.SUCCESS.ToString(),
+                            Status = (int)Status.SUCCESS,
+                            TotalCount = 1
+                        };
+                    }
+
+                    // default = get group only
+                    data = data.Where(x => x.IsGroup == true).Include(x=>x.InverseGroupCodeNavigation);
 
                     return new OldResponse<List<Idm_Right>>()
                     {

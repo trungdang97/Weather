@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="cms_VKTTVEntities-Web.config Connection String" description="cms_VKTTVEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Data.cms_VKTTV.csdl|res://*/Data.cms_VKTTV.ssdl|res://*/Data.cms_VKTTV.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=cms_VKTTV;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Trung\\Desktop\\Weather\\Weather\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cms_VKTTVEntities']/@connectionString" />
-  </parameter>
-</parameters>

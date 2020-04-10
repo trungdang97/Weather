@@ -1,0 +1,90 @@
+<h5>{{title}}</h5>
+<div class="render-wrapper">
+  <div class="row">
+    <div class="col-md-12 px-0">
+      <div class="card card-danger">
+        <div class="card-header">
+          <h3 class="card-title">{{warning.title}}</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+            </button>
+          </div>
+          <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          {{warning.content}}
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class='col-md-4'>
+
+    </div>
+    <div class='col-md-8'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <div class="form-group">
+            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+              <input type="checkbox" class="custom-control-input" id="customSwitch">
+              <label class="custom-control-label" for="customSwitch">Sử dụng điều hướng này</label>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='form-group'>
+            <label>Id điều hướng</label>
+            <input type='text' class='form-control' [disabled]="true">
+          </div>
+        </div>
+        <div class='col-md-6'>
+          <div class='form-group'>
+            <label>Tên điều hướng cha</label>
+            <select class='form-control'>
+              <option value='' disabled>Chọn điều hướng cha...</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class='form-group'>
+            <label>Tên điều hướng</label>
+            <input type="text" class='form-control'>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class='form-group'>
+            <label>Đường dẫn</label>
+            <input type="text" class='form-control'>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class='form-group'>
+            <label>Thứ tự</label>
+            <input type="text" class='form-control'>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class='form-group'>
+            <label>Mã biểu tượng</label>
+            <select class='form-control'>
+              <option value='' disabled>Chọn biểu tượng...</option>
+            </select>
+          </div>
+        </div>
+        <div class='col-md-12'>
+          <div class='form-group'>
+            <label>Phân quyền nhóm người dùng</label>
+            <div class='input-group'>
+              <div class=input-group-prepend>
+                <span class='input-group-text'><i class='fas fa-search'></i></span>
+              </div>
+              <input class='form-control' placeholder='Tìm kiếm nhóm người dùng'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

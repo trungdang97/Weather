@@ -1,0 +1,49 @@
+<form name='form' #form="ngForm" (ngSubmit)="Submit(form)" novalidate>
+  <h1 mat-dialog-title>{{title}}</h1>
+  <div mat-dialog-content>
+
+    <div class='row'>
+      <div class='col-md-6 form-group'>
+        <label>Tên thể loại tin<span class='required'>(*)</span></label>
+        <input type="text" class='form-control' name='name' #name='ngModel' [(ngModel)]="model.Name"
+          placeholder="Tên thể loại tin" [ngClass]="{ 'is-invalid': form.submitted && name.invalid }" required />
+        <div *ngIf="form.submitted && name.invalid" class="required">
+          <small class='form-error-text' *ngIf="name.errors.required">* Trường này không được bỏ trống</small>
+        </div>
+      </div>
+      <div class='col-md-6 form-group'>
+        <label>Kiểu tin<span class='required'>(*)</span></label>
+        <select class='form-control' name='type' #type='ngModel' [(ngModel)]="model.Type"
+          [ngClass]="{ 'is-invalid': form.submitted && type.invalid }" required>
+          <option *ngFor='let type of types' [value]="type.Value" [disabled]="type.Disabled" [selected]="type.Selected">
+            {{type.Name}}</option>
+        </select>
+        <div *ngIf="form.submitted && type.invalid" class="required">
+          <small class='form-error-text' *ngIf="type.errors.required">* Yêu cầu chọn kiểu tin</small>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-6 form-group'>
+        <label>Thứ tự<span class='required'>(*)</span></label>
+        <input type="number" name='order' #order='ngModel' [(ngModel)]="model.Order" min='0' class='form-control'
+          placeholder="Thứ tự" 
+          [ngClass]="{ 'is-invalid': form.submitted && order.invalid }" 
+          required>
+          <div *ngIf="form.submitted && order.invalid" class="required">
+            <small class='form-error-text' *ngIf="order.errors.required">* Yêu cầu chọn kiểu tin</small>
+          </div>
+      </div>
+      <div class='col-md-12 form-group'>
+        <label>Mô tả</label>
+        <textarea class='form-control' name='description' #description='ngModel' [(ngModel)]="model.Description"
+          placeholder="Mô tả về thể loại tin"></textarea>
+      </div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions class="float-right">
+    <button type="button" mat-button class='btn form-component btn-danger' (click)="onNoClick()">Hủy</button>
+    <button type='submit' mat-button class='btn btn-primary' [disabled]="!form.dirty">Lưu</button>
+  </div>
+</form>

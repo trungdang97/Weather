@@ -1,0 +1,44 @@
+#prediction
+{
+    width: 100%;
+    font-size: 15px;
+    box-shadow: 2px 2px;
+}
+#prediction th, td
+{
+    border: 1px solid lightgray;
+}
+
+.weather-title
+{
+    color: dodgerblue;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    height: 50px;
+    padding-left: 15px;
+}
+
+.weather-content
+{
+    height: 100px;
+    padding: 5px 15px;
+}
+
+.frontNewsCategory
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: grey;
+}
+.nav-link.active
+{
+    color: dodgerblue;
+    font-size:15px;
+    font-weight: bolder;
+}
+
+#news-section
+{
+    margin-top: 30px;
+}

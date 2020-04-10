@@ -61,7 +61,7 @@ namespace Weather.Business.V1
                     }
                     else
                     {
-                        return new OldResponse<NewsCategoryDeleteResponseModel>(1, "SUCCESS", new NewsCategoryDeleteResponseModel()
+                        return new OldResponse<NewsCategoryDeleteResponseModel>(-1, "FAIL", new NewsCategoryDeleteResponseModel()
                         {
                             Id = id,
                             Name = data.Name,
@@ -73,7 +73,7 @@ namespace Weather.Business.V1
             }
             catch (Exception ex)
             {
-                return new OldResponse<NewsCategoryDeleteResponseModel>(1, "SUCCESS", new NewsCategoryDeleteResponseModel()
+                return new OldResponse<NewsCategoryDeleteResponseModel>(-1, "FAIL", new NewsCategoryDeleteResponseModel()
                 {
                     Message = ex.Message,
                     Result = -1
