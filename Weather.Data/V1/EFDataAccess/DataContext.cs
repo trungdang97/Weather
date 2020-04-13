@@ -87,8 +87,6 @@ namespace Weather.Data.V1
         public virtual DbSet<Idm_RightsOfUser> Idm_RightsOfUsers { get; set; }
         public virtual DbSet<Navigation> Navigations { get; set; }
         public virtual DbSet<NavigationRole> NavigationRoles {get;set;}
-        public virtual DbSet<Right> Rights { get; set; }
-        public virtual DbSet<RightRole> RightRoles { get; set; }
     }
 
     public class DynamicModelCacheKeyFactory : IModelCacheKeyFactory

@@ -24,13 +24,11 @@ namespace Weather.Data.V1
         public Guid LastModifiedByUserId { get; set; }
         public DateTime LastModifiedOnDate { get; set; }
         [StringLength(256)]
-        public string RoleCode { get; set; }
+        //public string RoleCode { get; set; }
        
         [InverseProperty("Role")]
         public ICollection<AspnetUsersInRoles> AspnetUsersInRoles { get; set; }
         [InverseProperty("Role")]
         public ICollection<Idm_RightsInRole> IdmRightsInRole { get; set; }
-        [InverseProperty("Role")]
-        public ICollection<RightRole> RightRole { get; set; }
     }
 }

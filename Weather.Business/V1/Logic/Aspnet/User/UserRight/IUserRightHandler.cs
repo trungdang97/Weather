@@ -11,7 +11,7 @@ namespace Weather.Business.V1
         Task<OldResponse<List<Idm_Right>>> GetFilter(UserRightFilterModel filter);
         Task<OldResponse<Idm_Right>> Create(UserRightCreateRequestModel model);
         Task<OldResponse<Idm_Right>> Update(UserRightUpdateRequestModel model);
-        Task<OldResponse<UserRightDeleteResponseModel>> Delete(string code);
-        Task<OldResponse<List<UserRightDeleteResponseModel>>> DeleteMany(List<string> listCode);
+        Task<OldResponse<UserRightDeleteResponseModel>> Delete(Guid id);
+        Task<OldResponse<List<UserRightDeleteResponseModel>>> DeleteMany(List<Guid> listId);
     }
 }

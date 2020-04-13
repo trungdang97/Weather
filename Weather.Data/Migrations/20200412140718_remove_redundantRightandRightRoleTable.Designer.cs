@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Weather.Data.V1;
 
 namespace Weather.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200412140718_remove_redundantRightandRightRoleTable")]
+    partial class remove_redundantRightandRightRoleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,8 +373,9 @@ namespace Weather.Data.Migrations
 
             modelBuilder.Entity("Weather.Data.V1.Idm_Right", b =>
                 {
-                    b.Property<Guid>("RightId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("RightCode")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(256);
 
                     b.Property<Guid>("CreatedByUserId");
 
@@ -381,7 +384,8 @@ namespace Weather.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<Guid?>("GroupId");
+                    b.Property<string>("GroupCode")
+                        .HasMaxLength(256);
 
                     b.Property<bool>("IsGroup");
 
@@ -399,9 +403,9 @@ namespace Weather.Data.Migrations
 
                     b.Property<bool?>("Status");
 
-                    b.HasKey("RightId");
+                    b.HasKey("RightCode");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("GroupCode");
 
                     b.ToTable("Idm_Rights");
                 });
@@ -418,13 +422,15 @@ namespace Weather.Data.Migrations
                     b.Property<DateTime>("ModifiedOnDate")
                         .HasColumnType("datetime");
 
-                    b.Property<Guid>("RightId");
+                    b.Property<string>("RightCode")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<Guid>("RoleId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RightId");
+                    b.HasIndex("RightCode");
 
                     b.HasIndex("RoleId");
 
@@ -449,13 +455,15 @@ namespace Weather.Data.Migrations
                     b.Property<DateTime>("ModifiedOnDate")
                         .HasColumnType("datetime");
 
-                    b.Property<Guid>("RightId");
+                    b.Property<string>("RightCode")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RightId");
+                    b.HasIndex("RightCode");
 
                     b.HasIndex("UserId");
 
@@ -640,16 +648,16 @@ namespace Weather.Data.Migrations
 
             modelBuilder.Entity("Weather.Data.V1.Idm_Right", b =>
                 {
-                    b.HasOne("Weather.Data.V1.Idm_Right", "GroupIdNavigation")
-                        .WithMany("InverseGroupIdNavigation")
-                        .HasForeignKey("GroupId");
+                    b.HasOne("Weather.Data.V1.Idm_Right", "GroupCodeNavigation")
+                        .WithMany("InverseGroupCodeNavigation")
+                        .HasForeignKey("GroupCode");
                 });
 
             modelBuilder.Entity("Weather.Data.V1.Idm_RightsInRole", b =>
                 {
-                    b.HasOne("Weather.Data.V1.Idm_Right", "RightIdNavigation")
+                    b.HasOne("Weather.Data.V1.Idm_Right", "RightCodeNavigation")
                         .WithMany("IdmRightsInRole")
-                        .HasForeignKey("RightId")
+                        .HasForeignKey("RightCode")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Weather.Data.V1.AspnetRoles", "Role")
@@ -660,9 +668,9 @@ namespace Weather.Data.Migrations
 
             modelBuilder.Entity("Weather.Data.V1.Idm_RightsOfUser", b =>
                 {
-                    b.HasOne("Weather.Data.V1.Idm_Right", "RightIdNavigation")
+                    b.HasOne("Weather.Data.V1.Idm_Right", "RightCodeNavigation")
                         .WithMany("IdmRightsOfUser")
-                        .HasForeignKey("RightId")
+                        .HasForeignKey("RightCode")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Weather.Data.V1.AspnetUsers", "User")

@@ -1,1 +1,127 @@
-<p>quan-ly-nhom-nguoi-dung works!</p>
+<div class='row' style='padding-bottom: 10px;'>
+  <div class='col-md-6 px-0'>
+    <h4>Quản lý nhóm người dùng</h4>
+  </div>
+  <div class='col-md-6 d-flex justify-content-end align-items-center'>
+    <button class='btn btn-default'><i class='fas fa-redo' (click)='button.Refresh.Click()'></i>&ensp;Tải lại</button>
+    <button class='btn btn-primary' [disabled]='!isUpdate' (click)='button.Add.Click(form)'><i
+        class='fas fa-plus'></i>&ensp;Thêm mới</button>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-md-4 px-0' style="height: 700px;">
+    <div class='card card-primary' style="height: 100%;">
+      <div class='card-header'>Danh sách nhóm người dùng</div>
+      <div class='card-body'>
+        <div class='input-group' style='padding-bottom: 10px;'>
+          <input type='text' class='form-control' placeholder="Tìm kiếm" [(ngModel)]='searchText'
+            (keyup)="tree.treeModel.filterNodes(searchText)" (keydown.esc)='emptySearch()'>
+          <button *ngIf="searchText!=''" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;"
+            (click)='tree.treeModel.filterNodes("");emptySearch()'>
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div style='overflow-y: scroll;'>
+          <tree-root #tree [nodes]="nodes" [options]="treeOptions">
+            <ng-template #treeNodeWrapperTemplate let-node>
+              <div class="node-wrapper d-flex align-items-center" style='padding-top: 2px;padding-bottom: 2px;'
+                (click)="(!node.data.IsGroup && getData(node.data.RightId)) || (node.data.IsGroup && node.toggleExpanded())">
+                <span *ngIf='node.data.IsGroup'>
+                  <i class='fas fa-plus-square' style='padding-right: 5px; color: #007bff;'
+                    [hidden]='node.isExpanded'></i>
+                  <i class='fas fa-minus-square' style='padding-right: 5px; color: #007bff;'
+                    [hidden]='!node.isExpanded'></i>
+                </span>
+                <tree-node-content [node]="node"
+                  [ngClass]="{'text-strong':node.data.IsGroup, 'text-deleted': !node.data.Status}"
+                  [ngStyle]="{'padding-left': (node.hasChildren) ? '0px' : '15px'}">
+                </tree-node-content>
+              </div>
+            </ng-template>
+          </tree-root>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-8'>
+    <div class='card card-primary'>
+      <div class='card-header'>Thông tin nhóm người dùng</div>
+      <div class='card-body'>
+        <form name='form' #form="ngForm" (ngSubmit)="Submit(form)" novalidate>
+          <div class='row'>
+            <div class='col-md-12 form-group' [hidden]='isUpdate'>
+              <label>Là nhóm</label>
+              <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                <input type="checkbox" class="custom-control-input" id="customSwitch" name='isGroup' #isGroup='ngModel'
+                  [(ngModel)]='model.IsGroup' [disabled]='isUpdate'>
+                <label class="custom-control-label" for="customSwitch">Sử dụng khi thêm mới nhóm quyền</label>
+              </div>
+            </div>
+            <div class='col-md-6 form-group'>
+              <label>Thuộc nhóm quyền<span class='required'>(*)</span></label>
+              <select class='form-control' name='groupId' #groupId='ngModel' [(ngModel)]="model.GroupId"
+                placeholder="Nhóm quyền" [ngClass]="{ 'is-invalid': form.submitted && groupId.invalid }"
+                [disabled]='model.IsGroup' required>
+                <option selected disabled [value]='null'>Chọn nhóm quyền</option>
+                <option *ngFor='let node of nodes' [value]='node.RightId'>{{node.RightName}}</option>
+              </select>
+              <div *ngIf="form.submitted && groupId.invalid" class="required">
+                <small class='form-error-text' *ngIf="groupId.errors.required">* Trường này không được bỏ
+                  trống</small>
+              </div>
+            </div>
+            <div class='col-md-3 form-group'>
+              <label>Thứ tự<span class='required'>(*)</span></label>
+              <input type="number" min='0' class='form-control' name='order' #order='ngModel' [(ngModel)]="model.Order"
+                placeholder="Thứ tự" [ngClass]="{ 'is-invalid': form.submitted && order.invalid }"
+                [disabled]='model.IsGroup' required />
+              <div *ngIf="form.submitted && order.invalid" class="required">
+                <small class='form-error-text' *ngIf="order.errors.required">* Trường này không được bỏ trống</small>
+              </div>
+            </div>
+            <div class='col-md-3 form-group' [hidden]='!isUpdate'>
+              <label>Hoạt động</label>
+              <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                <input type="checkbox" class="custom-control-input" id="customSwitchStatus" name='status'
+                  #status='ngModel' [(ngModel)]='model.Status'>
+                <label class="custom-control-label" for="customSwitchStatus">Kích hoạt/vô hiệu hóa nhóm người
+                  dùng</label>
+              </div>
+            </div>
+            <div class='col-md-6 form-group'>
+              <label *ngIf='!model.IsGroup'>Mã quyền<span class='required'>(*)</span></label>
+              <label *ngIf='model.IsGroup'>Mã nhóm quyền<span class='required'>(*)</span></label>
+              <input type='text' class='form-control' name='rightId' #rightId='ngModel'
+                [(ngModel)]="model.RightId" placeholder="Mã quyền/nhóm quyền"
+                [ngClass]="{ 'is-invalid': form.submitted && rightId.invalid }" required [disabled]='isUpdate'>
+              <div *ngIf="form.submitted && rightId.invalid" class="required">
+                <small class='form-error-text' *ngIf="rightId.errors.required">* Trường này không được bỏ
+                  trống</small>
+              </div>
+            </div>
+            <div class='col-md-6 form-group'>
+              <label *ngIf='!model.IsGroup'>Tên quyền<span class='required'>(*)</span></label>
+              <label *ngIf='model.IsGroup'>Tên nhóm quyền<span class='required'>(*)</span></label>
+              <input type='text' class='form-control' name='rightName' #rightName='ngModel'
+                [(ngModel)]="model.RightName" placeholder="Tên quyền/nhóm quyền"
+                [ngClass]="{ 'is-invalid': form.submitted && rightId.invalid }" required>
+              <div *ngIf="form.submitted && rightName.invalid" class="required">
+                <small class='form-error-text' *ngIf="rightName.errors.required">* Trường này không được bỏ
+                  trống</small>
+              </div>
+            </div>
+            <div class='col-md-12 form-group'>
+              <label>Mô tả</label>
+              <textarea class='form-control' name='description' #description='ngModel' [(ngModel)]="model.Description"
+                placeholder="Mô tả về quyền/nhóm quyền"></textarea>
+            </div>
+          </div>
+          <div class='col-md-12'>
+            <button class='btn btn-primary' type='submit' [disabled]="!form.dirty || form.invalid"><i
+                class='fas fa-save'></i>&ensp;Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -26,10 +26,11 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
   public data = {};
   public nodes = [];
   public treeOptions: ITreeOptions = {
-    idField: 'RightCode',
+    idField: 'RightId',
     displayField: 'RightName',
-    childrenField: 'InverseGroupCodeNavigation',
-    
+    childrenField: 'InverseGroupIdNavigation',
+    actionMapping: {},
+
     //isExpandedField: 'IsGroup',
     //getChildren: this.getChildren.bind(this),
 
@@ -37,14 +38,20 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
   public isUpdate = false;
   public button = {
     Refresh: {
-      Click() {
+      Click: () => {
+        //debugger;
         this.getData();
+        //this.model = new IdmRight();
       }
     },
     Add: {
-      Click() {
+      Click: (form) => {
         this.isUpdate = false;
-
+        this.getData();
+        this.model = new IdmRight();
+        
+        form.form.markAsPristine();
+        form.form.markAsUntouched();
       }
     },
   };
@@ -62,6 +69,8 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
         this.IdmRightService.Update(model).subscribe(response => {
           if (response['Status'] == Status.SUCCESS) {
             this.NotificationService.ForUpdate(true);
+            this.getData(model.RightId);
+            form.form.markAsPristine();
           }
           else {
             this.NotificationService.ForUpdate(false);
@@ -70,11 +79,14 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
       }
       else {
         let model = new IdmRightCreateRequestModel();
+        debugger;
         model = this.model;
         model.CreatedByUserId = DemoUserId;
         this.IdmRightService.Create(model).subscribe(response => {
           if (response['Status'] == Status.SUCCESS) {
             this.NotificationService.ForCreate(true);
+            this.button.Refresh.Click();
+            form.resetForm();
           }
           else {
             this.NotificationService.ForCreate(false);
@@ -84,17 +96,38 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
     }
   }
 
-  getData(rightCode?: string) {
-    this.model = new IdmRight();
+  getData(rightId?: string, form?: any) {
+
     let filter = new IdmRightFilter();
-    if (rightCode != undefined && rightCode && rightCode != '') {
-      filter.RightCode = rightCode;
-    }
+
     this.IdmRightService.GetFilter(filter).subscribe(response => {
       this.data = response;
       this.nodes = this.data['Data'];
-      //console.log(response);
+      if (rightId != undefined && rightId && rightId != '') {
+        this.isUpdate = true;
+        filter:
+        for (let i = 0; i < this.nodes.length; i++) {
+          for (let j = 0; j < this.nodes[i].InverseGroupIdNavigation.length; j++) {
+            if (this.nodes[i].InverseGroupIdNavigation[j].RightId == rightId) {
+              this.model = this.nodes[i].InverseGroupIdNavigation[j];
+              break filter;
+            }
+          }
+        }
+      }
+      else {
+        this.model = new IdmRight();
+      }
+      if (form != undefined) {
+        form.form.markAsPristine();
+        form.form.markAsUntouched();
+      }
     });
+  }
+
+  public searchText = '';
+  emptySearch() {
+    this.searchText = '';
   }
 
   ngOnInit() {

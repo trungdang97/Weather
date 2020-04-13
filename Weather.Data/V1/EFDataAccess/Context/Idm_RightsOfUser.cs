@@ -12,8 +12,9 @@ namespace Weather.Data.V1
         public long Id { get; set; }
         public Guid UserId { get; set; }
         [Required]
-        [StringLength(256)]
-        public string RightCode { get; set; }
+        //[StringLength(256)]
+        //public string RightCode { get; set; }
+        public Guid RightId { get; set; }
         public string InheritedFromRoles { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOnDate { get; set; }
@@ -22,9 +23,10 @@ namespace Weather.Data.V1
         public bool Inherited { get; set; }
         public bool Enable { get; set; }
 
-        [ForeignKey("RightCode")]
+        //[ForeignKey("RightCode")]
+        [ForeignKey("RightId")]
         [InverseProperty("IdmRightsOfUser")]
-        public Idm_Right RightCodeNavigation { get; set; }
+        public Idm_Right RightIdNavigation { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("IdmRightsOfUser")]
         public AspnetUsers User { get; set; }

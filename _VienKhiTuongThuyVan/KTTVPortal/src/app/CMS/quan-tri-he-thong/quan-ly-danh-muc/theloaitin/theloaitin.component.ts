@@ -79,7 +79,7 @@ export class TheloaitinComponent implements OnInit, OnDestroy {
   public button = {
     Refresh: {
       click: () => {
-        debugger;
+        //debugger;
         this.filter = {
           PageSize: 10,
           PageNumber: 1,

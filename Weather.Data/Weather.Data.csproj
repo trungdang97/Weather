@@ -9,6 +9,7 @@
     <Compile Remove="Migrations\20200109225738_addDate_models.cs" />
     <Compile Remove="Migrations\20200109232311_fixCascade.cs" />
     <Compile Remove="Migrations\20200109232654_fixCascade.cs" />
+    <Compile Remove="Migrations\20200413033518_changeStringtoGuid_UserRight.cs" />
   </ItemGroup>
 
   <ItemGroup>

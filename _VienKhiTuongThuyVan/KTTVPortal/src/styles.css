@@ -82,3 +82,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btn-action{
     width: 32px;
 }
+
+.text-strong{
+    font-weight: bold;
+}
+.text-deleted{
+    text-decoration: line-through;
+}

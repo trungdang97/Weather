@@ -9,8 +9,9 @@ namespace Weather.Data.V1
     public class Idm_Right
     {
         [Key]
-        [StringLength(256)]
-        public string RightCode { get; set; }
+        //[StringLength(256)]
+        //public string RightCode { get; set; }
+        public Guid RightId { get; set; }
         [Required]
         [StringLength(1024)]
         public string RightName { get; set; }
@@ -20,8 +21,9 @@ namespace Weather.Data.V1
         public int? Order { get; set; }
         public bool IsGroup { get; set; }
         public int Level { get; set; }
-        [StringLength(256)]
-        public string GroupCode { get; set; }
+        //[StringLength(256)]
+        //public string GroupCode { get; set; }
+        public Guid? GroupId { get; set; }
 
         public DateTime CreatedOnDate { get; set; }
         public DateTime ModifiedOnDate { get; set; }
@@ -29,14 +31,14 @@ namespace Weather.Data.V1
         public Guid CreatedByUserId { get; set; }
         public Guid LastModifiedByUserId { get; set; }
 
-        [ForeignKey("GroupCode")]
-        [InverseProperty("InverseGroupCodeNavigation")]
-        public Idm_Right GroupCodeNavigation { get; set; }
-        [InverseProperty("RightCodeNavigation")]
+        [ForeignKey("GroupId")]
+        [InverseProperty("InverseGroupIdNavigation")]
+        public Idm_Right GroupIdNavigation { get; set; }
+        [InverseProperty("RightIdNavigation")]
         public ICollection<Idm_RightsInRole> IdmRightsInRole { get; set; }
-        [InverseProperty("RightCodeNavigation")]
+        [InverseProperty("RightIdNavigation")]
         public ICollection<Idm_RightsOfUser> IdmRightsOfUser { get; set; }
-        [InverseProperty("GroupCodeNavigation")]
-        public ICollection<Idm_Right> InverseGroupCodeNavigation { get; set; }
+        [InverseProperty("GroupIdNavigation")]
+        public ICollection<Idm_Right> InverseGroupIdNavigation { get; set; }
     }
 }

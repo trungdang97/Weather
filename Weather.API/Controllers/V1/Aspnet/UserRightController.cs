@@ -41,9 +41,9 @@ namespace Weather.API.Controllers.V1.Aspnet
 
         [HttpDelete]
         [Route("api/v1/idm_right/delete/{id}")]
-        public Task<OldResponse<UserRightDeleteResponseModel>> Delete(string code)
+        public Task<OldResponse<UserRightDeleteResponseModel>> Delete(Guid id)
         {
-            return _handler.Delete(code);
+            return _handler.Delete(id);
         }
     }
 }

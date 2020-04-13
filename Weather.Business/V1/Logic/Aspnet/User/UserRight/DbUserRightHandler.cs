@@ -18,13 +18,15 @@ namespace Weather.Business.V1
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var data = AutoMapperUtils.AutoMap<UserRightCreateRequestModel, Idm_Right>(model);
+                    data.RightId = Guid.NewGuid();
                     if (data.IsGroup)
                     {
                         data.Level = 0;
                     }
                     else
                     {
-                        data.Level = 1;
+                        var parent = unitOfWork.GetRepository<Idm_Right>().Get(x => x.RightId == data.GroupId).FirstOrDefault();
+                        data.Level = parent.Level++;
                     }
                     data.CreatedOnDate = DateTime.Now;
                     unitOfWork.GetRepository<Idm_Right>().Add(data);
@@ -66,13 +68,13 @@ namespace Weather.Business.V1
             }
         }
 
-        public async Task<OldResponse<UserRightDeleteResponseModel>> Delete(string code)
+        public async Task<OldResponse<UserRightDeleteResponseModel>> Delete(Guid id)
         {
             try
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var data = unitOfWork.GetRepository<Idm_Right>().Get(x => x.RightCode == code).FirstOrDefault();
+                    var data = unitOfWork.GetRepository<Idm_Right>().Get(x => x.RightId == id).FirstOrDefault();
                     unitOfWork.GetRepository<Idm_Right>().Delete(data);
 
                     if (await unitOfWork.SaveAsync() >= 1)
@@ -118,16 +120,16 @@ namespace Weather.Business.V1
             }
         }
 
-        public async Task<OldResponse<List<UserRightDeleteResponseModel>>> DeleteMany(List<string> listCode)
+        public async Task<OldResponse<List<UserRightDeleteResponseModel>>> DeleteMany(List<Guid> listId)
         {
             try
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var results = new List<UserRightDeleteResponseModel>();
-                    foreach(var code in listCode)
+                    foreach(var id in listId)
                     {
-                        var result = await Delete(code);
+                        var result = await Delete(id);
                         results.Add(result.Data);
                     }
                     return new OldResponse<List<UserRightDeleteResponseModel>>()
@@ -136,44 +138,13 @@ namespace Weather.Business.V1
                         DataCount = results.Count,
                         Message = Status.SUCCESS.ToString(),
                         Status = (int)Status.SUCCESS,
-                        TotalCount = listCode.Count
+                        TotalCount = listId.Count
                     };
                 }
             }
             catch (Exception ex)
             {
                 return new OldResponse<List<UserRightDeleteResponseModel>>()
-                {
-                    Data = null,
-                    DataCount = 0,
-                    Message = ex.Message,
-                    Status = (int)Status.FAILED,
-                    TotalCount = 0
-                };
-            }
-        }
-
-        public async Task<OldResponse<List<Idm_Right>>> GetAll()
-        {
-            try
-            {
-                using (var unitOfWork = new UnitOfWork())
-                {
-                    var data = unitOfWork.GetRepository<Idm_Right>().GetAllIncluding(x=>x.InverseGroupCodeNavigation);
-
-                    return new OldResponse<List<Idm_Right>>()
-                    {
-                        Data = await data.ToListAsync(),
-                        DataCount = data.Count(),
-                        Message = Status.SUCCESS.ToString(),
-                        Status = (int)Status.SUCCESS,
-                        TotalCount = data.Count()
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new OldResponse<List<Idm_Right>>()
                 {
                     Data = null,
                     DataCount = 0,
@@ -191,11 +162,11 @@ namespace Weather.Business.V1
                 using (var unitOfWork = new UnitOfWork())
                 {
                     var data = unitOfWork.GetRepository<Idm_Right>().GetAllIncluding();
-                    if (!string.IsNullOrEmpty(filter.RightCode))
+                    if (filter.RightId.HasValue)
                     {
                         return new OldResponse<List<Idm_Right>>()
                         {
-                            Data = await data.Where(x=>x.RightCode == filter.RightCode).ToListAsync(),
+                            Data = await data.Where(x=>x.RightId == filter.RightId).ToListAsync(),
                             DataCount = 1,
                             Message = Status.SUCCESS.ToString(),
                             Status = (int)Status.SUCCESS,
@@ -203,8 +174,12 @@ namespace Weather.Business.V1
                         };
                     }
 
-                    // default = get group only
-                    data = data.Where(x => x.IsGroup == true).Include(x=>x.InverseGroupCodeNavigation);
+                    // default = get group with children
+                    data = data.Where(x => x.IsGroup == true).Include(x=>x.InverseGroupIdNavigation);
+                    foreach(var d in data)
+                    {
+                        d.InverseGroupIdNavigation = d.InverseGroupIdNavigation.OrderBy(x => x.Order).ToList();
+                    }
 
                     return new OldResponse<List<Idm_Right>>()
                     {
@@ -235,12 +210,12 @@ namespace Weather.Business.V1
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
-                    var data = unitOfWork.GetRepository<Idm_Right>().Get(x => x.RightCode == model.RightCode).FirstOrDefault();
+                    var data = unitOfWork.GetRepository<Idm_Right>().Get(x => x.RightId == model.RightId).FirstOrDefault();
                     data.RightName = model.RightName;
                     data.Description = model.Description;
                     data.Status = model.Status;
                     data.Order = model.Order;
-                    data.GroupCode = model.GroupCode;
+                    data.GroupId = model.GroupId;
 
                     if(await unitOfWork.SaveAsync() >= 1)
                     {

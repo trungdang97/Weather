@@ -11,16 +11,18 @@ namespace Weather.Data.V1
         public long Id { get; set; }
         public Guid RoleId { get; set; }
         [Required]
-        [StringLength(256)]
-        public string RightCode { get; set; }
+        //[StringLength(256)]
+        //public string RightCode { get; set; }
+        public Guid RightId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOnDate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime ModifiedOnDate { get; set; }
 
-        [ForeignKey("RightCode")]
+        //[ForeignKey("RightCode")]
+        [ForeignKey("RightId")]
         [InverseProperty("IdmRightsInRole")]
-        public Idm_Right RightCodeNavigation { get; set; }
+        public Idm_Right RightIdNavigation { get; set; }
         [ForeignKey("RoleId")]
         [InverseProperty("IdmRightsInRole")]
         public AspnetRoles Role { get; set; }
