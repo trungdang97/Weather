@@ -3,7 +3,7 @@
     <h4>Quản lý quyền người dùng</h4>
   </div>
   <div class='col-md-6 d-flex justify-content-end align-items-center'>
-    <button class='btn btn-default'><i class='fas fa-redo' (click)='button.Refresh.Click()'></i>&ensp;Tải lại</button>
+    <button class='btn btn-default' (click)='button.Refresh.Click()'><i class='fas fa-redo'></i>&ensp;Tải lại</button>
     <button class='btn btn-primary' [disabled]='!isUpdate' (click)='button.Add.Click(form)'><i
         class='fas fa-plus'></i>&ensp;Thêm mới</button>
   </div>
@@ -21,9 +21,9 @@
             </button>
         </div>
         <div style='overflow-y: scroll;'>
-          <tree-root #tree [nodes]="nodes" [options]="treeOptions">
+          <tree-root #tree [nodes]="nodes" [focused]="true" [options]="treeOptions">
             <ng-template #treeNodeWrapperTemplate let-node>
-              <div class="node-wrapper d-flex align-items-center" style='padding-top: 2px;padding-bottom: 2px;'
+              <div class="node-wrapper d-flex align-items-center" style='padding-top: 2px;padding-bottom: 2px;' [ngClass]="{'active-background':node.data.RightId == model.RightId}"
                 (click)="(!node.data.IsGroup && getData(node.data.RightId,form)) || (node.data.IsGroup && node.toggleExpanded())">
                 <span *ngIf='node.data.IsGroup'>
                   <i class='fas fa-plus-square' style='padding-right: 5px; color: #007bff;' [hidden]='node.isExpanded'></i>

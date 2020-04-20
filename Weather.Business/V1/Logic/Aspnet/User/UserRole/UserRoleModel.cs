@@ -24,7 +24,7 @@ namespace Weather.Business.V1
 
         public string RoleName { get; set; }
         public string Description { get; set; }
-        public bool EnableDelete { get; set; } // Lock role
+        //public bool EnableDelete { get; set; } // Lock role
 
         public Guid LastModifiedByUserId { get; set; }
         //public DateTime LastModifiedOnDate { get; set; }

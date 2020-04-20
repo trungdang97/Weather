@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Weather.Data.V1;
 
-namespace Weather.Business.V1.Logic
+namespace Weather.Business.V1
 {
     public interface IUserRoleHandler
     {

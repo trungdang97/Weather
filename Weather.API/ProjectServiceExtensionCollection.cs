@@ -14,6 +14,7 @@ namespace Weather.API
             .AddSingleton<INavigationHandler, DbNavigationHandler>()
             .AddSingleton<INewsCategoryHandler, DbNewsCategoryHandler>()
             .AddSingleton<IUserRightHandler, DbUserRightHandler>()
+            .AddSingleton<IUserRoleHandler, DbUserRoleHandler>()
             ;
     }
 }

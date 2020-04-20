@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20200109232311_fixCascade.cs" />
     <Compile Remove="Migrations\20200109232654_fixCascade.cs" />
     <Compile Remove="Migrations\20200413033518_changeStringtoGuid_UserRight.cs" />
+    <Compile Remove="Migrations\20200413163629_changeIdmRightsInRole_model.cs" />
+    <Compile Remove="Migrations\20200413164903_changeId_IdmRightsInRole.cs" />
   </ItemGroup>
 
   <ItemGroup>

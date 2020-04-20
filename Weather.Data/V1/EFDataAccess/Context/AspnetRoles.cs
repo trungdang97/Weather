@@ -20,10 +20,12 @@ namespace Weather.Data.V1
         public string Description { get; set; }
         public bool EnableDelete { get; set; } // Lock role
         public Guid CreatedByUserId { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime CreatedOnDate { get; set; }
         public Guid LastModifiedByUserId { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime LastModifiedOnDate { get; set; }
-        [StringLength(256)]
+        //[StringLength(256)]
         //public string RoleCode { get; set; }
        
         [InverseProperty("Role")]

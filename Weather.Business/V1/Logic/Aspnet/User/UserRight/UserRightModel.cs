@@ -38,9 +38,4 @@ namespace Weather.Business.V1
     {
 
     }
-    public class UserRightList
-    {
-        public Idm_Right Right { get; set; }
-        public List<Idm_Right> Children { get; set; }
-    }
 }

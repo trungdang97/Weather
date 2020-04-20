@@ -38,7 +38,6 @@ export class IdmRightUpdateRequestModel {
     public Description: string;
     public Status: boolean;
     public Order: number;
-    //public IsGroup: boolean;
     public Level: number;
     public GroupId: string;
     public LastModifiedByUserId: string;

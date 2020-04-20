@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Weather.Data.V1;
 
 namespace Weather.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200413165258_changenameId_IdmRightsInRole")]
+    partial class changenameId_IdmRightsInRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,8 +120,7 @@ namespace Weather.Data.Migrations
 
                     b.Property<Guid>("CreatedByUserId");
 
-                    b.Property<DateTime>("CreatedOnDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedOnDate");
 
                     b.Property<string>("Description")
                         .HasMaxLength(256);
@@ -128,8 +129,7 @@ namespace Weather.Data.Migrations
 
                     b.Property<Guid>("LastModifiedByUserId");
 
-                    b.Property<DateTime>("LastModifiedOnDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("LastModifiedOnDate");
 
                     b.Property<string>("LoweredRoleName")
                         .IsRequired()
@@ -378,8 +378,7 @@ namespace Weather.Data.Migrations
 
                     b.Property<Guid>("CreatedByUserId");
 
-                    b.Property<DateTime>("CreatedOnDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CreatedOnDate");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -392,8 +391,7 @@ namespace Weather.Data.Migrations
 
                     b.Property<int>("Level");
 
-                    b.Property<DateTime>("ModifiedOnDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("ModifiedOnDate");
 
                     b.Property<int?>("Order");
 
@@ -415,15 +413,11 @@ namespace Weather.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CreatedByUserId");
-
                     b.Property<DateTime>("CreatedOnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ModifiedByUserId");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("ModifiedOnDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<Guid>("RightId");
 

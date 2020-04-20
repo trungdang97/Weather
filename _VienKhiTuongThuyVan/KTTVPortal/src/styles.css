@@ -89,3 +89,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .text-deleted{
     text-decoration: line-through;
 }
+.node-wrapper:hover{
+    background-color: #eee;
+}
+.active-background{
+    background-color: #eee;
+}

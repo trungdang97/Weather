@@ -6,11 +6,6 @@ import { Status } from 'src/app/_layout/utils/common-classes';
 import { NotificationService } from 'src/app/_layout/services/notification.service'
 import { ITreeOptions, TreeNode } from 'angular-tree-component';
 
-// interface RightNode {
-//   data: IdmRight;
-//   children?: RightNode[];
-// }
-
 @Component({
   selector: 'app-quan-ly-quyen-nguoi-dung',
   templateUrl: './quan-ly-quyen-nguoi-dung.component.html',
@@ -30,18 +25,13 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
     displayField: 'RightName',
     childrenField: 'InverseGroupIdNavigation',
     actionMapping: {},
-
-    //isExpandedField: 'IsGroup',
-    //getChildren: this.getChildren.bind(this),
-
   }
   public isUpdate = false;
   public button = {
     Refresh: {
       Click: () => {
-        //debugger;
         this.getData();
-        //this.model = new IdmRight();
+        this.isUpdate = false;
       }
     },
     Add: {

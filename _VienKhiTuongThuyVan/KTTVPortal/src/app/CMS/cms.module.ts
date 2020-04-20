@@ -23,6 +23,7 @@ import { IdmRightService } from './services/idm-right/idm-right.service';
 import { ToastrModule} from 'ngx-toastr'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeModule } from 'angular-tree-component';
+import { UserRoleService } from './services/roles/user-role.service';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { TreeModule } from 'angular-tree-component';
   providers:[
     { provide: MAT_DIALOG_DATA, useValue: {} },
     NewsCategoryService,
-    IdmRightService
+    IdmRightService,
+    UserRoleService
   ]
 })
 export class CmsModule { }

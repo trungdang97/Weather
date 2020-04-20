@@ -25,7 +25,9 @@ namespace Weather.Data.V1
         //public string GroupCode { get; set; }
         public Guid? GroupId { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime CreatedOnDate { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime ModifiedOnDate { get; set; }
 
         public Guid CreatedByUserId { get; set; }
