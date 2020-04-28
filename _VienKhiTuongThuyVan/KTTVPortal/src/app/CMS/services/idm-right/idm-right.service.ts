@@ -58,4 +58,11 @@ export class IdmRightService {
             catchError(simpleErrorHandler)
         );
     }
+
+    IsRightCodeExist(rightCode: string){
+        let route: string = this.baseUrl + 'exist?rightCode=' + rightCode;
+        return this.http.get(route, this.httpOptions).pipe(
+            catchError(simpleErrorHandler)
+        );
+    }
 }

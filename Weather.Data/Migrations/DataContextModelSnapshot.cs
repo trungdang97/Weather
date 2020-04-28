@@ -71,15 +71,8 @@ namespace Weather.Data.Migrations
                     b.Property<DateTime>("LastPasswordChangedDate")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("LoweredEmail")
-                        .HasMaxLength(256);
-
                     b.Property<string>("MobilePhone")
                         .HasMaxLength(50);
-
-                    b.Property<string>("MobilePin")
-                        .HasColumnName("MobilePIN")
-                        .HasMaxLength(16);
 
                     b.Property<string>("NickName")
                         .HasMaxLength(512);
@@ -102,6 +95,9 @@ namespace Weather.Data.Migrations
                     b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasMaxLength(128);
+
+                    b.Property<string>("PersonalId")
+                        .HasMaxLength(12);
 
                     b.Property<string>("ShortName")
                         .HasMaxLength(256);
@@ -396,6 +392,9 @@ namespace Weather.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Order");
+
+                    b.Property<string>("RightCode")
+                        .HasMaxLength(256);
 
                     b.Property<string>("RightName")
                         .IsRequired()

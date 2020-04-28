@@ -5,6 +5,7 @@ import { DemoUserId } from 'src/app/app.config';
 import { Status } from 'src/app/_layout/utils/common-classes';
 import { NotificationService } from 'src/app/_layout/services/notification.service'
 import { ITreeOptions, TreeNode } from 'angular-tree-component';
+import { ITreeNode } from 'angular-tree-component/dist/defs/api';
 
 @Component({
   selector: 'app-quan-ly-quyen-nguoi-dung',
@@ -20,6 +21,7 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
   public model = new IdmRight();
   public data = {};
   public nodes = [];
+  public isExist = false;
   public treeOptions: ITreeOptions = {
     idField: 'RightId',
     displayField: 'RightName',
@@ -32,6 +34,7 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
       Click: () => {
         this.getData();
         this.isUpdate = false;
+        this.isExist = false;
       }
     },
     Add: {
@@ -39,16 +42,17 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
         this.isUpdate = false;
         this.getData();
         this.model = new IdmRight();
-        
+
         form.form.markAsPristine();
         form.form.markAsUntouched();
+        form.form.reset();
       }
     },
   };
 
   Submit(form) {
     //debugger;
-    if (form.invalid || !form.dirty) {
+    if (form.invalid || !form.dirty || this.isExist) {
       return;
     }
     else {
@@ -86,8 +90,11 @@ export class QuanLyQuyenNguoiDungComponent implements OnInit {
     }
   }
 
-  getData(rightId?: string, form?: any) {
-
+  getData(rightId?: string, form?: any, node?: ITreeNode) {
+    if (node != undefined) {
+      node.toggleExpanded();
+    }
+    
     let filter = new IdmRightFilter();
 
     this.IdmRightService.GetFilter(filter).subscribe(response => {

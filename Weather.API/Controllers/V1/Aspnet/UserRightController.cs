@@ -39,11 +39,18 @@ namespace Weather.API.Controllers.V1.Aspnet
             return _handler.Update(model);
         }
 
-        [HttpDelete]
-        [Route("api/v1/idm_right/delete/{id}")]
-        public Task<OldResponse<UserRightDeleteResponseModel>> Delete(Guid id)
+        //[HttpDelete]
+        //[Route("api/v1/idm_right/delete/{id}")]
+        //public Task<OldResponse<UserRightDeleteResponseModel>> Delete(Guid id)
+        //{
+        //    return _handler.Delete(id);
+        //}
+
+        [HttpGet]
+        [Route("api/v1/idm_right/exist")]
+        public Task<OldResponse<Idm_Right>> IsRightCodeExist(string rightCode)
         {
-            return _handler.Delete(id);
+            return _handler.IsRightCodeExist(rightCode);
         }
     }
 }

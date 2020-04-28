@@ -204,6 +204,50 @@ namespace Weather.Business.V1
             }
         }
 
+        public async Task<OldResponse<Idm_Right>> IsRightCodeExist(string rightCode)
+        {
+            try
+            {
+                using(var unitOfWork = new UnitOfWork())
+                {
+                    var data = await unitOfWork.GetRepository<Idm_Right>().Get(x => x.RightCode == rightCode).ToListAsync();
+                    if(data.Count > 0)
+                    {
+                        return new OldResponse<Idm_Right>()
+                        {
+                            Data = null,
+                            DataCount = data.Count,
+                            Message = Status.SUCCESS.ToString(),
+                            Status = (int)Status.SUCCESS,
+                            TotalCount = data.Count
+                        };
+                    }
+                    else
+                    {
+                        return new OldResponse<Idm_Right>()
+                        {
+                            Data = null,
+                            DataCount = data.Count,
+                            Message = Status.SUCCESS.ToString(),
+                            Status = (int)Status.SUCCESS,
+                            TotalCount = data.Count
+                        };
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                return new OldResponse<Idm_Right>()
+                {
+                    Data = null,
+                    DataCount = 0,
+                    Message = ex.Message,
+                    Status = (int)Status.FAILED,
+                    TotalCount = 0
+                };
+            }
+        }
+
         public async Task<OldResponse<Idm_Right>> Update(UserRightUpdateRequestModel model)
         {
             try

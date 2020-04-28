@@ -15,6 +15,7 @@ import { TheloaitinComponent } from './CMS/quan-tri-he-thong/quan-ly-danh-muc/th
 import { QuanLyDieuHuongComponent } from './CMS/quan-tri-he-thong/quan-ly-dieu-huong/quan-ly-dieu-huong.component';
 import { QuanLyNhomNguoiDungComponent } from './CMS/quan-tri-he-thong/quan-ly-nhom-nguoi-dung/quan-ly-nhom-nguoi-dung.component';
 import { QuanLyQuyenNguoiDungComponent } from './CMS/quan-tri-he-thong/quan-ly-quyen-nguoi-dung/quan-ly-quyen-nguoi-dung.component';
+import { QuanLyNguoiDungComponent } from './CMS/quan-tri-he-thong/quan-ly-nguoi-dung/quan-ly-nguoi-dung.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,7 @@ const routes: Routes = [
         path: 'quan-tri-he-thong', component: QuanLyCauHinhComponent, children: [
           { path: 'quan-ly-dieu-huong', component: QuanLyDieuHuongComponent },
           { path: 'quan-ly-nhom-nguoi-dung', component: QuanLyNhomNguoiDungComponent },
-          { path: 'quan-ly-tai-khoan', component: QuanLyTaiKhoanComponent },
+          { path: 'quan-ly-nguoi-dung', component: QuanLyNguoiDungComponent },
           { path: 'quan-ly-quyen-nguoi-dung', component: QuanLyQuyenNguoiDungComponent },
         ]
       },

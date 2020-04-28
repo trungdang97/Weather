@@ -20,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material';
 import { ConfirmDialogComponent } from './_layout/confirm-dialog/confirm-dialog.component';
 import { APP_CONFIG, AppConfig, DemoUserId } from './app.config';
-import { notificationDialogConfig } from './_layout/utils/common-classes';
 import { NotifierModule } from 'angular-notifier';
 
 
@@ -53,8 +52,7 @@ import { NotifierModule } from 'angular-notifier';
   providers: [
     { provide: APP_CONFIG, useValue: AppConfig },
     { provide: MatPaginatorIntl, useValue: getVietnamesePaginatorIntl() },
-    { provide: DemoUserId, useValue: DemoUserId },
-    { provide: notificationDialogConfig, useValue: notificationDialogConfig }
+    { provide: DemoUserId, useValue: DemoUserId }
   ],
   bootstrap: [AppComponent]
 })

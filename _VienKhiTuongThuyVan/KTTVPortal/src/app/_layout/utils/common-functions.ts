@@ -1,7 +1,7 @@
 import { throwError } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogData, notificationDialogConfig } from './common-classes';
+import { ConfirmDialogData } from './common-classes';
 
 
 export function simpleErrorHandler(error) {
@@ -13,12 +13,17 @@ export class Notification {
     constructor(private dialog: MatDialog) {
 
     }
+    private notificationDialogConfig: MatDialogConfig<ConfirmDialogData> = {
+        width: '20%',
+        position: { top: '5%' },
+        backdropClass: ''
+    }
     private title = {
         Error: "Lỗi",
         Notification: "Thông báo"
     }
     ConfirmDialogCreateNotification(isSuccess: boolean) {
-        let dialogConfig = notificationDialogConfig;
+        let dialogConfig = this.notificationDialogConfig;
         let message = {
             CreateSuccess: "Tạo bản ghi thành công",
             CreateFailed: "Tạo bản ghi thất bại"
@@ -33,7 +38,7 @@ export class Notification {
         }
     }
     ConfirmDialogUpdateNotification(isSuccess: boolean) {
-        let dialogConfig = notificationDialogConfig;
+        let dialogConfig = this.notificationDialogConfig;
         let message = {
             UpdateSuccess: "Cập nhật bản ghi thành công",
             UpdateFailed: "Cập nhật bản ghi thất bại"
@@ -48,7 +53,7 @@ export class Notification {
         }
     }
     ConfirmDialogDeleteNotification(isSuccess: boolean) {
-        let dialogConfig = notificationDialogConfig;
+        let dialogConfig = this.notificationDialogConfig;
         let message = {
             DeleteSuccess: "Xóa bản ghi thành công",
             DeleteFailed: "Xóa bản ghi thất bại: bản ghi có phụ thuộc hoặc đã được xóa"

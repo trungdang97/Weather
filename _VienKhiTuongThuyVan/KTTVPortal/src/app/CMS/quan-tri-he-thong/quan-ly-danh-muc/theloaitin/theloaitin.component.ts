@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { TheloaitinModalItemComponent } from './theloaitin-modal-item/theloaitin-modal-item.component';
 import { ConfirmDialogComponent } from 'src/app/_layout/confirm-dialog/confirm-dialog.component';
-import { notificationDialogConfig, ConfirmDialogData, getModalItemDialogConfig, GlobalOptions, ModalItemData } from 'src/app/_layout/utils/common-classes';
+import { ConfirmDialogData, getModalItemDialogConfig, GlobalOptions, ModalItemData, IResponse } from 'src/app/_layout/utils/common-classes';
 import { Notification, CheckboxCheckAll, CheckboxCheck, GetListSelectedId } from '../../../../_layout/utils/common-functions';
-import { NewsCategoryFilter } from 'src/app/CMS/services/newscategory/newscategory.model';
+import { NewsCategoryFilter, NewsCategory } from 'src/app/CMS/services/newscategory/newscategory.model';
 import { NotificationService } from 'src/app/_layout/services/notification.service'
 @Component({
   selector: 'app-theloaitin',
@@ -23,7 +23,14 @@ export class TheloaitinComponent implements OnInit, OnDestroy {
   ) { }
   public title = "Quản lý thể loại tin";
   private subscription = new Subscription();
-  public categories = {};
+  public data = {
+    Data: [],
+    DataCount: 0,
+    TotalCount: 0,
+    Status: 0,
+    Message: ""
+  };
+  public categories = [];
   private notification = new Notification(this.dialog);
   public IsCheckAll = false;
   public IsDeleteMany = false;
@@ -117,7 +124,11 @@ export class TheloaitinComponent implements OnInit, OnDestroy {
           //debugger;
           if (result) {
             this.NewsCategoryService.Delete(id).subscribe(response => {
-              dialogConfig = notificationDialogConfig;
+              dialogConfig = {
+                width: '20%',
+                position: { top: '5%' },
+                backdropClass: ''
+              };
               if (response['Status'] == 1) {
                 this.NotificationService.ForDelete(true);
               }
@@ -188,7 +199,7 @@ export class TheloaitinComponent implements OnInit, OnDestroy {
   pageSize = GlobalOptions.defaultPageSize;
   pageEvent: PageEvent;
 
-  getData(event) {
+  getData(event?) {
     //debugger;
     if (event != undefined) {
       this.filter.PageSize = event.pageSize;
@@ -207,8 +218,9 @@ export class TheloaitinComponent implements OnInit, OnDestroy {
             element.TypeText = 'Chuyên mục';
           }
         });
-
-        this.categories = response;
+        this.data.DataCount = response['DataCount'];
+        this.data.TotalCount = response['TotalCount'];
+        this.categories = response['Data'];
       }
     )
     // ).unsubscribe();
@@ -225,3 +237,4 @@ export class TheloaitinComponent implements OnInit, OnDestroy {
     }
   }
 }
+

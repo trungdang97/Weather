@@ -2,6 +2,7 @@ import { BaseQueryFilter } from 'src/app/_layout/utils/common-classes';
 
 export class IdmRight {
     public RightId:string = '';
+    public RightCode: string = '';
     public RightName:string = '';
     public Description:string = '';
     public Status:boolean = true;
@@ -23,6 +24,7 @@ export class IdmRightFilter extends BaseQueryFilter{
 
 export class IdmRightCreateRequestModel {
     public RightId: string;
+    public RightCode: string;
     public RightName: string;
     public Description: string;
     public Status: boolean;

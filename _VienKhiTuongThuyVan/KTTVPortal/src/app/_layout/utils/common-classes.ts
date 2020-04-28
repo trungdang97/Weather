@@ -1,8 +1,17 @@
+import { InjectionToken } from "@angular/core";
 import { MatDialogConfig } from '@angular/material';
 
 export const enum Status{
     SUCCESS = 1,
     FAILED = -1
+}
+
+export interface IResponse<T>{
+    Data: Array<T>;
+    DataCount: number;
+    Message: string;
+    Status: number;
+    TotalCount: number;
 }
 
 export class BaseQueryFilter {
@@ -34,13 +43,6 @@ export class ConfirmDialogData {
         this.hasDeny = hasDeny;
         this.isError = isError;
     }
-}
-
-export const notificationDialogConfig: MatDialogConfig = {
-    width: '20%',
-    data: ConfirmDialogData,
-    position: { 'top': '5%' },
-    backdropClass: ''
 }
 
 /**

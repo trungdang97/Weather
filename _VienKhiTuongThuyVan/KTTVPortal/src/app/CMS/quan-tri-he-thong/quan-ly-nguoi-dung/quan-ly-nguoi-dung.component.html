@@ -1,0 +1,32 @@
+<div class='row' style='padding-bottom: 10px;'>
+  <div class='col-md-6 px-0'>
+    <h4>Quản lý nhóm người dùng</h4>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-md-6 px-0'>
+    <div class='col-md-6 px-0'>
+      <div class='input-group'>
+        <input class="form-control" type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+          placeholder="Từ khóa tìm kiếm" (keyup.esc)="searchText=''">
+        <button type="button" *ngIf="searchText" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;"
+          (click)='searchText=""'>
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6 d-flex justify-content-end align-items-center'>
+    <button class='btn btn-default' (click)='button.Refresh.Click()'><i class='fas fa-redo'></i>&ensp;Tải lại</button>
+    <button class='btn btn-primary' (click)='button.Add.Click()'><i class='fas fa-plus'></i>&ensp;Thêm mới</button>
+  </div>
+</div>
+<div class='row' style='padding-top: 10px;'>
+    <div class='col-md-12 px-0'>
+        <table class='table table-hover table-bordered'>
+            <thead>
+                <th *ngFor="let header of headers" [className]='header.Class' [hidden]='!header.IsVisible'>{{header.Name}}</th>
+            </thead>
+        </table>
+    </div>
+</div>

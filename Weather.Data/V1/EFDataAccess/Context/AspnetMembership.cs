@@ -16,14 +16,13 @@ namespace Weather.Data.V1
         public int PasswordFormat { get; set; }
         [Required]
         [StringLength(128)]
-        public string PasswordSalt { get; set; }
-        [Column("MobilePIN")]
-        [StringLength(16)]
-        public string MobilePin { get; set; }
+        public string PasswordSalt { get; set; }        
         [StringLength(256)]
         public string Email { get; set; }
-        [StringLength(256)]
-        public string LoweredEmail { get; set; }
+        [StringLength(12)]
+        public string PersonalId { get; set; }
+        //[StringLength(256)]
+        //public string LoweredEmail { get; set; }
         [StringLength(256)]
         public string PasswordQuestion { get; set; }
         [StringLength(128)]
@@ -33,25 +32,25 @@ namespace Weather.Data.V1
         [Column(TypeName = "datetime")]
         public DateTime CreatedOnDate { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime LastLoginDate { get; set; }
+        public DateTime? LastLoginDate { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime LastPasswordChangedDate { get; set; }
+        public DateTime? LastPasswordChangedDate { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime LastLockoutDate { get; set; }
+        public DateTime? LastLockoutDate { get; set; }
         public int FailedPasswordAttemptCount { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime FailedPasswordAttemptWindowStart { get; set; }
+        public DateTime? FailedPasswordAttemptWindowStart { get; set; }
         public int FailedPasswordAnswerAttemptCount { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime FailedPasswordAnswerAttemptWindowStart { get; set; }
+        public DateTime? FailedPasswordAnswerAttemptWindowStart { get; set; }
         [Column(TypeName = "ntext")]
         public string Comment { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? DeleteDate { get; set; }
         public Guid CreatedByUserId { get; set; }
-        public Guid LastModifiedByUserId { get; set; }
+        public Guid? LastModifiedByUserId { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime LastModifiedOnDate { get; set; }
+        public DateTime? LastModifiedOnDate { get; set; }
         [StringLength(512)]
         public string FullName { get; set; }
         [StringLength(512)]

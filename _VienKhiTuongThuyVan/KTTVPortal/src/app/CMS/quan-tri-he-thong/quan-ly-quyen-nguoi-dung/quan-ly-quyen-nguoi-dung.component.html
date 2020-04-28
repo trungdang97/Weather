@@ -16,20 +16,24 @@
         <div class='input-group' style='padding-bottom: 10px;'>
           <input type='text' class='form-control' placeholder="Tìm kiếm" [(ngModel)]='searchText'
             (keyup)="tree.treeModel.filterNodes(searchText)" (keydown.esc)='emptySearch()'>
-            <button *ngIf="searchText!=''" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" (click)='tree.treeModel.filterNodes("");emptySearch()'>
+            <button *ngIf="searchText!=''" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" 
+              (click)='tree.treeModel.filterNodes("");emptySearch()'>
               <i class="fa fa-times"></i>
             </button>
         </div>
         <div style='overflow-y: scroll;'>
           <tree-root #tree [nodes]="nodes" [focused]="true" [options]="treeOptions">
             <ng-template #treeNodeWrapperTemplate let-node>
-              <div class="node-wrapper d-flex align-items-center" style='padding-top: 2px;padding-bottom: 2px;' [ngClass]="{'active-background':node.data.RightId == model.RightId}"
-                (click)="(!node.data.IsGroup && getData(node.data.RightId,form)) || (node.data.IsGroup && node.toggleExpanded())">
+              <div class="node-wrapper d-flex align-items-center" style='padding-top: 2px;padding-bottom: 2px;' 
+                [ngClass]="{'active-background':node.data.RightId == model.RightId}"
+                (click)="getData(node.data.RightId,form, node)">
                 <span *ngIf='node.data.IsGroup'>
                   <i class='fas fa-plus-square' style='padding-right: 5px; color: #007bff;' [hidden]='node.isExpanded'></i>
                   <i class='fas fa-minus-square' style='padding-right: 5px; color: #007bff;' [hidden]='!node.isExpanded'></i>
                 </span>
-                <tree-node-content [node]="node" [ngClass]="{'text-strong':node.data.IsGroup, 'text-deleted': !node.data.Status}" [ngStyle]="{'padding-left': (node.hasChildren) ? '0px' : '15px'}">
+                <tree-node-content [node]="node" 
+                  [ngClass]="{'text-strong':node.data.IsGroup, 'text-deleted': !node.data.Status}" 
+                  [ngStyle]="{'padding-left': (node.hasChildren) ? '0px' : '15px'}">
                 </tree-node-content>
               </div>
             </ng-template>
@@ -48,7 +52,8 @@
               <label>Là nhóm</label>
               <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                 <input type="checkbox" class="custom-control-input" id="customSwitch" name='isGroup' #isGroup='ngModel'
-                  [(ngModel)]='model.IsGroup' [disabled]='isUpdate'>
+                  [(ngModel)]='model.IsGroup' [disabled]='isUpdate'
+                  (change)="model.GroupId = null; model.Order = null">
                 <label class="custom-control-label" for="customSwitch">Sử dụng khi thêm mới nhóm quyền</label>
               </div>
             </div>
@@ -85,12 +90,15 @@
             <div class='col-md-6 form-group'>
               <label *ngIf='!model.IsGroup'>Mã quyền<span class='required'>(*)</span></label>
               <label *ngIf='model.IsGroup'>Mã nhóm quyền<span class='required'>(*)</span></label>
-              <input type='text' class='form-control' name='rightId' #rightId='ngModel'
-                [(ngModel)]="model.RightId" placeholder="Mã quyền/nhóm quyền"
-                [ngClass]="{ 'is-invalid': form.submitted && rightId.invalid }" required [disabled]='true'>
-              <div *ngIf="form.submitted && rightId.invalid" class="required">
-                <small class='form-error-text' *ngIf="rightId.errors.required">* Trường này không được bỏ
+              <input type='text' class='form-control' name='rightCode' #rightCode='ngModel'
+                [(ngModel)]="model.RightCode" placeholder="Mã quyền/nhóm quyền"
+                [ngClass]="{ 'is-invalid': form.submitted && rightCode.invalid }" required [disabled]='isUpdate'>
+              <div *ngIf="form.submitted && rightCode.invalid" class="required">
+                <small class='form-error-text' *ngIf="rightCode.errors.required">* Trường này không được bỏ
                   trống</small>
+              </div>
+              <div *ngIf="isExist" class="required">
+                <small class='form-error-text' *ngIf="isExist">* Mã quyền đã tồn tại</small>
               </div>
             </div>
             <div class='col-md-6 form-group'>
@@ -98,7 +106,7 @@
               <label *ngIf='model.IsGroup'>Tên nhóm quyền<span class='required'>(*)</span></label>
               <input type='text' class='form-control' name='rightName' #rightName='ngModel'
                 [(ngModel)]="model.RightName" placeholder="Tên quyền/nhóm quyền"
-                [ngClass]="{ 'is-invalid': form.submitted && rightId.invalid }" required>
+                [ngClass]="{ 'is-invalid': form.submitted && rightName.invalid }" required>
               <div *ngIf="form.submitted && rightName.invalid" class="required">
                 <small class='form-error-text' *ngIf="rightName.errors.required">* Trường này không được bỏ
                   trống</small>
@@ -111,7 +119,7 @@
             </div>
           </div>
           <div class='col-md-12'>
-            <button class='btn btn-primary' type='submit' [disabled]="!form.dirty || form.invalid"><i
+            <button class='btn btn-primary' type='submit' [disabled]="!form.dirty || form.invalid || isExist"><i
                 class='fas fa-save'></i>&ensp;Lưu</button>
           </div>
         </form>

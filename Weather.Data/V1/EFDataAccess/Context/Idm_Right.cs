@@ -9,9 +9,9 @@ namespace Weather.Data.V1
     public class Idm_Right
     {
         [Key]
-        //[StringLength(256)]
-        //public string RightCode { get; set; }
         public Guid RightId { get; set; }
+        [StringLength(256)]
+        public string RightCode { get; set; }
         [Required]
         [StringLength(1024)]
         public string RightName { get; set; }

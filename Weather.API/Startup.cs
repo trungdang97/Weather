@@ -32,6 +32,14 @@ namespace Weather.API
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddProjectServices();
+            services.AddAuthorization();
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                 {
+                     options.Authority = "https://localhost:8589";
+                     options.RequireHttpsMetadata = false;
+                     options.Audience = "api1";
+                 });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

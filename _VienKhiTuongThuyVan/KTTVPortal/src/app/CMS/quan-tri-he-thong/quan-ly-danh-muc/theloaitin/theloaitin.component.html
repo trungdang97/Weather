@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let category of categories.Data">
+        <tr *ngFor="let category of categories">
           <td class="text-center"><input type="checkbox" [(ngModel)]="category.IsCheck" (ngModelChange)="doCheck()">
           </td>
           <td>{{category.Name}}</td>
@@ -55,7 +55,7 @@
             </button>
           </td>
         </tr>
-        <tr *ngIf="categories.DataCount==0">
+        <tr *ngIf="data.DataCount==0">
           <td colspan="200" class="text-center">
             Không có dữ liệu !
           </td>
@@ -63,7 +63,7 @@
       </tbody>
     </table>
     <div class="float-right">
-      <mat-paginator [length]="categories.TotalCount" [pageSize]="filter.PageSize" [pageSizeOptions]="pageSizeOptions"
+      <mat-paginator [length]="data.TotalCount" [pageSize]="filter.PageSize" [pageSizeOptions]="pageSizeOptions"
         (page)="getData($event)">
       </mat-paginator>
     </div>

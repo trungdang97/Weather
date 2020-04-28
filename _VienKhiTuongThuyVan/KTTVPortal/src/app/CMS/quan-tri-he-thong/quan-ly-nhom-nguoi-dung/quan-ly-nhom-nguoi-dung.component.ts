@@ -6,7 +6,6 @@ import { UserRoleFilter, UserRole, UserRoleCreateRequestModel, UserRoleUpdateReq
 import { ITreeOptions, ITreeState } from 'angular-tree-component';
 import { IdmRight, IdmRightFilter } from '../../services/idm-right/idm-right.model';
 import { DemoUserId } from 'src/app/app.config';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-quan-ly-nhom-nguoi-dung',
@@ -22,6 +21,7 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
   ) { }
   public isUpdate = false;
   public right_searchText = "";
+  public role_searchText = "";
   public rights: Array<IdmRight> = [];
   public roles: Array<UserRole> = [];
   public data = {};
@@ -141,7 +141,6 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
     var filter = new IdmRightFilter();
     this.IdmRightService.GetFilter(filter).subscribe(response => {
       this.rights = response['Data'];
-      //this._rightTree.treeModel.collapseAll();
     });
   }
 

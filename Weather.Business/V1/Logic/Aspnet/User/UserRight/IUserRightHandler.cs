@@ -13,5 +13,7 @@ namespace Weather.Business.V1
         Task<OldResponse<Idm_Right>> Update(UserRightUpdateRequestModel model);
         Task<OldResponse<UserRightDeleteResponseModel>> Delete(Guid id);
         Task<OldResponse<List<UserRightDeleteResponseModel>>> DeleteMany(List<Guid> listId);
+
+        Task<OldResponse<Idm_Right>> IsRightCodeExist(string rightCode);
     }
 }

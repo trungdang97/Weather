@@ -24,6 +24,7 @@ import { ToastrModule} from 'ngx-toastr'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeModule } from 'angular-tree-component';
 import { UserRoleService } from './services/roles/user-role.service';
+import { QuanLyNguoiDungComponent } from './quan-tri-he-thong/quan-ly-nguoi-dung/quan-ly-nguoi-dung.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UserRoleService } from './services/roles/user-role.service';
     QuanLyDieuHuongComponent,
     QuanLyNhomNguoiDungComponent,
     QuanLyQuyenNguoiDungComponent,
+    QuanLyNguoiDungComponent,
     // ConfirmDialogComponent
   ],
   imports: [
@@ -61,12 +63,7 @@ import { UserRoleService } from './services/roles/user-role.service';
     })
   ],
   exports: [
-    DashboardComponent,
-    QuanLyTinBaiComponent,
-    QuanLyTinVideoComponent,
-    QuanLyCauHinhComponent,
-    QuanLyTaiKhoanComponent,
-    TheloaitinComponent
+    
   ],
   entryComponents: [
     TheloaitinModalItemComponent,
